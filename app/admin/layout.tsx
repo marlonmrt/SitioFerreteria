@@ -7,7 +7,9 @@ import {
   Mail,
   Package,
   ArrowLeft,
-  ShieldAlert
+  ShieldAlert,
+  LayoutGrid,
+  Menu
 } from "lucide-react";
 
 import { auth } from "@/auth";
@@ -18,7 +20,9 @@ const adminLinks = [
   { href: "/admin/importaciones", label: "Importaciones ERP", icon: UploadCloud },
   { href: "/admin/empresas", label: "Aprobaciones B2B", icon: Building },
   { href: "/admin/solicitudes", label: "Consultas Clientes", icon: Mail },
-  { href: "/admin/articulos", label: "Artículos", icon: Package }
+  { href: "/admin/articulos", label: "Artículos", icon: Package },
+  { href: "/admin/familias", label: "Categorías/Familias", icon: LayoutGrid },
+  { href: "/admin/menu", label: "Menú de Navegación", icon: Menu }
 ];
 
 export default async function AdminLayout({

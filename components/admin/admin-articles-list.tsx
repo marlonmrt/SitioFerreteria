@@ -1,14 +1,28 @@
 "use client";
 
-import { useState, useTransition } from "react";
+import { useState, useTransition, useEffect } from "react";
 import { toast } from "sonner";
-import { Search, Loader2, Eye, EyeOff } from "lucide-react";
+import { Search, Loader2, Eye, EyeOff, Edit, Trash2, Plus } from "lucide-react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { toggleArticleActiveAction } from "@/lib/actions/admin";
+import { Badge } from "@/components/ui/badge";
+import { toggleArticleActiveAction, toggleArticlesActiveBulkAction } from "@/lib/actions/admin";
+import { deleteArticleAction } from "@/lib/actions/catalog-admin";
+
+type FamilyData = {
+  id: string;
+  name: string;
+};
+
+type SubfamilyData = {
+  id: string;
+  familyId: string;
+  name: string;
+};
 
 type AdminArticle = {
   id: string;
@@ -18,28 +32,68 @@ type AdminArticle = {
   brand: string | null;
   unit: string;
   isActive: boolean;
+  isManual: boolean;
   subfamilyName: string | null;
   familyName: string | null;
+  hasOffer: boolean;
+  offerPercentage: number;
+  offerTarget: string;
 };
 
 type AdminArticlesListProps = {
   articles: AdminArticle[];
   initialSearch?: string;
+  families: FamilyData[];
+  subfamilies: SubfamilyData[];
+  brands: string[];
+  initialCategory?: string;
+  initialBrand?: string;
+  initialOffer?: string;
 };
 
-export function AdminArticlesList({ articles, initialSearch = "" }: AdminArticlesListProps) {
+export function AdminArticlesList({
+  articles,
+  initialSearch = "",
+  families,
+  subfamilies,
+  brands,
+  initialCategory = "",
+  initialBrand = "",
+  initialOffer = ""
+}: AdminArticlesListProps) {
   const [search, setSearch] = useState(initialSearch);
+  const [selectedFamilyOrSubfamily, setSelectedFamilyOrSubfamily] = useState(initialCategory);
+  const [selectedBrand, setSelectedBrand] = useState(initialBrand);
+  const [selectedOffer, setSelectedOffer] = useState(initialOffer);
+
+  const [selectedIds, setSelectedIds] = useState<string[]>([]);
   const [activeToggleId, setActiveToggleId] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
 
+  // Reiniciar selecciones al cambiar filtros
+  useEffect(() => {
+    setSelectedIds([]);
+  }, [articles]);
+
+  const updateFilters = (newParams: Record<string, string | null>) => {
+    const params = new URLSearchParams(window.location.search);
+    params.set("page", "1"); // Restablecer a página 1 al filtrar
+
+    Object.entries(newParams).forEach(([key, value]) => {
+      if (value === null || value === "") {
+        params.delete(key);
+      } else {
+        params.set(key, value);
+      }
+    });
+
+    router.push(`/admin/articulos?${params.toString()}`);
+  };
+
   const handleSearchSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (search.trim()) {
-      router.push(`/admin/articulos?search=${encodeURIComponent(search.trim())}`);
-    } else {
-      router.push(`/admin/articulos`);
-    }
+    updateFilters({ search: search.trim() || null });
   };
 
   const handleToggleActive = (article: AdminArticle) => {
@@ -54,35 +108,214 @@ export function AdminArticlesList({ articles, initialSearch = "" }: AdminArticle
             res.isActive ? "activo y visible" : "inactivo y oculto"
           }.`
         });
+        router.refresh();
       }
       setActiveToggleId(null);
     });
   };
 
+  const handleDeleteArticle = (article: AdminArticle) => {
+    if (!confirm(`¿Estás seguro de eliminar permanentemente el artículo "${article.name}"?`)) return;
+    startTransition(async () => {
+      const res = await deleteArticleAction(article.id);
+      if (res.success) {
+        toast.success("Artículo eliminado correctamente");
+        router.refresh();
+      } else {
+        toast.error("Error", { description: res.error || "No se pudo eliminar el artículo" });
+      }
+    });
+  };
+
+  // Lógica de Selección
+  const allVisibleSelected = articles.length > 0 && articles.every((a) => selectedIds.includes(a.id));
+
+  const handleToggleSelectAll = () => {
+    if (allVisibleSelected) {
+      setSelectedIds([]);
+    } else {
+      setSelectedIds(articles.map((a) => a.id));
+    }
+  };
+
+  const handleToggleSelect = (id: string) => {
+    setSelectedIds((prev) =>
+      prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]
+    );
+  };
+
+  const handleBulkToggleActive = (targetStatus: boolean) => {
+    startTransition(async () => {
+      const res = await toggleArticlesActiveBulkAction(selectedIds, targetStatus);
+      if (res.error) {
+        toast.error("Error", { description: res.error });
+      } else {
+        toast.success("Catálogo actualizado", {
+          description: `Se han ${targetStatus ? "activado" : "ocultado"} ${selectedIds.length} artículos con éxito.`
+        });
+        setSelectedIds([]);
+        router.refresh();
+      }
+    });
+  };
+
   return (
     <div className="space-y-6">
-      {/* Search Input Bar */}
-      <form onSubmit={handleSearchSubmit} className="flex max-w-md gap-2">
-        <div className="relative flex-1">
-          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-          <Input
-            type="search"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            placeholder="Buscar por nombre, código ERP o marca..."
-            className="pl-9 rounded-xl"
-          />
+      {/* Actions and Filters Bar */}
+      <div className="space-y-4 rounded-2xl border border-border/60 bg-muted/20 p-4">
+        <div className="flex flex-wrap items-center justify-between gap-4">
+          <form onSubmit={handleSearchSubmit} className="flex max-w-md flex-1 gap-2">
+            <div className="relative flex-1">
+              <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+              <Input
+                type="search"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                placeholder="Buscar por nombre, código o marca..."
+                className="pl-9 rounded-xl bg-background"
+              />
+            </div>
+            <Button type="submit" className="rounded-xl">
+              Buscar
+            </Button>
+          </form>
+
+          <Button asChild className="rounded-xl gap-1.5 h-10">
+            <Link href="/admin/articulos/nuevo">
+              <Plus className="h-4.5 w-4.5" />
+              Nuevo Artículo
+            </Link>
+          </Button>
         </div>
-        <Button type="submit" className="rounded-xl">
-          Buscar
-        </Button>
-      </form>
+
+        {/* Dropdown Filters */}
+        <div className="flex flex-wrap items-center gap-3 pt-2 border-t border-border/30">
+          <div className="flex flex-col gap-1">
+            <span className="text-[10px] uppercase font-bold text-muted-foreground tracking-wider pl-1">Filtrar por Categoría</span>
+            <select
+              value={selectedFamilyOrSubfamily}
+              onChange={(e) => {
+                const val = e.target.value;
+                setSelectedFamilyOrSubfamily(val);
+                updateFilters({ category: val || null });
+              }}
+              className="flex h-10 w-full md:w-56 rounded-xl border border-input bg-background px-3 py-2 text-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 cursor-pointer font-medium"
+            >
+              <option value="">Todas las Categorías</option>
+              {families.map((fam) => {
+                const famSubs = subfamilies.filter((sub) => sub.familyId === fam.id);
+                return (
+                  <optgroup key={fam.id} label={fam.name}>
+                    <option value={fam.id}>{fam.name} (Toda la Familia)</option>
+                    {famSubs.map((sub) => (
+                      <option key={sub.id} value={sub.id}>
+                        {sub.name}
+                      </option>
+                    ))}
+                  </optgroup>
+                );
+              })}
+            </select>
+          </div>
+
+          <div className="flex flex-col gap-1">
+            <span className="text-[10px] uppercase font-bold text-muted-foreground tracking-wider pl-1">Filtrar por Marca</span>
+            <select
+              value={selectedBrand}
+              onChange={(e) => {
+                const val = e.target.value;
+                setSelectedBrand(val);
+                updateFilters({ brand: val || null });
+              }}
+              className="flex h-10 w-full md:w-48 rounded-xl border border-input bg-background px-3 py-2 text-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 cursor-pointer font-medium"
+            >
+              <option value="">Todas las Marcas</option>
+              {brands.map((b) => (
+                <option key={b} value={b}>
+                  {b}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div className="flex flex-col gap-1">
+            <span className="text-[10px] uppercase font-bold text-muted-foreground tracking-wider pl-1">Estado de Oferta</span>
+            <select
+              value={selectedOffer}
+              onChange={(e) => {
+                const val = e.target.value;
+                setSelectedOffer(val);
+                updateFilters({ offer: val || null });
+              }}
+              className="flex h-10 w-full md:w-48 rounded-xl border border-input bg-background px-3 py-2 text-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 cursor-pointer font-medium"
+            >
+              <option value="">Todas las Ofertas</option>
+              <option value="only-offers">Solo en Oferta</option>
+              <option value="no-offers">Sin Oferta</option>
+            </select>
+          </div>
+
+          {/* Reset Filters button */}
+          {(search || selectedFamilyOrSubfamily || selectedBrand || selectedOffer) && (
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => {
+                setSearch("");
+                setSelectedFamilyOrSubfamily("");
+                setSelectedBrand("");
+                setSelectedOffer("");
+                router.push("/admin/articulos");
+              }}
+              className="h-9 self-end text-xs text-destructive hover:bg-destructive/10 rounded-xl font-semibold"
+            >
+              Limpiar Filtros
+            </Button>
+          )}
+        </div>
+      </div>
+
+      {/* Bulk Actions Panel */}
+      {selectedIds.length > 0 && (
+        <div className="flex items-center justify-between gap-4 p-4 bg-primary/5 rounded-2xl border border-primary/20 animate-in fade-in slide-in-from-top-1">
+          <span className="text-xs font-semibold text-primary">
+            {selectedIds.length} artículos seleccionados
+          </span>
+          <div className="flex gap-2">
+            <Button
+              size="sm"
+              className="rounded-xl text-xs h-9 px-4"
+              disabled={isPending}
+              onClick={() => handleBulkToggleActive(true)}
+            >
+              Activar seleccionados
+            </Button>
+            <Button
+              size="sm"
+              variant="outline"
+              className="rounded-xl text-xs h-9 px-4 border-destructive text-destructive hover:bg-destructive/10"
+              disabled={isPending}
+              onClick={() => handleBulkToggleActive(false)}
+            >
+              Ocultar seleccionados
+            </Button>
+          </div>
+        </div>
+      )}
 
       {/* Articles Table */}
       <div className="rounded-2xl border border-border/70 bg-card overflow-hidden shadow-sm">
         <Table>
           <TableHeader className="bg-muted/40">
             <TableRow>
+              <TableHead className="w-12">
+                <input
+                  type="checkbox"
+                  checked={allVisibleSelected}
+                  onChange={handleToggleSelectAll}
+                  className="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary cursor-pointer"
+                />
+              </TableHead>
               <TableHead>Código ERP</TableHead>
               <TableHead>Artículo</TableHead>
               <TableHead>Marca</TableHead>
@@ -97,11 +330,26 @@ export function AdminArticlesList({ articles, initialSearch = "" }: AdminArticle
                 const isToggling = activeToggleId === article.id && isPending;
                 return (
                   <TableRow key={article.id} className="hover:bg-muted/10">
+                    <TableCell className="w-12">
+                      <input
+                        type="checkbox"
+                        checked={selectedIds.includes(article.id)}
+                        onChange={() => handleToggleSelect(article.id)}
+                        className="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary cursor-pointer"
+                      />
+                    </TableCell>
                     <TableCell className="font-mono font-bold text-xs">
                       {article.erpCode}
                     </TableCell>
                     <TableCell className="max-w-[300px] truncate font-semibold text-foreground">
-                      {article.name}
+                      <div className="flex items-center gap-1.5">
+                        {article.name}
+                        {article.hasOffer && (
+                          <Badge variant="outline" className="text-[10px] font-bold text-emerald-600 bg-emerald-50 border-emerald-300/50 py-0 px-1.5 rounded-md">
+                            {article.offerTarget === "B2B" ? "PRO" : "PVP"} -{article.offerPercentage}%
+                          </Badge>
+                        )}
+                      </div>
                       <span className="text-muted-foreground/60 text-xs font-normal block">
                         Medida: {article.unit}
                       </span>
@@ -129,7 +377,7 @@ export function AdminArticlesList({ articles, initialSearch = "" }: AdminArticle
                         </span>
                       </div>
                     </TableCell>
-                    <TableCell className="text-right whitespace-nowrap">
+                    <TableCell className="text-right whitespace-nowrap space-x-1.5">
                       <Button
                         size="sm"
                         variant={article.isActive ? "outline" : "default"}
@@ -146,14 +394,40 @@ export function AdminArticlesList({ articles, initialSearch = "" }: AdminArticle
                         )}
                         {article.isActive ? "Ocultar" : "Activar"}
                       </Button>
+
+                      {article.isManual && (
+                        <>
+                          <Button
+                            asChild
+                            size="sm"
+                            variant="secondary"
+                            className="rounded-lg h-8 px-2.5"
+                            title="Editar artículo"
+                          >
+                            <Link href={`/admin/articulos/${article.id}/editar`}>
+                              <Edit className="h-4 w-4" />
+                            </Link>
+                          </Button>
+
+                          <Button
+                            size="sm"
+                            variant="secondary"
+                            className="rounded-lg h-8 px-2.5 text-destructive hover:text-destructive hover:bg-destructive/10"
+                            title="Eliminar artículo"
+                            onClick={() => handleDeleteArticle(article)}
+                          >
+                            <Trash2 className="h-4 w-4" />
+                          </Button>
+                        </>
+                      )}
                     </TableCell>
                   </TableRow>
                 );
               })
             ) : (
               <TableRow>
-                <TableCell colSpan={6} className="h-32 text-center text-muted-foreground">
-                  No se encontraron artículos en la base de datos.
+                <TableCell colSpan={7} className="h-32 text-center text-muted-foreground">
+                  No se encontraron artículos en la base de datos con los filtros seleccionados.
                 </TableCell>
               </TableRow>
             )}

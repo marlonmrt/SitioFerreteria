@@ -9,14 +9,7 @@ import { db } from "@/lib/db";
 import { users } from "@/lib/db/schema";
 import { authConfig } from "./auth.config";
 
-interface CustomUser {
-  id?: string;
-  name?: string | null;
-  email?: string | null;
-  type?: string;
-  status?: string;
-  companyId?: string | null;
-}
+
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
   ...authConfig,
@@ -64,26 +57,5 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       }
     })
   ],
-  callbacks: {
-    async jwt({ token, user }) {
-      if (user) {
-        const u = user as CustomUser;
-        token.id = u.id;
-        token.type = u.type;
-        token.status = u.status;
-        token.companyId = u.companyId;
-      }
-      return token;
-    },
-    async session({ session, token }) {
-      if (session.user) {
-        const sUser = session.user as CustomUser;
-        sUser.id = token.id as string;
-        sUser.type = token.type as string;
-        sUser.status = token.status as string;
-        sUser.companyId = token.companyId as string | null;
-      }
-      return session;
-    }
-  }
+
 });

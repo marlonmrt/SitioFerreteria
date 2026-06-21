@@ -7,6 +7,7 @@ import { eq, and } from "drizzle-orm";
 import { auth } from "@/auth";
 import { db } from "@/lib/db";
 import { favorites, infoRequests } from "@/lib/db/schema";
+import { logger } from "@/lib/logger";
 
 export async function toggleFavoriteAction(articleId: string) {
   const session = await auth();
@@ -28,6 +29,7 @@ export async function toggleFavoriteAction(articleId: string) {
         .delete(favorites)
         .where(and(eq(favorites.userId, userId), eq(favorites.articleId, articleId)));
       
+      logger.info("Favorite status toggled", { userId, articleId, isFavorited: false });
       revalidatePath("/mi-cuenta/favoritos");
       revalidatePath("/mi-cuenta-empresa/favoritos");
       return { success: true, isFavorited: false };
@@ -37,12 +39,13 @@ export async function toggleFavoriteAction(articleId: string) {
         articleId
       });
 
+      logger.info("Favorite status toggled", { userId, articleId, isFavorited: true });
       revalidatePath("/mi-cuenta/favoritos");
       revalidatePath("/mi-cuenta-empresa/favoritos");
       return { success: true, isFavorited: true };
     }
   } catch (error) {
-    console.error("Error toggling favorite:", error);
+    logger.error("Favorite status toggle failed", { userId, articleId, error: error instanceof Error ? error.message : String(error) });
     return { error: "No se pudo actualizar el favorito" };
   }
 }
@@ -90,9 +93,10 @@ export async function submitInfoRequestAction(prevState: unknown, formData: Form
       status: "NEW"
     });
 
+    logger.info("Info request submitted successfully", { name: parsed.data.name, email: parsed.data.email, articleId: parsed.data.articleId });
     return { success: true };
   } catch (error) {
-    console.error("Error creating info request:", error);
+    logger.error("Info request submission failed", { email: String(rawData.email), error: error instanceof Error ? error.message : String(error) });
     return { error: "Ocurrió un error al enviar su solicitud. Inténtelo más tarde." };
   }
 }

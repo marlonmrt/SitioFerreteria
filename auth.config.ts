@@ -25,6 +25,30 @@ export const authConfig = {
       }
 
       return true;
+    },
+    async jwt({ token, user }) {
+      if (user) {
+        token.id = user.id;
+        token.type = (user as { type?: string }).type;
+        token.status = (user as { status?: string }).status;
+        token.companyId = (user as { companyId?: string | null }).companyId;
+      }
+      return token;
+    },
+    async session({ session, token }) {
+      if (session.user) {
+        const sUser = session.user as {
+          id?: string;
+          type?: string;
+          status?: string;
+          companyId?: string | null;
+        };
+        sUser.id = token.id as string;
+        sUser.type = token.type as string;
+        sUser.status = token.status as string;
+        sUser.companyId = token.companyId as string | null;
+      }
+      return session;
     }
   },
   providers: [] // Configurado en auth.ts para no romper la compatibilidad con Edge en el middleware

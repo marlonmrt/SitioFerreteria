@@ -1,8 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
-import { Tag } from "lucide-react";
 
 type GalleryImage = {
   id: string;
@@ -21,6 +20,12 @@ export function ProductGallery({ mainImage, images, name }: ProductGalleryProps)
     mainImage || (images.length > 0 ? images[0].url : null)
   );
 
+  const [imgSrc, setImgSrc] = useState<string>("/images/placeholder.jpg");
+
+  useEffect(() => {
+    setImgSrc(activeImage || "/images/placeholder.jpg");
+  }, [activeImage]);
+
   // Combinar imagen principal con imágenes adicionales si es necesario
   // En la base de datos, la imagen principal a veces ya está en articleImages o no.
   // Nos aseguramos de tener un listado único de urls.
@@ -35,20 +40,15 @@ export function ProductGallery({ mainImage, images, name }: ProductGalleryProps)
     <div className="flex flex-col gap-4">
       {/* Imagen Grande Activa */}
       <div className="relative aspect-square w-full overflow-hidden rounded-3xl border border-border bg-card shadow-sm flex items-center justify-center">
-        {activeImage ? (
-          <Image
-            src={activeImage}
-            alt={name}
-            fill
-            sizes="(max-width: 768px) 100vw, 50vw"
-            className="object-cover transition-all duration-300"
-            priority
-          />
-        ) : (
-          <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-muted/30 to-muted/80 text-muted-foreground">
-            <Tag className="h-16 w-16 stroke-[1.2]" />
-          </div>
-        )}
+        <Image
+          src={imgSrc}
+          alt={name}
+          fill
+          sizes="(max-width: 768px) 100vw, 50vw"
+          className="object-cover transition-all duration-300"
+          priority
+          onError={() => setImgSrc("/images/placeholder.jpg")}
+        />
       </div>
 
       {/* Miniaturas de Selección */}

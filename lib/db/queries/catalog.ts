@@ -9,7 +9,7 @@ import {
   favorites,
   articleImages
 } from "../schema";
-import { eq, and, or, ilike, sql, asc, type SQL } from "drizzle-orm";
+import { eq, and, or, ilike, sql, asc, isNotNull, inArray, gte, lte, lt, type SQL } from "drizzle-orm";
 
 export async function getFamilies() {
   return db.select().from(families).orderBy(asc(families.sortOrder));
@@ -33,13 +33,26 @@ export async function getSubfamilyBySlug(slug: string) {
   return result[0] || null;
 }
 
+export async function getUniqueBrands() {
+  const result = await db
+    .selectDistinct({ brand: articles.brand })
+    .from(articles)
+    .where(and(eq(articles.isActive, true), isNotNull(articles.brand)))
+    .orderBy(asc(articles.brand));
+  return result.map((r) => r.brand).filter(Boolean) as string[];
+}
+
 export async function getArticles({
   familySlug,
   subfamilySlug,
   searchQuery,
   limit = 20,
   offset = 0,
-  priceListCode
+  priceListCode,
+  brands,
+  minPrice,
+  maxPrice,
+  onlyOffers
 }: {
   familySlug?: string;
   subfamilySlug?: string;
@@ -47,6 +60,10 @@ export async function getArticles({
   limit?: number;
   offset?: number;
   priceListCode?: string;
+  brands?: string[];
+  minPrice?: number;
+  maxPrice?: number;
+  onlyOffers?: boolean;
 }) {
   const publicPricesSq = db
     .select({
@@ -58,18 +75,18 @@ export async function getArticles({
     .where(eq(articlePrices.priceListCode, "PUBLIC"))
     .as("pub_prices");
 
+  const b2bTariff = priceListCode && priceListCode !== "PUBLIC" ? priceListCode : "PRO_01";
+  const b2bPricesSq = db
+    .select({
+      articleId: articlePrices.articleId,
+      price: articlePrices.price,
+      currency: articlePrices.currency
+    })
+    .from(articlePrices)
+    .where(eq(articlePrices.priceListCode, b2bTariff))
+    .as("b2b_prices");
+
   const hasB2b = priceListCode && priceListCode !== "PUBLIC";
-  const b2bPricesSq = hasB2b
-    ? db
-        .select({
-          articleId: articlePrices.articleId,
-          price: articlePrices.price,
-          currency: articlePrices.currency
-        })
-        .from(articlePrices)
-        .where(eq(articlePrices.priceListCode, priceListCode))
-        .as("b2b_prices")
-    : null;
 
   let query = db
     .select({
@@ -85,18 +102,18 @@ export async function getArticles({
       isActive: articles.isActive,
       publicPrice: publicPricesSq.price,
       publicCurrency: publicPricesSq.currency,
-      b2bPrice: b2bPricesSq ? b2bPricesSq.price : sql<string | null>`NULL`,
-      b2bCurrency: b2bPricesSq ? b2bPricesSq.currency : sql<string | null>`NULL`
+      b2bPrice: hasB2b ? b2bPricesSq.price : sql<string | null>`NULL`,
+      b2bCurrency: hasB2b ? b2bPricesSq.currency : sql<string | null>`NULL`,
+      hasOffer: articles.hasOffer,
+      offerPercentage: articles.offerPercentage,
+      offerTarget: articles.offerTarget
     })
     .from(articles)
     .leftJoin(publicPricesSq, eq(articles.id, publicPricesSq.articleId))
+    .leftJoin(b2bPricesSq, eq(articles.id, b2bPricesSq.articleId))
     .$dynamic();
 
-  if (b2bPricesSq) {
-    query = query.leftJoin(b2bPricesSq, eq(articles.id, b2bPricesSq.articleId));
-  }
-
-  // Filter joins
+  // Filtrado de uniones
   if (familySlug) {
     query = query
       .innerJoin(subfamilies, eq(articles.subfamilyId, subfamilies.id))
@@ -123,6 +140,23 @@ export async function getArticles({
         ilike(articles.brand, cleanSearch)
       ) as SQL
     );
+  }
+
+  // Filtros de marca, precio y ofertas
+  if (brands && brands.length > 0) {
+    conditions.push(inArray(articles.brand, brands));
+  }
+
+  const activePriceField = hasB2b ? b2bPricesSq.price : publicPricesSq.price;
+
+  if (minPrice !== undefined) {
+    conditions.push(gte(activePriceField, minPrice.toString()));
+  }
+  if (maxPrice !== undefined) {
+    conditions.push(lte(activePriceField, maxPrice.toString()));
+  }
+  if (onlyOffers) {
+    conditions.push(lt(b2bPricesSq.price, publicPricesSq.price));
   }
 
   return query
@@ -134,17 +168,50 @@ export async function getArticles({
 export async function getArticlesCount({
   familySlug,
   subfamilySlug,
-  searchQuery
+  searchQuery,
+  priceListCode,
+  brands,
+  minPrice,
+  maxPrice,
+  onlyOffers
 }: {
   familySlug?: string;
   subfamilySlug?: string;
   searchQuery?: string;
+  priceListCode?: string;
+  brands?: string[];
+  minPrice?: number;
+  maxPrice?: number;
+  onlyOffers?: boolean;
 }) {
+  const publicPricesSq = db
+    .select({
+      articleId: articlePrices.articleId,
+      price: articlePrices.price
+    })
+    .from(articlePrices)
+    .where(eq(articlePrices.priceListCode, "PUBLIC"))
+    .as("pub_prices");
+
+  const b2bTariff = priceListCode && priceListCode !== "PUBLIC" ? priceListCode : "PRO_01";
+  const b2bPricesSq = db
+    .select({
+      articleId: articlePrices.articleId,
+      price: articlePrices.price
+    })
+    .from(articlePrices)
+    .where(eq(articlePrices.priceListCode, b2bTariff))
+    .as("b2b_prices");
+
+  const hasB2b = priceListCode && priceListCode !== "PUBLIC";
+
   let query = db
     .select({
       count: sql<number>`count(distinct ${articles.id})`
     })
     .from(articles)
+    .leftJoin(publicPricesSq, eq(articles.id, publicPricesSq.articleId))
+    .leftJoin(b2bPricesSq, eq(articles.id, b2bPricesSq.articleId))
     .$dynamic();
 
   if (familySlug) {
@@ -173,6 +240,22 @@ export async function getArticlesCount({
         ilike(articles.brand, cleanSearch)
       ) as SQL
     );
+  }
+
+  if (brands && brands.length > 0) {
+    conditions.push(inArray(articles.brand, brands));
+  }
+
+  const activePriceField = hasB2b ? b2bPricesSq.price : publicPricesSq.price;
+
+  if (minPrice !== undefined) {
+    conditions.push(gte(activePriceField, minPrice.toString()));
+  }
+  if (maxPrice !== undefined) {
+    conditions.push(lte(activePriceField, maxPrice.toString()));
+  }
+  if (onlyOffers) {
+    conditions.push(lt(b2bPricesSq.price, publicPricesSq.price));
   }
 
   const result = await query.where(and(...conditions));
@@ -244,7 +327,10 @@ export async function getFavorites(userId: string, priceListCode?: string) {
       publicPrice: publicPricesSq.price,
       publicCurrency: publicPricesSq.currency,
       b2bPrice: b2bPricesSq ? b2bPricesSq.price : sql<string | null>`NULL`,
-      b2bCurrency: b2bPricesSq ? b2bPricesSq.currency : sql<string | null>`NULL`
+      b2bCurrency: b2bPricesSq ? b2bPricesSq.currency : sql<string | null>`NULL`,
+      hasOffer: articles.hasOffer,
+      offerPercentage: articles.offerPercentage,
+      offerTarget: articles.offerTarget
     })
     .from(favorites)
     .innerJoin(articles, eq(favorites.articleId, articles.id))

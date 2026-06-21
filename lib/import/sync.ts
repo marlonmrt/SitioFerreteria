@@ -1,6 +1,7 @@
 import crypto from "node:crypto";
 import { and, desc, eq, lt } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
+import { logger } from "@/lib/logger";
 import { db } from "../db";
 import {
   articles,
@@ -37,6 +38,8 @@ export async function syncImport(
   errorRows: number;
 }> {
   const startedAt = new Date();
+
+  logger.info("ERP sync started", { batchId, fileName, fileType, totalRows: rows.length });
 
   // Registrar el lote en la base de datos en estado PENDING
   await db.insert(importBatches).values({
@@ -197,8 +200,10 @@ export async function syncImport(
         });
 
         successCount += batchRows.length;
+        logger.info("ERP sync batch processed successfully", { batchId, count: batchRows.length, progress: `${Math.min(i + BATCH_SIZE, rows.length)}/${rows.length}` });
       } catch (txError) {
         const errorMsg = txError instanceof Error ? txError.message : String(txError);
+        logger.error("ERP sync batch processing failed", { batchId, startRow: i + 1, error: errorMsg });
         errorCount += batchRows.length;
         errors.push({
           row: i + 1,
@@ -211,6 +216,7 @@ export async function syncImport(
     }
 
     // 4. Control de descatalogados
+    logger.info("ERP sync checking deactivations", { batchId });
     // Si un artículo activo no ha aparecido en las últimas N=3 importaciones completadas con éxito
     const pastBatches = await db.query.importBatches.findMany({
       where: eq(importBatches.status, "SUCCESS"),
@@ -222,15 +228,22 @@ export async function syncImport(
       // Fecha de inicio de la 3ª importación exitosa consecutiva (índice 1 en el array)
       const thresholdDate = pastBatches[1].startedAt;
 
-      // Desactivar artículos cuyo lastSyncedAt sea anterior al inicio de la 3ª importación consecutiva
+      // Desactivar artículos cuyo lastSyncedAt sea anterior al inicio de la 3ª importación consecutiva y que no sean manuales
       await db
         .update(articles)
         .set({ isActive: false })
-        .where(and(eq(articles.isActive, true), lt(articles.lastSyncedAt, thresholdDate)));
+        .where(
+          and(
+            eq(articles.isActive, true),
+            eq(articles.isManual, false),
+            lt(articles.lastSyncedAt, thresholdDate)
+          )
+        );
     }
 
     // Actualizar el estado final del lote
     const finalStatus = errorCount === 0 ? "SUCCESS" : "ERROR";
+    logger.info("ERP sync finished", { batchId, success: finalStatus === "SUCCESS", successCount, errorCount });
     await db
       .update(importBatches)
       .set({
@@ -251,7 +264,7 @@ export async function syncImport(
         revalidatePath("/admin");
         revalidatePath("/admin/articulos");
       } catch (cacheError) {
-        console.error("Error revalidando rutas tras importación exitosa:", cacheError);
+        logger.error("Error revalidando rutas tras importación exitosa", { batchId, error: cacheError instanceof Error ? cacheError.message : String(cacheError) });
       }
     }
 
@@ -264,6 +277,7 @@ export async function syncImport(
     };
   } catch (error) {
     const errorMsg = error instanceof Error ? error.message : "Error fatal en el proceso de sincronización";
+    logger.error("ERP sync failed catastrophically", { batchId, error: errorMsg });
     // Si hay un error catastrófico general
     await db
       .update(importBatches)

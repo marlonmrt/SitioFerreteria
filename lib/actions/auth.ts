@@ -7,6 +7,7 @@ import { eq } from "drizzle-orm";
 import { db } from "@/lib/db";
 import { users, companies } from "@/lib/db/schema";
 import { signIn } from "@/auth";
+import { logger } from "@/lib/logger";
 
 // Acción para registrar clientes particulares (B2C)
 export async function registerB2cAction(prevState: unknown, formData: FormData) {
@@ -47,10 +48,11 @@ export async function registerB2cAction(prevState: unknown, formData: FormData) 
       redirect: false
     });
 
+    logger.info("B2C User registered successfully", { email: email.trim().toLowerCase(), userId });
     return { success: true };
   } catch (error) {
     const errorMsg = error instanceof Error ? error.message : "Error al registrar la cuenta";
-    console.error("Error en registro B2C:", error);
+    logger.error("B2C registration failed", { email, error: errorMsg });
     return { error: errorMsg };
   }
 }
@@ -113,10 +115,11 @@ export async function registerB2bAction(prevState: unknown, formData: FormData) 
       });
     });
 
+    logger.info("B2B Company registration requested successfully", { email: email.trim().toLowerCase(), userId, companyId, legalName, taxId });
     return { success: true };
   } catch (error) {
     const errorMsg = error instanceof Error ? error.message : "Error al procesar la solicitud de registro";
-    console.error("Error en registro B2B:", error);
+    logger.error("B2B registration failed", { email, error: errorMsg });
     return { error: errorMsg };
   }
 }
@@ -163,10 +166,11 @@ export async function approveB2bAction(
         .where(eq(companies.id, companyId));
     });
 
+    logger.info("B2B account approved by admin", { userId, priceListCode, adminId, companyId });
     return { success: true };
   } catch (error) {
     const errorMsg = error instanceof Error ? error.message : "Error al aprobar la cuenta comercial";
-    console.error("Error al aprobar B2B:", error);
+    logger.error("B2B account approval failed", { userId, priceListCode, adminId, error: errorMsg });
     return { error: errorMsg };
   }
 }
@@ -183,10 +187,11 @@ export async function rejectB2bAction(userId: string) {
       .set({ status: "REJECTED" })
       .where(eq(users.id, userId));
 
+    logger.info("B2B account rejected", { userId });
     return { success: true };
   } catch (error) {
     const errorMsg = error instanceof Error ? error.message : "Error al rechazar la solicitud";
-    console.error("Error al rechazar B2B:", error);
+    logger.error("B2B account rejection failed", { userId, error: errorMsg });
     return { error: errorMsg };
   }
 }
@@ -214,10 +219,11 @@ export async function loginAction(prevState: unknown, formData: FormData) {
       (error.message === "NEXT_REDIRECT" ||
         (error as { digest?: string }).digest === "NEXT_REDIRECT")
     ) {
+      logger.info("User login successful", { email: email.trim().toLowerCase() });
       throw error;
     }
 
-    console.error("Error en inicio de sesión:", error);
+    logger.warn("User login failed", { email: email?.trim().toLowerCase(), error: error instanceof Error ? error.message : String(error) });
     
     // Extraer mensaje del proveedor de credenciales si existe
     if (error instanceof Error) {

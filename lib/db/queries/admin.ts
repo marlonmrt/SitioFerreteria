@@ -79,11 +79,17 @@ export async function getAdminInfoRequests(status?: "NEW" | "ATTENDED") {
 export async function getAdminArticles({
   search,
   limit = 50,
-  offset = 0
+  offset = 0,
+  category,
+  brand,
+  offer
 }: {
   search?: string;
   limit?: number;
   offset?: number;
+  category?: string;
+  brand?: string;
+  offer?: string;
 }) {
   const conditions: SQL[] = [];
 
@@ -98,6 +104,27 @@ export async function getAdminArticles({
     );
   }
 
+  if (category) {
+    conditions.push(
+      or(
+        eq(articles.subfamilyId, category),
+        eq(subfamilies.familyId, category)
+      ) as SQL
+    );
+  }
+
+  if (brand) {
+    conditions.push(eq(articles.brand, brand));
+  }
+
+  if (offer) {
+    if (offer === "only-offers") {
+      conditions.push(eq(articles.hasOffer, true));
+    } else if (offer === "no-offers") {
+      conditions.push(eq(articles.hasOffer, false));
+    }
+  }
+
   const finalConditions = conditions.length > 0 ? and(...conditions) : undefined;
 
   // Query con joins para sacar familia y subfamilia
@@ -110,8 +137,12 @@ export async function getAdminArticles({
       brand: articles.brand,
       unit: articles.unit,
       isActive: articles.isActive,
+      isManual: articles.isManual,
       subfamilyName: subfamilies.name,
-      familyName: families.name
+      familyName: families.name,
+      hasOffer: articles.hasOffer,
+      offerPercentage: articles.offerPercentage,
+      offerTarget: articles.offerTarget
     })
     .from(articles)
     .leftJoin(subfamilies, eq(articles.subfamilyId, subfamilies.id))
@@ -122,7 +153,28 @@ export async function getAdminArticles({
     .orderBy(asc(articles.erpCode));
 }
 
-export async function getAdminArticlesCount(search?: string) {
+export async function getAdminArticlesCount(
+  optionsOrSearch?: string | {
+    search?: string;
+    category?: string;
+    brand?: string;
+    offer?: string;
+  }
+) {
+  let search: string | undefined;
+  let category: string | undefined;
+  let brand: string | undefined;
+  let offer: string | undefined;
+
+  if (typeof optionsOrSearch === "string") {
+    search = optionsOrSearch;
+  } else if (optionsOrSearch && typeof optionsOrSearch === "object") {
+    search = optionsOrSearch.search;
+    category = optionsOrSearch.category;
+    brand = optionsOrSearch.brand;
+    offer = optionsOrSearch.offer;
+  }
+
   const conditions: SQL[] = [];
 
   if (search) {
@@ -136,11 +188,33 @@ export async function getAdminArticlesCount(search?: string) {
     );
   }
 
+  if (category) {
+    conditions.push(
+      or(
+        eq(articles.subfamilyId, category),
+        eq(subfamilies.familyId, category)
+      ) as SQL
+    );
+  }
+
+  if (brand) {
+    conditions.push(eq(articles.brand, brand));
+  }
+
+  if (offer) {
+    if (offer === "only-offers") {
+      conditions.push(eq(articles.hasOffer, true));
+    } else if (offer === "no-offers") {
+      conditions.push(eq(articles.hasOffer, false));
+    }
+  }
+
   const finalConditions = conditions.length > 0 ? and(...conditions) : undefined;
 
   const result = await db
     .select({ count: sql<number>`count(*)` })
     .from(articles)
+    .leftJoin(subfamilies, eq(articles.subfamilyId, subfamilies.id))
     .where(finalConditions);
 
   return Number(result[0]?.count || 0);

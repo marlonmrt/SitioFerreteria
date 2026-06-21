@@ -29,13 +29,19 @@ describe("Catalog Queries and Actions Integration", () => {
   const familyId = crypto.randomUUID();
   const subfamilyId = crypto.randomUUID();
   const articleId = crypto.randomUUID();
+  const articleId2 = crypto.randomUUID();
+  const articleId3 = crypto.randomUUID();
   const userId = crypto.randomUUID();
   const storeId = crypto.randomUUID();
 
   const familySlug = "test-fam-" + crypto.randomUUID().substring(0, 8);
   const subfamilySlug = "test-subfam-" + crypto.randomUUID().substring(0, 8);
   const articleSlug = "test-art-" + crypto.randomUUID().substring(0, 8);
+  const articleSlug2 = "test-art2-" + crypto.randomUUID().substring(0, 8);
+  const articleSlug3 = "test-art3-" + crypto.randomUUID().substring(0, 8);
   const erpCode = "TEST-ERP-" + crypto.randomUUID().substring(0, 8);
+  const erpCode2 = "TEST-ERP2-" + crypto.randomUUID().substring(0, 8);
+  const erpCode3 = "TEST-ERP3-" + crypto.randomUUID().substring(0, 8);
 
   beforeAll(async () => {
     // 1. Crear Familia de prueba
@@ -55,19 +61,41 @@ describe("Catalog Queries and Actions Integration", () => {
       sortOrder: 99
     });
 
-    // 3. Crear Artículo de prueba
-    await db.insert(articles).values({
-      id: articleId,
-      erpCode,
-      name: "Test Article Name",
-      slug: articleSlug,
-      brand: "TestBrand",
-      unit: "ud",
-      subfamilyId,
-      isActive: true
-    });
+    // 3. Crear Artículos de prueba
+    await db.insert(articles).values([
+      {
+        id: articleId,
+        erpCode,
+        name: "Test Article Name",
+        slug: articleSlug,
+        brand: "TestBrand",
+        unit: "ud",
+        subfamilyId,
+        isActive: true
+      },
+      {
+        id: articleId2,
+        erpCode: erpCode2,
+        name: "Test Article Two",
+        slug: articleSlug2,
+        brand: "BrandTwo",
+        unit: "ud",
+        subfamilyId,
+        isActive: true
+      },
+      {
+        id: articleId3,
+        erpCode: erpCode3,
+        name: "Test Article Three",
+        slug: articleSlug3,
+        brand: "BrandThree",
+        unit: "ud",
+        subfamilyId,
+        isActive: true
+      }
+    ]);
 
-    // 4. Crear Precios de prueba (PUBLIC y una tarifa especial)
+    // 4. Crear Precios de prueba (PUBLIC y tarifas especiales)
     await db.insert(articlePrices).values([
       {
         articleId,
@@ -78,7 +106,31 @@ describe("Catalog Queries and Actions Integration", () => {
       {
         articleId,
         priceListCode: "PRO_TEST",
-        price: "85.00",
+        price: "85.00", // Offer (PRO_TEST price < PUBLIC price)
+        currency: "EUR"
+      },
+      {
+        articleId: articleId2,
+        priceListCode: "PUBLIC",
+        price: "200.00",
+        currency: "EUR"
+      },
+      {
+        articleId: articleId2,
+        priceListCode: "PRO_TEST",
+        price: "200.00", // No offer
+        currency: "EUR"
+      },
+      {
+        articleId: articleId3,
+        priceListCode: "PUBLIC",
+        price: "50.00",
+        currency: "EUR"
+      },
+      {
+        articleId: articleId3,
+        priceListCode: "PRO_TEST",
+        price: "50.00", // No offer
         currency: "EUR"
       }
     ]);
@@ -111,7 +163,11 @@ describe("Catalog Queries and Actions Integration", () => {
     await db.delete(favorites).where(eq(favorites.userId, userId));
     await db.delete(users).where(eq(users.id, userId));
     await db.delete(articlePrices).where(eq(articlePrices.articleId, articleId));
+    await db.delete(articlePrices).where(eq(articlePrices.articleId, articleId2));
+    await db.delete(articlePrices).where(eq(articlePrices.articleId, articleId3));
     await db.delete(articles).where(eq(articles.id, articleId));
+    await db.delete(articles).where(eq(articles.id, articleId2));
+    await db.delete(articles).where(eq(articles.id, articleId3));
     await db.delete(subfamilies).where(eq(subfamilies.id, subfamilyId));
     await db.delete(families).where(eq(families.id, familyId));
     await db.delete(stores).where(eq(stores.id, storeId));
@@ -148,6 +204,65 @@ describe("Catalog Queries and Actions Integration", () => {
       expect(details!.name).toBe("Test Article Name");
       expect(details!.publicPrice!.price).toBe("100.00");
       expect(details!.b2bPrice!.price).toBe("85.00");
+    });
+
+    it("should filter articles by brand list", async () => {
+      const results = await getArticles({
+        familySlug,
+        priceListCode: "PUBLIC",
+        brands: ["TestBrand", "BrandTwo"]
+      });
+
+      expect(results.length).toBeGreaterThanOrEqual(2);
+      const brands = results.map(r => r.brand);
+      expect(brands).toContain("TestBrand");
+      expect(brands).toContain("BrandTwo");
+      expect(brands).not.toContain("BrandThree");
+    });
+
+    it("should filter articles by price range for public tariff", async () => {
+      const results = await getArticles({
+        familySlug,
+        priceListCode: "PUBLIC",
+        minPrice: 60,
+        maxPrice: 150
+      });
+
+      // Should contain only Article Name (100.00). Article Two is 200.00, Article Three is 50.00
+      const ids = results.map(r => r.id);
+      expect(ids).toContain(articleId);
+      expect(ids).not.toContain(articleId2);
+      expect(ids).not.toContain(articleId3);
+    });
+
+    it("should filter articles by price range for B2B tariff", async () => {
+      const results = await getArticles({
+        familySlug,
+        priceListCode: "PRO_TEST",
+        minPrice: 40,
+        maxPrice: 90
+      });
+
+      // Article Name (85.00 B2B price), Article Three (50.00 B2B price)
+      const ids = results.map(r => r.id);
+      expect(ids).toContain(articleId);
+      expect(ids).toContain(articleId3);
+      expect(ids).not.toContain(articleId2); // 200.00 B2B price
+    });
+
+    it("should filter articles showing only offers (PRO_TEST price < PUBLIC price)", async () => {
+      const results = await getArticles({
+        familySlug,
+        priceListCode: "PRO_TEST",
+        onlyOffers: true
+      });
+
+      // Only Article Name has PRO_TEST (85.00) < PUBLIC (100.00).
+      // Article Two has 200.00 == 200.00. Article Three has 50.00 == 50.00.
+      const ids = results.map(r => r.id);
+      expect(ids).toContain(articleId);
+      expect(ids).not.toContain(articleId2);
+      expect(ids).not.toContain(articleId3);
     });
   });
 

@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-import { Search, FolderOpen, Tag, Loader2 } from "lucide-react";
+import { Search, FolderOpen, Loader2 } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { Input } from "@/components/ui/input";
@@ -20,6 +20,28 @@ type SuggestionFamily = {
   name: string;
   slug: string;
 };
+
+function SuggestionImage({ src, alt }: { src: string | null; alt: string }) {
+  const [imgSrc, setImgSrc] = useState(src || "/images/placeholder.jpg");
+
+  // Keep in sync if search suggestions update
+  useEffect(() => {
+    setImgSrc(src || "/images/placeholder.jpg");
+  }, [src]);
+
+  return (
+    <div className="relative h-8 w-8 shrink-0 overflow-hidden rounded-lg border border-border bg-muted/20">
+      <Image
+        src={imgSrc}
+        alt={alt}
+        fill
+        sizes="32px"
+        className="object-cover"
+        onError={() => setImgSrc("/images/placeholder.jpg")}
+      />
+    </div>
+  );
+}
 
 export function SearchBar() {
   const [query, setQuery] = useState("");
@@ -146,21 +168,7 @@ export function SearchBar() {
                       onClick={clearAndClose}
                       className="flex items-center gap-3 rounded-xl px-3 py-2 text-sm text-foreground transition-colors hover:bg-accent"
                     >
-                      {article.mainImage ? (
-                        <div className="relative h-8 w-8 shrink-0 overflow-hidden rounded-lg border border-border bg-muted/20">
-                          <Image
-                            src={article.mainImage}
-                            alt={article.name}
-                            fill
-                            sizes="32px"
-                            className="object-cover"
-                          />
-                        </div>
-                      ) : (
-                        <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-muted text-muted-foreground border border-border">
-                          <Tag className="h-4 w-4" />
-                        </div>
-                      )}
+                      <SuggestionImage src={article.mainImage} alt={article.name} />
                       <div className="flex flex-col">
                         <span className="font-medium line-clamp-1">{article.name}</span>
                         <span className="text-xs text-muted-foreground">{article.erpCode}</span>

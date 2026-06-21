@@ -28,7 +28,8 @@ import {
 } from "../db/queries/admin";
 import {
   toggleInfoRequestStatusAction,
-  toggleArticleActiveAction
+  toggleArticleActiveAction,
+  toggleArticlesActiveBulkAction
 } from "./admin";
 
 describe("Admin Queries and Actions Integration", () => {
@@ -206,6 +207,37 @@ describe("Admin Queries and Actions Integration", () => {
       });
 
       const res = await toggleArticleActiveAction(articleId, true);
+      expect(res.error).toBeDefined();
+      expect(res.error).toContain("No autorizado");
+    });
+
+    it("should toggle multiple articles active status in bulk", async () => {
+      // 1. Bulk deactivate
+      const res1 = await toggleArticlesActiveBulkAction([articleId], false);
+      expect(res1.success).toBe(true);
+
+      let updated = await db.query.articles.findFirst({
+        where: eq(articles.id, articleId)
+      });
+      expect(updated!.isActive).toBe(false);
+
+      // 2. Bulk activate
+      const res2 = await toggleArticlesActiveBulkAction([articleId], true);
+      expect(res2.success).toBe(true);
+
+      updated = await db.query.articles.findFirst({
+        where: eq(articles.id, articleId)
+      });
+      expect(updated!.isActive).toBe(true);
+    });
+
+    it("should reject bulk actions when user is not authorized", async () => {
+      vi.mocked(auth).mockResolvedValue({
+        user: { id: userId, name: "B2c User", email: "user@example.com", type: "B2C" },
+        expires: ""
+      });
+
+      const res = await toggleArticlesActiveBulkAction([articleId], false);
       expect(res.error).toBeDefined();
       expect(res.error).toContain("No autorizado");
     });

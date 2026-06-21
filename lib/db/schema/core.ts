@@ -73,7 +73,8 @@ export const families = pgTable(
     name: text("name").notNull(),
     slug: text("slug").notNull(),
     image: text("image"),
-    sortOrder: integer("sort_order").notNull().default(0)
+    sortOrder: integer("sort_order").notNull().default(0),
+    isManual: boolean("is_manual").notNull().default(false)
   },
   (table) => ({
     slugUnique: uniqueIndex("families_slug_unique").on(table.slug)
@@ -89,7 +90,8 @@ export const subfamilies = pgTable(
       .references(() => families.id, { onDelete: "cascade" }),
     name: text("name").notNull(),
     slug: text("slug").notNull(),
-    sortOrder: integer("sort_order").notNull().default(0)
+    sortOrder: integer("sort_order").notNull().default(0),
+    isManual: boolean("is_manual").notNull().default(false)
   },
   (table) => ({
     slugUnique: uniqueIndex("subfamilies_slug_unique").on(table.slug)
@@ -111,7 +113,11 @@ export const articles = pgTable(
       .references(() => subfamilies.id, { onDelete: "cascade" }),
     mainImage: text("main_image"),
     isActive: boolean("is_active").notNull().default(true),
-    lastSyncedAt: timestamp("last_synced_at", { withTimezone: true, mode: "date" })
+    lastSyncedAt: timestamp("last_synced_at", { withTimezone: true, mode: "date" }),
+    isManual: boolean("is_manual").notNull().default(false),
+    hasOffer: boolean("has_offer").notNull().default(false),
+    offerPercentage: integer("offer_percentage").notNull().default(0),
+    offerTarget: text("offer_target").notNull().default("B2C")
   },
   (table) => ({
     erpCodeUnique: uniqueIndex("articles_erp_code_unique").on(table.erpCode),
@@ -222,6 +228,18 @@ export const faqs = pgTable("faqs", {
   sortOrder: integer("sort_order").notNull().default(0)
 });
 
+export const menuItems = pgTable("menu_items", {
+  id: uuid("id").defaultRandom().primaryKey(),
+  label: text("label").notNull(),
+  href: text("href").notNull(),
+  parentId: uuid("parent_id").references((): AnyPgColumn => menuItems.id, { onDelete: "cascade" }),
+  sortOrder: integer("sort_order").notNull().default(0),
+  isActive: boolean("is_active").notNull().default(true),
+  createdAt: timestamp("created_at", { withTimezone: true, mode: "date" })
+    .defaultNow()
+    .notNull()
+});
+
 export type ImportErrorEntry = {
   row: number;
   reason: string;
@@ -240,7 +258,8 @@ export const schemaTables = {
   favorites,
   infoRequests,
   importBatches,
-  faqs
+  faqs,
+  menuItems
 };
 
 export const schemaEnums = {

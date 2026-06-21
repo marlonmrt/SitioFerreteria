@@ -6,6 +6,7 @@ import { auth } from "@/auth";
 import { SiteFooter } from "@/components/shared/site-footer";
 import { SiteHeader } from "@/components/shared/site-header";
 import { Toaster } from "@/components/ui/sonner";
+import { getActiveMenuItems } from "@/lib/db/queries/menu";
 
 import "./globals.css";
 
@@ -28,12 +29,13 @@ export default async function RootLayout({
   children: ReactNode;
 }>) {
   const session = await auth();
+  const menuItems = await getActiveMenuItems();
 
   return (
-    <html lang="es" suppressHydrationWarning>
+    <html lang="es" suppressHydrationWarning data-scroll-behavior="smooth">
       <body className={`${inter.variable} min-h-screen font-sans`}>
         <div className="flex min-h-screen flex-col">
-          <SiteHeader session={session} />
+          <SiteHeader session={session} menuItems={menuItems} />
           <main className="flex-1">{children}</main>
           <SiteFooter />
         </div>

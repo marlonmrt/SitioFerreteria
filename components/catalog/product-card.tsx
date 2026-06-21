@@ -3,7 +3,7 @@
 import { useState, useTransition } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Heart, Tag, Loader2 } from "lucide-react";
+import { Heart, Loader2 } from "lucide-react";
 import { toast } from "sonner";
 
 import { Badge } from "@/components/ui/badge";
@@ -24,6 +24,9 @@ type ProductCardProps = {
     publicCurrency: string | null;
     b2bPrice?: string | null;
     b2bCurrency?: string | null;
+    hasOffer?: boolean;
+    offerPercentage?: number;
+    offerTarget?: string;
   };
   isLoggedIn: boolean;
   initialIsFavorited: boolean;
@@ -38,6 +41,7 @@ export function ProductCard({
 }: ProductCardProps) {
   const [isFavorited, setIsFavorited] = useState(initialIsFavorited);
   const [isPending, startTransition] = useTransition();
+  const [imgSrc, setImgSrc] = useState(article.mainImage || "/images/placeholder.jpg");
 
   const handleFavoriteToggle = async (e: React.MouseEvent) => {
     e.preventDefault();
@@ -69,25 +73,46 @@ export function ProductCard({
     });
   };
 
-  const hasDiscount = article.b2bPrice && article.publicPrice && parseFloat(article.b2bPrice) < parseFloat(article.publicPrice);
+  const isB2bUser = !!b2bTariffName && b2bTariffName !== "PUBLIC";
+
+  // Determinar si hay una oferta explícita activa para el destinatario correspondiente
+  const isOfferActive =
+    !!article.hasOffer &&
+    ((article.offerTarget === "B2C" && !isB2bUser) ||
+      (article.offerTarget === "B2B" && isB2bUser));
+
+  const offerDiscount = isOfferActive ? article.offerPercentage || 0 : 0;
+
+  // Precios base antes de la oferta
+  const basePublicPrice = article.publicPrice ? parseFloat(article.publicPrice) : 0;
+  const baseB2bPrice = article.b2bPrice ? parseFloat(article.b2bPrice) : 0;
+
+  // Precios con oferta aplicada
+  const finalPublicPrice = isOfferActive && article.offerTarget === "B2C"
+    ? basePublicPrice * (1 - offerDiscount / 100)
+    : basePublicPrice;
+
+  const finalB2bPrice = isOfferActive && article.offerTarget === "B2B"
+    ? baseB2bPrice * (1 - offerDiscount / 100)
+    : baseB2bPrice;
+
+  const hasDiscount = isB2bUser
+    ? (baseB2bPrice > 0 && basePublicPrice > 0 && (baseB2bPrice < basePublicPrice || isOfferActive))
+    : isOfferActive;
 
   return (
     <Card className="group relative flex flex-col overflow-hidden rounded-3xl border border-border/70 bg-card transition-all duration-300 hover:-translate-y-1 hover:shadow-soft">
       {/* Imagen del Artículo */}
       <Link href={`/articulos/${article.slug}`} className="relative aspect-square block w-full overflow-hidden bg-muted/40 border-b border-border/50">
-        {article.mainImage ? (
-          <Image
-            src={article.mainImage}
-            alt={article.name}
-            fill
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            className="object-cover transition-transform duration-500 group-hover:scale-105"
-          />
-        ) : (
-          <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-muted/30 to-muted/80 text-muted-foreground">
-            <Tag className="h-10 w-10 stroke-[1.2]" />
-          </div>
-        )}
+        <Image
+          src={imgSrc}
+          alt={article.name}
+          fill
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          className="object-cover transition-transform duration-500 group-hover:scale-105"
+          onError={() => setImgSrc("/images/placeholder.jpg")}
+          priority={false}
+        />
 
         {/* Botón Favoritos (Esquina Superior Derecha) */}
         {isLoggedIn && (
@@ -112,6 +137,13 @@ export function ProductCard({
               />
             )}
           </Button>
+        )}
+
+        {/* Oferta Badge */}
+        {isOfferActive && (
+          <Badge className="absolute left-3 top-3 z-10 rounded-lg bg-emerald-500 text-white font-bold text-xs tracking-wide px-2.5 py-1.5 shadow-sm uppercase border-0">
+            Oferta -{offerDiscount}%
+          </Badge>
         )}
 
         {/* Marca Badge */}
@@ -142,26 +174,26 @@ export function ProductCard({
       {/* Precios y Footer */}
       <CardFooter className="mt-auto p-4 pt-3 flex flex-col items-start gap-3 border-t border-border/30 bg-muted/10">
         <div className="w-full flex flex-wrap items-baseline gap-2">
-          {/* Si tiene descuento / Tarifa B2B */}
+          {/* Si tiene descuento / Tarifa B2B u Oferta activa */}
           {hasDiscount ? (
             <div className="flex flex-col gap-0.5">
               <div className="flex items-center gap-1.5">
                 <span className="text-xl font-bold text-primary">
-                  {parseFloat(article.b2bPrice!).toFixed(2)} {article.b2bCurrency || "EUR"}
+                  {(isB2bUser ? finalB2bPrice : finalPublicPrice).toFixed(2)} {article.b2bCurrency || article.publicCurrency || "EUR"}
                 </span>
                 <Badge variant="outline" className="text-[10px] uppercase font-bold tracking-wider py-0 px-1 border-primary/30 text-primary bg-primary/5">
-                  Tarifa {b2bTariffName || "B2B"}
+                  {isOfferActive ? `Oferta -${offerDiscount}%` : `Tarifa ${b2bTariffName || "B2B"}`}
                 </Badge>
               </div>
               <span className="text-xs text-muted-foreground/80 line-through">
-                PVP: {parseFloat(article.publicPrice!).toFixed(2)} {article.publicCurrency || "EUR"}
+                Antes: {(isB2bUser && isOfferActive ? baseB2bPrice : basePublicPrice).toFixed(2)} {article.publicCurrency || "EUR"}
               </span>
             </div>
           ) : (
             // Precio Público General
             <span className="text-xl font-bold text-foreground">
               {article.publicPrice
-                ? `${parseFloat(article.publicPrice).toFixed(2)} ${article.publicCurrency || "EUR"}`
+                ? `${finalPublicPrice.toFixed(2)} ${article.publicCurrency || "EUR"}`
                 : "Consultar precio"}
             </span>
           )}

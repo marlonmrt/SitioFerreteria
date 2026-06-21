@@ -36,6 +36,15 @@ const mainLinks = [
   { href: "/faq", label: "FAQ" }
 ];
 
+interface MenuItemData {
+  id: string;
+  label: string;
+  href: string;
+  parentId: string | null;
+  sortOrder: number;
+  isActive: boolean;
+}
+
 interface SiteHeaderProps {
   session?: {
     user?: {
@@ -47,6 +56,7 @@ interface SiteHeaderProps {
       companyId?: string | null;
     };
   } | null;
+  menuItems?: MenuItemData[];
 }
 
 function AccessLinks() {
@@ -67,7 +77,19 @@ function AccessLinks() {
   );
 }
 
-export function SiteHeader({ session }: SiteHeaderProps) {
+export function SiteHeader({ session, menuItems }: SiteHeaderProps) {
+  const normalizedLinks = (menuItems && menuItems.length > 0)
+    ? menuItems
+    : mainLinks.map((l) => ({
+        id: l.href,
+        label: l.label,
+        href: l.href,
+        parentId: null,
+        sortOrder: 0,
+        isActive: true
+      }));
+
+  const parentLinks = normalizedLinks.filter((link) => !link.parentId);
   return (
     <header className="sticky top-0 z-50 border-b border-border/60 bg-background/90 backdrop-blur-xl">
       <div className="mx-auto flex max-w-7xl items-center gap-3 px-4 py-3 sm:px-6 lg:px-8">
@@ -91,13 +113,49 @@ export function SiteHeader({ session }: SiteHeaderProps) {
         <div className="hidden items-center gap-2 lg:flex">
           <NavigationMenu>
             <NavigationMenuList>
-              {mainLinks.map((link) => (
-                <NavigationMenuItem key={link.href}>
-                  <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
-                    <Link href={link.href}>{link.label}</Link>
-                  </NavigationMenuLink>
-                </NavigationMenuItem>
-              ))}
+              {parentLinks.map((link) => {
+                const subLinks = normalizedLinks.filter((child) => child.parentId === link.id);
+                if (subLinks.length > 0) {
+                  return (
+                    <NavigationMenuItem key={link.id}>
+                      <NavigationMenuTrigger className="gap-1 rounded-xl">
+                        <span>{link.label}</span>
+                      </NavigationMenuTrigger>
+                      <NavigationMenuContent>
+                        <div className="flex flex-col w-[200px] p-2 gap-1 bg-popover rounded-xl border border-border/40 shadow-md">
+                          <NavigationMenuLink asChild>
+                            <Link
+                              href={link.href}
+                              className="block rounded-lg px-3 py-2 text-sm font-semibold hover:bg-accent hover:text-accent-foreground"
+                            >
+                              Ver todo
+                            </Link>
+                          </NavigationMenuLink>
+                          <div className="h-px bg-border/40 my-1" />
+                          {subLinks.map((subLink) => (
+                            <NavigationMenuLink key={subLink.id} asChild>
+                              <Link
+                                href={subLink.href}
+                                className="block rounded-lg px-3 py-2 text-sm text-muted-foreground hover:bg-accent hover:text-accent-foreground"
+                              >
+                                {subLink.label}
+                              </Link>
+                            </NavigationMenuLink>
+                          ))}
+                        </div>
+                      </NavigationMenuContent>
+                    </NavigationMenuItem>
+                  );
+                }
+
+                return (
+                  <NavigationMenuItem key={link.id}>
+                    <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
+                      <Link href={link.href}>{link.label}</Link>
+                    </NavigationMenuLink>
+                  </NavigationMenuItem>
+                );
+              })}
 
               {session?.user ? (
                 <NavigationMenuItem>
@@ -224,17 +282,35 @@ export function SiteHeader({ session }: SiteHeaderProps) {
                 <div>
                   <SearchBar />
                 </div>
-                <div className="space-y-2">
-                  {mainLinks.map((link) => (
-                    <Button
-                      key={link.href}
-                      asChild
-                      variant="ghost"
-                      className="w-full justify-start rounded-2xl px-4 py-6 text-base"
-                    >
-                      <Link href={link.href}>{link.label}</Link>
-                    </Button>
-                  ))}
+                <div className="space-y-3">
+                  {parentLinks.map((link) => {
+                    const subLinks = normalizedLinks.filter((child) => child.parentId === link.id);
+                    return (
+                      <div key={link.id} className="space-y-1">
+                        <Button
+                          asChild
+                          variant="ghost"
+                          className="w-full justify-start rounded-2xl px-4 py-4 text-base font-semibold text-foreground hover:bg-accent/40"
+                        >
+                          <Link href={link.href}>{link.label}</Link>
+                        </Button>
+                        {subLinks.length > 0 && (
+                          <div className="pl-6 space-y-1 border-l border-border/60 ml-4">
+                            {subLinks.map((subLink) => (
+                              <Button
+                                key={subLink.id}
+                                asChild
+                                variant="ghost"
+                                className="w-full justify-start rounded-xl px-3 py-2 text-sm text-muted-foreground hover:bg-accent/30"
+                              >
+                                <Link href={subLink.href}>{subLink.label}</Link>
+                              </Button>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })}
                 </div>
 
                 {session?.user ? (

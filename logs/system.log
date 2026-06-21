@@ -323,3 +323,4 @@
 [2026-06-21T11:08:59.028Z] [INFO] B2B account approved by admin | Context: {"userId":"8f6ccffc-8225-4576-8dc7-b771877aebff","priceListCode":"PRO_e416bdcd","adminId":"d12cb61f-b5d4-46de-881c-1ab75035a9ae","companyId":"b557e051-ea82-4a4d-9c5f-6b36d2508b7a"}
 [2026-06-21T11:10:30.998Z] [INFO] Family deleted | Context: {"id":"72eac2af-ff5f-4d66-b0c2-e17dbcc791d7"}
 [2026-06-21T11:11:01.664Z] [INFO] Articles active status bulk toggled | Context: {"count":20,"isActive":true}
+[2026-06-21T12:24:54.491Z] [INFO] Info request submitted successfully | Context: {"name":"MARLON RODRIGUEZ TOLEDO","email":"Marlon.mrt@gmail.com","articleId":"4522cb3a-e071-4500-8e6e-d74c0981c030"}

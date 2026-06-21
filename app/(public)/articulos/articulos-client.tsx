@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useTransition } from "react";
+import { useState, useEffect, useTransition, useRef } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import {
@@ -11,7 +11,8 @@ import {
   Home,
   SlidersHorizontal,
   X,
-  ChevronLeft
+  ChevronLeft,
+  Search
 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -86,6 +87,10 @@ export default function ArticulosClient({
   // Acordeón de categorías (familias)
   const [expandedFamilies, setExpandedFamilies] = useState<Record<string, boolean>>({});
 
+  // Input controlado para búsqueda por texto
+  const [searchInput, setSearchInput] = useState(searchParams.q || "");
+  const searchTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
   // Inputs controlados para precios
   const [minInput, setMinInput] = useState(searchParams.min || "");
   const [maxInput, setMaxInput] = useState(searchParams.max || "");
@@ -93,11 +98,12 @@ export default function ArticulosClient({
   // Favoritos
   const favoritesSet = new Set(favoriteIds);
 
-  // Sincronizar inputs de precio cuando cambian en la URL (ej. si se limpian los filtros)
+  // Sincronizar inputs cuando cambian en la URL (ej. si se limpian los filtros)
   useEffect(() => {
+    setSearchInput(searchParams.q || "");
     setMinInput(searchParams.min || "");
     setMaxInput(searchParams.max || "");
-  }, [searchParams.min, searchParams.max]);
+  }, [searchParams.q, searchParams.min, searchParams.max]);
 
   // Auto-expandir la familia correspondiente si hay una subfamilia seleccionada
   useEffect(() => {
@@ -164,6 +170,7 @@ export default function ArticulosClient({
 
   // Limpiar todos los filtros activos
   const handleClearAllFilters = () => {
+    setSearchInput("");
     setMinInput("");
     setMaxInput("");
     startTransition(() => {
@@ -307,6 +314,41 @@ export default function ArticulosClient({
               Filtros
             </h2>
 
+            {/* Filtro: Búsqueda por texto */}
+            <div className="space-y-2.5">
+              <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Buscar</span>
+              <div className="relative">
+                <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                <Input
+                  type="text"
+                  placeholder="Nombre, marca..."
+                  value={searchInput}
+                  disabled={isPending}
+                  onChange={(e) => {
+                    const value = e.target.value;
+                    setSearchInput(value);
+                    if (searchTimeoutRef.current) clearTimeout(searchTimeoutRef.current);
+                    searchTimeoutRef.current = setTimeout(() => {
+                      updateQueryParams({ q: value || null });
+                    }, 350);
+                  }}
+                  className="rounded-xl h-9 text-xs pl-8"
+                />
+                {searchInput && (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setSearchInput("");
+                      updateQueryParams({ q: null });
+                    }}
+                    className="absolute right-2.5 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    <X className="h-3.5 w-3.5" />
+                  </button>
+                )}
+              </div>
+            </div>
+
             {/* Filtro: Ofertas */}
             <div className="space-y-2.5">
               <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Promociones</span>
@@ -429,7 +471,7 @@ export default function ArticulosClient({
               {searchParams.q && (
                 <Badge variant="secondary" className="rounded-lg py-1 px-2.5 gap-1 font-medium bg-background border text-xs">
                   Búsqueda: &quot;{searchParams.q}&quot;
-                  <button onClick={() => updateQueryParams({ q: null })} className="hover:text-destructive transition-colors ml-0.5">
+                  <button onClick={() => { setSearchInput(""); updateQueryParams({ q: null }); }} className="hover:text-destructive transition-colors ml-0.5">
                     <X className="h-3 w-3" />
                   </button>
                 </Badge>

@@ -269,7 +269,7 @@ describe("Catalog Queries and Actions Integration", () => {
   describe("Catalog Server Actions", () => {
     it("should toggle favorite status for a logged in user", async () => {
       // Mock session
-      vi.mocked(auth).mockResolvedValue({
+      (vi.mocked(auth) as unknown as { mockResolvedValue: (v: unknown) => void }).mockResolvedValue({
         user: { id: userId, name: "Tester", email: "catalog-tester@example.com", type: "B2C" },
         expires: ""
       });
@@ -296,7 +296,7 @@ describe("Catalog Queries and Actions Integration", () => {
     });
 
     it("should reject toggle favorite when user is anonymous", async () => {
-      vi.mocked(auth).mockResolvedValue(null);
+      (vi.mocked(auth) as unknown as { mockResolvedValue: (v: unknown) => void }).mockResolvedValue(null);
 
       const res = await toggleFavoriteAction(articleId);
       expect(res.error).toBeDefined();

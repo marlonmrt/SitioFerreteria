@@ -149,7 +149,7 @@ describe("Admin Queries and Actions Integration", () => {
   describe("Admin Server Actions", () => {
     beforeEach(() => {
       // Mock session as ADMIN by default
-      vi.mocked(auth).mockResolvedValue({
+      (vi.mocked(auth) as unknown as { mockResolvedValue: (v: unknown) => void }).mockResolvedValue({
         user: { id: userId, name: "Admin", email: "admin-tester-action@example.com", type: "ADMIN" },
         expires: ""
       });
@@ -201,7 +201,7 @@ describe("Admin Queries and Actions Integration", () => {
 
     it("should reject admin actions when user is not authorized", async () => {
       // Mock session as standard B2C user
-      vi.mocked(auth).mockResolvedValue({
+      (vi.mocked(auth) as unknown as { mockResolvedValue: (v: unknown) => void }).mockResolvedValue({
         user: { id: userId, name: "B2c User", email: "user@example.com", type: "B2C" },
         expires: ""
       });
@@ -232,7 +232,7 @@ describe("Admin Queries and Actions Integration", () => {
     });
 
     it("should reject bulk actions when user is not authorized", async () => {
-      vi.mocked(auth).mockResolvedValue({
+      (vi.mocked(auth) as unknown as { mockResolvedValue: (v: unknown) => void }).mockResolvedValue({
         user: { id: userId, name: "B2c User", email: "user@example.com", type: "B2C" },
         expires: ""
       });

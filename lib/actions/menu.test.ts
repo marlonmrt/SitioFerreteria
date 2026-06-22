@@ -86,7 +86,7 @@ describe("Menu Queries and Actions Integration", () => {
   describe("Menu Server Actions", () => {
     beforeEach(() => {
       // Mock session as ADMIN by default
-      vi.mocked(auth).mockResolvedValue({
+      (vi.mocked(auth) as unknown as { mockResolvedValue: (v: unknown) => void }).mockResolvedValue({
         user: { id: userId, name: "Admin", email: "admin-menu-test@example.com", type: "ADMIN" },
         expires: ""
       });
@@ -129,7 +129,7 @@ describe("Menu Queries and Actions Integration", () => {
 
     it("should reject creation if not authorized", async () => {
       // Mock standard user session
-      vi.mocked(auth).mockResolvedValue({
+      (vi.mocked(auth) as unknown as { mockResolvedValue: (v: unknown) => void }).mockResolvedValue({
         user: { id: userId, name: "User", email: "user@example.com", type: "B2C" },
         expires: ""
       });

@@ -504,7 +504,7 @@ async function main() {
     {
       id: adminUserId,
       email: "admin@ferreteria.local",
-      passwordHash: "$2b$10$2DpqzcPUdP5BJ/5tBxTxeuCE8psAq7l1JBw54dqmmXGHUKSbqfTvm",
+      passwordHash: "$2b$10$Gc.IFhyzdN61Ey5KiDPR3ey3r2XgHXNBPRFVKVDgvWcPnotdHIjiy",
       name: "Administración",
       type: "ADMIN",
       status: "ACTIVE"
@@ -527,7 +527,7 @@ async function main() {
     {
       id: companyUserId,
       email: "empresa@atlanticoconstruye.local",
-      passwordHash: "$2b$10$2DpqzcPUdP5BJ/5tBxTxeuCE8psAq7l1JBw54dqmmXGHUKSbqfTvm",
+      passwordHash: "$2b$10$Gc.IFhyzdN61Ey5KiDPR3ey3r2XgHXNBPRFVKVDgvWcPnotdHIjiy",
       name: "Carlos Pérez",
       type: "B2B",
       status: "ACTIVE",

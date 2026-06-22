@@ -40,8 +40,7 @@ export const companies = pgTable(
       .notNull()
   },
   (table) => ({
-    taxIdUnique: uniqueIndex("companies_tax_id_unique").on(table.taxId),
-    priceListCodeUnique: uniqueIndex("companies_price_list_code_unique").on(table.priceListCode)
+    taxIdUnique: uniqueIndex("companies_tax_id_unique").on(table.taxId)
   })
 );
 

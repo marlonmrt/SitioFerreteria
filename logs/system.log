@@ -324,3 +324,103 @@
 [2026-06-21T11:10:30.998Z] [INFO] Family deleted | Context: {"id":"72eac2af-ff5f-4d66-b0c2-e17dbcc791d7"}
 [2026-06-21T11:11:01.664Z] [INFO] Articles active status bulk toggled | Context: {"count":20,"isActive":true}
 [2026-06-21T12:24:54.491Z] [INFO] Info request submitted successfully | Context: {"name":"MARLON RODRIGUEZ TOLEDO","email":"Marlon.mrt@gmail.com","articleId":"4522cb3a-e071-4500-8e6e-d74c0981c030"}
+[2026-06-21T14:55:02.999Z] [INFO] Menu item created | Context: {"label":"Productos","href":"/articulos"}
+[2026-06-21T14:55:20.717Z] [INFO] Menu item created | Context: {"label":"Baños","href":"/familias/banos"}
+[2026-06-21T14:55:52.567Z] [INFO] Menu item created | Context: {"label":"Cerámicas","href":"/familias/ceramicas"}
+[2026-06-21T14:56:00.125Z] [INFO] Menu item created | Context: {"label":"Climatización","href":"/familias/climatizacion"}
+[2026-06-21T14:56:08.804Z] [INFO] Menu item created | Context: {"label":"Construcción","href":"/familias/construccion"}
+[2026-06-21T14:56:15.739Z] [INFO] Menu item created | Context: {"label":"Hogar y Electrodomésticos","href":"/familias/hogar-electrodomesticos"}
+[2026-06-21T14:56:27.027Z] [INFO] Menu item created | Context: {"label":"Sellado y Fijación","href":"/familias/sellado-fijacion"}
+[2026-06-21T15:02:35.421Z] [INFO] Menu item created | Context: {"label":"Climatización","href":"/familias/climatizacion"}
+[2026-06-21T15:02:39.559Z] [INFO] Menu item deleted | Context: {"id":"32b78ff9-0a96-43b9-a655-673882910969"}
+[2026-06-21T15:02:57.469Z] [INFO] Menu item updated | Context: {"id":"2e1f92c8-6e2d-465b-979c-844a19259bbd","label":"Ofertas","href":"/articulos"}
+[2026-06-21T15:05:01.343Z] [INFO] Info request status toggled | Context: {"requestId":"5bf5f3af-d8a4-4a86-a632-d98712e9faae","status":"ATTENDED"}
+[2026-06-21T16:56:47.414Z] [ERROR] B2C registration failed | Context: {"email":"anddres@gmail.com","error":"Read more at https://errors.authjs.dev#credentialssignin"}
+[2026-06-21T16:57:43.616Z] [INFO] B2B Company registration requested successfully | Context: {"email":"andres@gmail.com","userId":"ef63d501-6de1-465e-abf0-e448a41d6a1a","companyId":"928426b8-1692-4f28-b006-d19285c40db3","legalName":"construc","taxId":"B1555455"}
+[2026-06-21T16:57:57.077Z] [ERROR] B2B account approval failed | Context: {"userId":"ef63d501-6de1-465e-abf0-e448a41d6a1a","priceListCode":"PRO_01","adminId":"6138c6b8-6b6a-4b41-9f16-8d98cf03272d","error":"Failed query: update \"companies\" set \"price_list_code\" = $1, \"approved_at\" = $2, \"approved_by_user_id\" = $3 where \"companies\".\"id\" = $4\nparams: PRO_01,2026-06-21T16:57:57.075Z,6138c6b8-6b6a-4b41-9f16-8d98cf03272d,928426b8-1692-4f28-b006-d19285c40db3"}
+[2026-06-21T16:57:59.381Z] [ERROR] B2B account approval failed | Context: {"userId":"ef63d501-6de1-465e-abf0-e448a41d6a1a","priceListCode":"PRO_01","adminId":"6138c6b8-6b6a-4b41-9f16-8d98cf03272d","error":"Failed query: update \"companies\" set \"price_list_code\" = $1, \"approved_at\" = $2, \"approved_by_user_id\" = $3 where \"companies\".\"id\" = $4\nparams: PRO_01,2026-06-21T16:57:59.379Z,6138c6b8-6b6a-4b41-9f16-8d98cf03272d,928426b8-1692-4f28-b006-d19285c40db3"}
+[2026-06-21T17:00:49.727Z] [ERROR] B2B account approval failed | Context: {"userId":"ef63d501-6de1-465e-abf0-e448a41d6a1a","priceListCode":"PRO_01","adminId":"6138c6b8-6b6a-4b41-9f16-8d98cf03272d","error":"Failed query: update \"companies\" set \"price_list_code\" = $1, \"approved_at\" = $2, \"approved_by_user_id\" = $3 where \"companies\".\"id\" = $4\nparams: PRO_01,2026-06-21T17:00:49.718Z,6138c6b8-6b6a-4b41-9f16-8d98cf03272d,928426b8-1692-4f28-b006-d19285c40db3"}
+[2026-06-21T17:02:26.755Z] [ERROR] B2B account approval failed | Context: {"userId":"ef63d501-6de1-465e-abf0-e448a41d6a1a","priceListCode":"PRO_01","adminId":"6138c6b8-6b6a-4b41-9f16-8d98cf03272d","error":"Failed query: update \"companies\" set \"price_list_code\" = $1, \"approved_at\" = $2, \"approved_by_user_id\" = $3 where \"companies\".\"id\" = $4\nparams: PRO_01,2026-06-21T17:02:26.752Z,6138c6b8-6b6a-4b41-9f16-8d98cf03272d,928426b8-1692-4f28-b006-d19285c40db3"}
+[2026-06-21T17:02:36.250Z] [ERROR] B2B account approval failed | Context: {"userId":"ef63d501-6de1-465e-abf0-e448a41d6a1a","priceListCode":"PRO_01","adminId":"6138c6b8-6b6a-4b41-9f16-8d98cf03272d","error":"Failed query: update \"companies\" set \"price_list_code\" = $1, \"approved_at\" = $2, \"approved_by_user_id\" = $3 where \"companies\".\"id\" = $4\nparams: PRO_01,2026-06-21T17:02:36.248Z,6138c6b8-6b6a-4b41-9f16-8d98cf03272d,928426b8-1692-4f28-b006-d19285c40db3"}
+[2026-06-21T17:02:46.450Z] [INFO] B2B account rejected | Context: {"userId":"ef63d501-6de1-465e-abf0-e448a41d6a1a"}
+[2026-06-21T17:03:53.137Z] [INFO] B2B Company registration requested successfully | Context: {"email":"carl@gmai.com","userId":"6ca68fd3-08d0-4c9f-b8ac-2b5b0ffe0282","companyId":"cce8b159-a063-4f45-9d89-79d55fb32013","legalName":"okok","taxId":"B1555469"}
+[2026-06-21T17:04:00.993Z] [ERROR] B2B account approval failed | Context: {"userId":"6ca68fd3-08d0-4c9f-b8ac-2b5b0ffe0282","priceListCode":"PRO_01","adminId":"6138c6b8-6b6a-4b41-9f16-8d98cf03272d","error":"Failed query: update \"companies\" set \"price_list_code\" = $1, \"approved_at\" = $2, \"approved_by_user_id\" = $3 where \"companies\".\"id\" = $4\nparams: PRO_01,2026-06-21T17:04:00.990Z,6138c6b8-6b6a-4b41-9f16-8d98cf03272d,cce8b159-a063-4f45-9d89-79d55fb32013"}
+[2026-06-21T17:06:14.340Z] [ERROR] B2B account approval failed | Context: {"userId":"6ca68fd3-08d0-4c9f-b8ac-2b5b0ffe0282","priceListCode":"PRO_01","adminId":"6138c6b8-6b6a-4b41-9f16-8d98cf03272d","error":"Failed query: update \"companies\" set \"price_list_code\" = $1, \"approved_at\" = $2, \"approved_by_user_id\" = $3 where \"companies\".\"id\" = $4\nparams: PRO_01,2026-06-21T17:06:14.338Z,6138c6b8-6b6a-4b41-9f16-8d98cf03272d,cce8b159-a063-4f45-9d89-79d55fb32013"}
+[2026-06-21T17:06:25.000Z] [ERROR] B2B account approval failed | Context: {"userId":"6ca68fd3-08d0-4c9f-b8ac-2b5b0ffe0282","priceListCode":"PRO_02","adminId":"6138c6b8-6b6a-4b41-9f16-8d98cf03272d","error":"Failed query: update \"companies\" set \"price_list_code\" = $1, \"approved_at\" = $2, \"approved_by_user_id\" = $3 where \"companies\".\"id\" = $4\nparams: PRO_02,2026-06-21T17:06:24.999Z,6138c6b8-6b6a-4b41-9f16-8d98cf03272d,cce8b159-a063-4f45-9d89-79d55fb32013"}
+[2026-06-21T17:06:33.796Z] [ERROR] B2B account approval failed | Context: {"userId":"6ca68fd3-08d0-4c9f-b8ac-2b5b0ffe0282","priceListCode":"PRO_03","adminId":"6138c6b8-6b6a-4b41-9f16-8d98cf03272d","error":"Failed query: update \"companies\" set \"price_list_code\" = $1, \"approved_at\" = $2, \"approved_by_user_id\" = $3 where \"companies\".\"id\" = $4\nparams: PRO_03,2026-06-21T17:06:33.794Z,6138c6b8-6b6a-4b41-9f16-8d98cf03272d,cce8b159-a063-4f45-9d89-79d55fb32013"}
+[2026-06-21T17:08:33.480Z] [INFO] Test message for Vitest 0.3095360475474662 | Context: {"testKey":"testVal"}
+[2026-06-21T17:08:33.483Z] [ERROR] Test error message for Vitest 0.6083885437063404
+[2026-06-21T17:08:33.815Z] [INFO] ERP sync started | Context: {"batchId":"07cd80b3-7bf3-4fde-900b-01517a71f882","fileName":"test-import.csv","fileType":"CSV","totalRows":1}
+[2026-06-21T17:08:33.826Z] [INFO] Menu item created | Context: {"label":"New Dynamic Link","href":"/dynamic-path"}
+[2026-06-21T17:08:33.833Z] [ERROR] Menu item creation failed | Context: {"label":"Dynamic Link unauthorized","error":"No autorizado. Se requiere rol de administrador."}
+[2026-06-21T17:08:33.833Z] [INFO] Info request status toggled | Context: {"requestId":"bc8f6bb1-45b1-4ba3-872c-2ccacc3945d1","status":"ATTENDED"}
+[2026-06-21T17:08:33.836Z] [INFO] ERP sync batch processed successfully | Context: {"batchId":"07cd80b3-7bf3-4fde-900b-01517a71f882","count":1,"progress":"1/1"}
+[2026-06-21T17:08:33.837Z] [INFO] ERP sync checking deactivations | Context: {"batchId":"07cd80b3-7bf3-4fde-900b-01517a71f882"}
+[2026-06-21T17:08:33.838Z] [INFO] Menu item updated | Context: {"id":"60d5ec26-f358-4b9a-922a-18684329e115","label":"Test Link 1 (Updated)","href":"/test-1-updated"}
+[2026-06-21T17:08:33.841Z] [INFO] Info request status toggled | Context: {"requestId":"bc8f6bb1-45b1-4ba3-872c-2ccacc3945d1","status":"NEW"}
+[2026-06-21T17:08:33.842Z] [INFO] B2C User registered successfully | Context: {"email":"test-b2c-actions@example.com","userId":"bc673922-d25a-436f-9ede-f0112052a438"}
+[2026-06-21T17:08:33.844Z] [INFO] Menu item status toggled | Context: {"id":"c8409fb1-3121-4def-8cb7-7d650a2025ac","isActive":true}
+[2026-06-21T17:08:33.845Z] [INFO] ERP sync finished | Context: {"batchId":"07cd80b3-7bf3-4fde-900b-01517a71f882","success":true,"successCount":1,"errorCount":0}
+[2026-06-21T17:08:33.847Z] [INFO] Article active status toggled | Context: {"articleId":"4ab6d0af-66e3-4a48-b2f3-67675e992c0f","isActive":false}
+[2026-06-21T17:08:33.849Z] [INFO] Menu item status toggled | Context: {"id":"c8409fb1-3121-4def-8cb7-7d650a2025ac","isActive":false}
+[2026-06-21T17:08:33.851Z] [ERROR] Error revalidando rutas tras importación exitosa | Context: {"batchId":"07cd80b3-7bf3-4fde-900b-01517a71f882","error":"Invariant: static generation store missing in revalidatePath /"}
+[2026-06-21T17:08:33.853Z] [INFO] Article active status toggled | Context: {"articleId":"4ab6d0af-66e3-4a48-b2f3-67675e992c0f","isActive":true}
+[2026-06-21T17:08:33.855Z] [ERROR] Article active status toggle failed | Context: {"articleId":"4ab6d0af-66e3-4a48-b2f3-67675e992c0f","error":"No autorizado. Se requiere rol de administrador."}
+[2026-06-21T17:08:33.858Z] [INFO] Menu item deleted | Context: {"id":"08eacdd4-2953-4b41-b5f3-90f77d258847"}
+[2026-06-21T17:08:33.860Z] [INFO] Articles active status bulk toggled | Context: {"count":1,"isActive":false}
+[2026-06-21T17:08:33.862Z] [INFO] Favorite status toggled | Context: {"userId":"41a6ca9d-1c61-44a9-bc37-6e01a6364940","articleId":"2f27a66a-1945-4161-ab88-a33ce13a9213","isFavorited":true}
+[2026-06-21T17:08:33.865Z] [INFO] ERP sync started | Context: {"batchId":"49318565-eb33-4f59-bce9-4eca0607f4bf","fileName":"test-import-deact.csv","fileType":"CSV","totalRows":1}
+[2026-06-21T17:08:33.866Z] [INFO] Articles active status bulk toggled | Context: {"count":1,"isActive":true}
+[2026-06-21T17:08:33.868Z] [ERROR] Articles active status bulk toggle failed | Context: {"count":1,"error":"No autorizado. Se requiere rol de administrador."}
+[2026-06-21T17:08:33.874Z] [INFO] Favorite status toggled | Context: {"userId":"41a6ca9d-1c61-44a9-bc37-6e01a6364940","articleId":"2f27a66a-1945-4161-ab88-a33ce13a9213","isFavorited":false}
+[2026-06-21T17:08:33.880Z] [INFO] Info request submitted successfully | Context: {"name":"Catalog Tester","email":"catalog-tester@example.com","articleId":"2f27a66a-1945-4161-ab88-a33ce13a9213"}
+[2026-06-21T17:08:33.886Z] [INFO] ERP sync batch processed successfully | Context: {"batchId":"49318565-eb33-4f59-bce9-4eca0607f4bf","count":1,"progress":"1/1"}
+[2026-06-21T17:08:33.886Z] [INFO] ERP sync checking deactivations | Context: {"batchId":"49318565-eb33-4f59-bce9-4eca0607f4bf"}
+[2026-06-21T17:08:33.891Z] [INFO] ERP sync finished | Context: {"batchId":"49318565-eb33-4f59-bce9-4eca0607f4bf","success":true,"successCount":1,"errorCount":0}
+[2026-06-21T17:08:33.895Z] [ERROR] Error revalidando rutas tras importación exitosa | Context: {"batchId":"49318565-eb33-4f59-bce9-4eca0607f4bf","error":"Invariant: static generation store missing in revalidatePath /"}
+[2026-06-21T17:08:33.896Z] [INFO] B2B Company registration requested successfully | Context: {"email":"test-b2b-actions@example.com","userId":"d144a7b8-9ba7-4662-b5bd-918d3ea7de07","companyId":"5e3d1ad9-9b3b-469d-8c45-751f24c6f7bd","legalName":"Test B2B Corp","taxId":"A88888888"}
+[2026-06-21T17:08:33.916Z] [INFO] B2B account approved by admin | Context: {"userId":"d144a7b8-9ba7-4662-b5bd-918d3ea7de07","priceListCode":"PRO_61c876df","adminId":"4e027953-6dbb-496a-acec-56c29ae28f4f","companyId":"5e3d1ad9-9b3b-469d-8c45-751f24c6f7bd"}
+[2026-06-21T17:11:17.508Z] [WARN] User login failed | Context: {"email":"admin@ferreteria.local","error":"Read more at https://errors.authjs.dev#credentialssignin"}
+[2026-06-21T17:11:27.139Z] [WARN] User login failed | Context: {"email":"admin@ferreteria.local","error":"Read more at https://errors.authjs.dev#credentialssignin"}
+[2026-06-21T17:11:36.775Z] [WARN] User login failed | Context: {"email":"admin@ferreteria.local","error":"Read more at https://errors.authjs.dev#credentialssignin"}
+[2026-06-21T17:13:17.573Z] [WARN] User login failed | Context: {"email":"admin@ferreteria.local","error":"Read more at https://errors.authjs.dev#credentialssignin"}
+[2026-06-21T17:13:20.268Z] [WARN] User login failed | Context: {"email":"admin@ferreteria.local","error":"Read more at https://errors.authjs.dev#credentialssignin"}
+[2026-06-21T17:13:40.083Z] [WARN] User login failed | Context: {"email":"admin@ferreteria.local","error":"Read more at https://errors.authjs.dev#credentialssignin"}
+[2026-06-21T17:13:42.606Z] [WARN] User login failed | Context: {"email":"admin@ferreteria.local","error":"Read more at https://errors.authjs.dev#credentialssignin"}
+[2026-06-21T17:15:06.291Z] [INFO] B2C User registered successfully | Context: {"email":"test-b2c-actions@example.com","userId":"e0e31702-ab42-4dfb-a696-476f24d5ea93"}
+[2026-06-21T17:15:06.344Z] [INFO] B2B Company registration requested successfully | Context: {"email":"test-b2b-actions@example.com","userId":"a5a2af22-8d8c-4cc0-93fd-41a8980a3476","companyId":"db73dc37-e0e5-4636-8202-81e4e8919778","legalName":"Test B2B Corp","taxId":"A88888888"}
+[2026-06-21T17:15:06.360Z] [INFO] B2B account approved by admin | Context: {"userId":"a5a2af22-8d8c-4cc0-93fd-41a8980a3476","priceListCode":"PRO_a8e68fb3","adminId":"9513eead-ec43-4043-887d-2b6ede43deba","companyId":"db73dc37-e0e5-4636-8202-81e4e8919778"}
+[2026-06-21T17:15:11.645Z] [INFO] Test message for Vitest 0.7552528352493 | Context: {"testKey":"testVal"}
+[2026-06-21T17:15:11.647Z] [ERROR] Test error message for Vitest 0.11385102746188813
+[2026-06-21T17:15:11.976Z] [INFO] Info request status toggled | Context: {"requestId":"bfb9adf9-7c61-4609-bb54-370716f12fe2","status":"ATTENDED"}
+[2026-06-21T17:15:11.980Z] [INFO] ERP sync started | Context: {"batchId":"aec8f6e1-d2d5-49bb-8c3a-25f2f48a5977","fileName":"test-import.csv","fileType":"CSV","totalRows":1}
+[2026-06-21T17:15:11.981Z] [INFO] Info request status toggled | Context: {"requestId":"bfb9adf9-7c61-4609-bb54-370716f12fe2","status":"NEW"}
+[2026-06-21T17:15:11.983Z] [INFO] Menu item created | Context: {"label":"New Dynamic Link","href":"/dynamic-path"}
+[2026-06-21T17:15:11.986Z] [INFO] Article active status toggled | Context: {"articleId":"c4f11bf8-8225-4498-80ed-6ab807696a4f","isActive":false}
+[2026-06-21T17:15:11.990Z] [ERROR] Menu item creation failed | Context: {"label":"Dynamic Link unauthorized","error":"No autorizado. Se requiere rol de administrador."}
+[2026-06-21T17:15:11.991Z] [INFO] Article active status toggled | Context: {"articleId":"c4f11bf8-8225-4498-80ed-6ab807696a4f","isActive":true}
+[2026-06-21T17:15:11.993Z] [INFO] Menu item updated | Context: {"id":"9b620594-bad7-4254-857e-179e2b14ce1c","label":"Test Link 1 (Updated)","href":"/test-1-updated"}
+[2026-06-21T17:15:11.993Z] [ERROR] Article active status toggle failed | Context: {"articleId":"c4f11bf8-8225-4498-80ed-6ab807696a4f","error":"No autorizado. Se requiere rol de administrador."}
+[2026-06-21T17:15:11.994Z] [INFO] B2C User registered successfully | Context: {"email":"test-b2c-actions@example.com","userId":"2d2dd8f4-fd22-4935-a9de-9ff9dd8ebe10"}
+[2026-06-21T17:15:11.997Z] [INFO] Articles active status bulk toggled | Context: {"count":1,"isActive":false}
+[2026-06-21T17:15:11.998Z] [INFO] Menu item status toggled | Context: {"id":"17c726c8-e137-4d37-8150-af4cab65d4c6","isActive":true}
+[2026-06-21T17:15:12.002Z] [INFO] ERP sync batch processed successfully | Context: {"batchId":"aec8f6e1-d2d5-49bb-8c3a-25f2f48a5977","count":1,"progress":"1/1"}
+[2026-06-21T17:15:12.003Z] [INFO] ERP sync checking deactivations | Context: {"batchId":"aec8f6e1-d2d5-49bb-8c3a-25f2f48a5977"}
+[2026-06-21T17:15:12.002Z] [INFO] Articles active status bulk toggled | Context: {"count":1,"isActive":true}
+[2026-06-21T17:15:12.003Z] [INFO] Menu item status toggled | Context: {"id":"17c726c8-e137-4d37-8150-af4cab65d4c6","isActive":false}
+[2026-06-21T17:15:12.005Z] [ERROR] Articles active status bulk toggle failed | Context: {"count":1,"error":"No autorizado. Se requiere rol de administrador."}
+[2026-06-21T17:15:12.006Z] [INFO] ERP sync finished | Context: {"batchId":"aec8f6e1-d2d5-49bb-8c3a-25f2f48a5977","success":true,"successCount":1,"errorCount":0}
+[2026-06-21T17:15:12.011Z] [ERROR] Error revalidando rutas tras importación exitosa | Context: {"batchId":"aec8f6e1-d2d5-49bb-8c3a-25f2f48a5977","error":"Invariant: static generation store missing in revalidatePath /"}
+[2026-06-21T17:15:12.013Z] [INFO] Menu item deleted | Context: {"id":"25ebef67-0234-47b1-be33-eaf380f27887"}
+[2026-06-21T17:15:12.023Z] [INFO] ERP sync started | Context: {"batchId":"5c42a227-2c84-4423-9e88-774648d29eae","fileName":"test-import-deact.csv","fileType":"CSV","totalRows":1}
+[2026-06-21T17:15:12.033Z] [INFO] Favorite status toggled | Context: {"userId":"f13708ef-f0c2-40f1-a44d-909ae9f5627b","articleId":"b3d8eb0c-78e4-433f-8bff-d2bad6ba9b7d","isFavorited":true}
+[2026-06-21T17:15:12.038Z] [INFO] ERP sync batch processed successfully | Context: {"batchId":"5c42a227-2c84-4423-9e88-774648d29eae","count":1,"progress":"1/1"}
+[2026-06-21T17:15:12.039Z] [INFO] ERP sync checking deactivations | Context: {"batchId":"5c42a227-2c84-4423-9e88-774648d29eae"}
+[2026-06-21T17:15:12.042Z] [INFO] Favorite status toggled | Context: {"userId":"f13708ef-f0c2-40f1-a44d-909ae9f5627b","articleId":"b3d8eb0c-78e4-433f-8bff-d2bad6ba9b7d","isFavorited":false}
+[2026-06-21T17:15:12.043Z] [INFO] ERP sync finished | Context: {"batchId":"5c42a227-2c84-4423-9e88-774648d29eae","success":true,"successCount":1,"errorCount":0}
+[2026-06-21T17:15:12.046Z] [ERROR] Error revalidando rutas tras importación exitosa | Context: {"batchId":"5c42a227-2c84-4423-9e88-774648d29eae","error":"Invariant: static generation store missing in revalidatePath /"}
+[2026-06-21T17:15:12.047Z] [INFO] B2B Company registration requested successfully | Context: {"email":"test-b2b-actions@example.com","userId":"4c0a1053-8355-48d4-93bc-c3e7d4c49216","companyId":"4e837c9e-313c-4d8b-a245-3ae54e81782f","legalName":"Test B2B Corp","taxId":"A88888888"}
+[2026-06-21T17:15:12.049Z] [INFO] Info request submitted successfully | Context: {"name":"Catalog Tester","email":"catalog-tester@example.com","articleId":"b3d8eb0c-78e4-433f-8bff-d2bad6ba9b7d"}
+[2026-06-21T17:15:12.062Z] [INFO] B2B account approved by admin | Context: {"userId":"4c0a1053-8355-48d4-93bc-c3e7d4c49216","priceListCode":"PRO_b645ce4f","adminId":"86961c82-f16e-4142-9951-8e3e18d323cc","companyId":"4e837c9e-313c-4d8b-a245-3ae54e81782f"}
+[2026-06-21T17:30:39.479Z] [INFO] User login successful | Context: {"email":"admin@ferreteria.local"}
+[2026-06-22T00:16:30.087Z] [INFO] Articles active status bulk toggled | Context: {"count":20,"isActive":true}

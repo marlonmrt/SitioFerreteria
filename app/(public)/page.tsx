@@ -1,6 +1,5 @@
 import Link from "next/link";
 import {
-  ArrowRight,
   BadgeCheck,
   Factory,
   ShieldCheck,
@@ -17,9 +16,30 @@ import {
 } from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import HeroCarousel from "@/components/shared/hero-carousel";
 import { getFamilies, getStores } from "@/lib/db/queries/catalog";
+
+const heroSlides = [
+  {
+    gradient: "bg-gradient-to-br from-[#1e3a5f] via-[#2a5a8a] to-[#3a7abd]",
+    title: "Ferretería conectada al ERP",
+    subtitle: "Consulta artículos, familias, tarifas públicas y acceso profesional validado sin carrito ni checkout. El catálogo se actualiza desde los ficheros exportados por el ERP.",
+    cta: { label: "Crear cuenta particular", href: "/registro" }
+  },
+  {
+    gradient: "bg-gradient-to-br from-[#5c2d0a] via-[#8b4513] to-[#c07030]",
+    title: "Tarifas especiales para profesionales",
+    subtitle: "Solicita tu alta B2B y accede a precios exclusivos con tu tarifa personalizada. Aprobación manual por nuestro equipo comercial.",
+    cta: { label: "Solicitar alta B2B", href: "/registro-empresa" }
+  },
+  {
+    gradient: "bg-gradient-to-br from-[#0d3b2e] via-[#1a6b4a] to-[#28a06b]",
+    title: "Materiales para obra y reforma",
+    subtitle: "Explora nuestro catálogo completo de materiales de construcción, fontanería, electricidad y más. Solicita información y presupuesto sin compromiso.",
+    cta: { label: "Ver catálogo", href: "/articulos" }
+  }
+];
 
 const highlights = [
   {
@@ -73,58 +93,8 @@ export default async function HomePage() {
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8 lg:py-16">
-      {/* Hero Section */}
-      <section className="overflow-hidden rounded-[2rem] border border-border/70 bg-card shadow-soft">
-        <div className="grid gap-10 p-6 lg:grid-cols-[1.1fr_0.9fr] lg:p-10">
-          <div className="flex flex-col justify-center">
-            <Badge className="w-fit rounded-full px-4 py-1.5 text-xs uppercase tracking-[0.2em]">
-              Catálogo informativo
-            </Badge>
-            <h1 className="mt-5 max-w-3xl text-4xl font-semibold tracking-tight text-balance sm:text-5xl lg:text-6xl">
-              Ferretería conectada al ERP, B2C y profesionales.
-            </h1>
-            <p className="mt-5 max-w-2xl text-base leading-7 text-muted-foreground sm:text-lg">
-              Consulta artículos, familias, tarifas públicas y acceso profesional validado sin
-              carrito ni checkout. El catálogo se actualiza desde los ficheros exportados por el ERP.
-            </p>
-
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <Button asChild size="lg" className="rounded-2xl px-6">
-                <Link href="/registro">
-                  Crear cuenta particular <ArrowRight className="ml-2 h-4 w-4" />
-                </Link>
-              </Button>
-              <Button asChild variant="secondary" size="lg" className="rounded-2xl px-6">
-                <Link href="/registro-empresa">Solicitar alta B2B</Link>
-              </Button>
-            </div>
-          </div>
-
-          <div className="relative rounded-[2rem] bg-[radial-gradient(circle_at_top_left,_rgba(255,255,255,0.18),_transparent_28%),linear-gradient(145deg,_rgba(229,112,31,0.98),_rgba(163,66,21,0.94))] p-6 text-white shadow-glow flex flex-col justify-center min-h-[300px]">
-            <div className="absolute inset-0 bg-hero-grid bg-[length:18px_18px] opacity-20" />
-            <div className="relative space-y-5">
-              <div className="rounded-2xl border border-white/15 bg-white/10 p-5 backdrop-blur">
-                <h3 className="text-lg font-semibold mb-2">Presupuestos y Disponibilidad</h3>
-                <p className="text-sm text-white/80 leading-relaxed">
-                  ¿Necesitas materiales para una obra o reforma? Utiliza el botón &quot;Solicitar información&quot; en cualquier ficha de artículo para pedir un presupuesto personalizado directamente a tu tienda más cercana.
-                </p>
-              </div>
-
-              <div className="rounded-2xl border border-white/15 bg-white/10 p-4 backdrop-blur">
-                <div className="flex items-center gap-3">
-                  <Store className="h-5 w-5 shrink-0" />
-                  <div>
-                    <p className="text-sm font-medium">Aviso de Stock</p>
-                    <p className="text-xs text-white/80 mt-0.5">
-                      Catálogo exclusivamente orientativo. Consulte disponibilidad real en tienda antes de desplazarse.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* Hero Carousel */}
+      <HeroCarousel slides={heroSlides} />
 
       {/* Grid de Familias */}
       <section className="mt-16">

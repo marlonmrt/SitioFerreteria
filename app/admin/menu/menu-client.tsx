@@ -1,8 +1,8 @@
 "use client";
 
-import { useState, useTransition, useActionState, useEffect } from "react";
+import { useState, useTransition, useActionState, useEffect, useMemo } from "react";
 import { useRouter } from "next/navigation";
-import { Edit, Trash2, Plus, Loader2, Link2, Eye, EyeOff } from "lucide-react";
+import { Edit, Trash2, Plus, Loader2, Link2, Eye, EyeOff, ListTree } from "lucide-react";
 import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
@@ -46,15 +46,51 @@ interface MenuClientProps {
   families: FamilyData[];
 }
 
+type TreeNode = MenuItemData & { children: TreeNode[] };
+
+function buildTree(items: MenuItemData[]): (TreeNode & { depth: number })[] {
+  const map = new Map<string, TreeNode>();
+  const roots: TreeNode[] = [];
+
+  for (const item of items) {
+    map.set(item.id, { ...item, children: [] });
+  }
+
+  for (const item of items) {
+    const node = map.get(item.id)!;
+    if (item.parentId && map.has(item.parentId)) {
+      map.get(item.parentId)!.children.push(node);
+    } else {
+      roots.push(node);
+    }
+  }
+
+  function flatten(nodes: TreeNode[], depth: number): (TreeNode & { depth: number })[] {
+    const result: (TreeNode & { depth: number })[] = [];
+    for (const node of nodes) {
+      result.push({ ...node, depth });
+      if (node.children.length > 0) {
+        result.push(...flatten(node.children, depth + 1));
+      }
+    }
+    return result;
+  }
+
+  return flatten(roots, 0);
+}
+
 export default function MenuClient({ initialItems, families }: MenuClientProps) {
   const router = useRouter();
   const [isPendingTransition, startTransition] = useTransition();
+
+  const treeItems = useMemo(() => buildTree(initialItems), [initialItems]);
 
   // Modales states
   const [modal, setModal] = useState<{
     open: boolean;
     mode: "create" | "edit";
     data?: MenuItemData;
+    preselectedParentId?: string;
   }>({ open: false, mode: "create" });
 
   const [hrefValue, setHrefValue] = useState("");
@@ -128,18 +164,37 @@ export default function MenuClient({ initialItems, families }: MenuClientProps) 
     });
   };
 
-  // Filter possible parents (cannot be itself)
-  const availableParents = initialItems.filter(
-    (item) => modal.mode === "create" || item.id !== modal.data?.id
-  );
+  // Filter possible parents (cannot be itself or its children)
+  const getDescendantIds = (itemId: string, items: MenuItemData[]): Set<string> => {
+    const ids = new Set<string>([itemId]);
+    for (const item of items) {
+      if (item.parentId && ids.has(item.parentId)) {
+        ids.add(item.id);
+      }
+    }
+    return ids;
+  };
+
+  const availableParents = modal.mode === "create"
+    ? initialItems
+    : initialItems.filter((item) => {
+        const descendantIds = getDescendantIds(modal.data!.id, initialItems);
+        return !descendantIds.has(item.id);
+      });
 
   return (
     <div className="space-y-6">
       {/* Action Bar */}
       <div className="flex justify-between items-center">
-        <p className="text-sm text-muted-foreground">
-          Total de enlaces configurados: <strong className="text-foreground">{initialItems.length}</strong>
-        </p>
+        <div className="flex items-center gap-3">
+          <p className="text-sm text-muted-foreground">
+            Total de enlaces configurados: <strong className="text-foreground">{initialItems.length}</strong>
+          </p>
+          <Badge variant="secondary" className="rounded-lg font-normal gap-1">
+            <ListTree className="h-3.5 w-3.5" />
+            {treeItems.filter((i) => i.depth === 0).length} principales / {treeItems.filter((i) => i.depth > 0).length} submenús
+          </Badge>
+        </div>
         <Button
           onClick={() => setModal({ open: true, mode: "create" })}
           className="rounded-xl gap-1.5 h-10 shadow-sm"
@@ -157,41 +212,42 @@ export default function MenuClient({ initialItems, families }: MenuClientProps) 
               <TableHead>Etiqueta</TableHead>
               <TableHead>Enlace (href)</TableHead>
               <TableHead className="text-center">Orden</TableHead>
-              <TableHead>Nivel / Padre</TableHead>
               <TableHead className="text-center">Estado</TableHead>
               <TableHead className="text-right">Acciones</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
-            {initialItems.length > 0 ? (
-              initialItems.map((item) => {
-                const parentItem = initialItems.find((p) => p.id === item.parentId);
+            {treeItems.length > 0 ? (
+              treeItems.map((item) => {
                 const isToggling = activeToggleId === item.id && isPendingTransition;
+                const hasChildren = item.children.length > 0;
 
                 return (
                   <TableRow key={item.id} className="hover:bg-muted/10">
                     <TableCell className="font-semibold text-foreground">
-                      <div className="flex items-center gap-2">
-                        <Link2 className="h-4 w-4 text-muted-foreground/60" />
-                        {item.label}
+                      <div
+                        className="flex items-center gap-2"
+                        style={{ paddingLeft: `${item.depth * 24}px` }}
+                      >
+                        {item.depth > 0 && (
+                          <div className="h-px w-4 border-t border-border/50" />
+                        )}
+                        <Link2 className={`h-4 w-4 shrink-0 ${hasChildren ? "text-primary" : "text-muted-foreground/60"}`} />
+                        <span className={item.depth > 0 ? "text-sm font-normal text-muted-foreground" : ""}>
+                          {item.label}
+                        </span>
+                        {hasChildren && (
+                          <Badge variant="outline" className="rounded-lg text-[10px] h-5 px-1.5 font-normal">
+                            {item.children.length}
+                          </Badge>
+                        )}
                       </div>
                     </TableCell>
-                    <TableCell className="font-mono text-xs text-muted-foreground">
+                    <TableCell className="font-mono text-xs text-muted-foreground max-w-[180px] truncate">
                       {item.href}
                     </TableCell>
                     <TableCell className="text-center font-medium">
                       {item.sortOrder}
-                    </TableCell>
-                    <TableCell>
-                      {parentItem ? (
-                        <Badge variant="outline" className="rounded-lg font-normal bg-accent/40">
-                          Subnivel de: {parentItem.label}
-                        </Badge>
-                      ) : (
-                        <Badge variant="secondary" className="rounded-lg font-normal">
-                          Nivel Principal
-                        </Badge>
-                      )}
                     </TableCell>
                     <TableCell className="text-center">
                       <Button
@@ -211,7 +267,23 @@ export default function MenuClient({ initialItems, families }: MenuClientProps) 
                         {item.isActive ? "Desactivar" : "Activar"}
                       </Button>
                     </TableCell>
-                    <TableCell className="text-right space-x-1.5">
+                    <TableCell className="text-right space-x-1.5 whitespace-nowrap">
+                      <Button
+                        size="sm"
+                        variant="secondary"
+                        disabled={isPendingTransition}
+                        className="rounded-lg h-8 px-2.5"
+                        title="Añadir submenú"
+                        onClick={() =>
+                          setModal({
+                            open: true,
+                            mode: "create",
+                            preselectedParentId: item.id
+                          })
+                        }
+                      >
+                        <Plus className="h-3.5 w-3.5" />
+                      </Button>
                       <Button
                         size="sm"
                         variant="secondary"
@@ -238,7 +310,7 @@ export default function MenuClient({ initialItems, families }: MenuClientProps) 
               })
             ) : (
               <TableRow>
-                <TableCell colSpan={6} className="h-32 text-center text-muted-foreground">
+                <TableCell colSpan={5} className="h-32 text-center text-muted-foreground">
                   No hay enlaces de menú creados. Se usarán los enlaces por defecto.
                 </TableCell>
               </TableRow>
@@ -255,7 +327,9 @@ export default function MenuClient({ initialItems, families }: MenuClientProps) 
               {modal.mode === "create" ? "Añadir Enlace al Menú" : "Editar Enlace de Menú"}
             </DialogTitle>
             <DialogDescription>
-              Introduce los detalles para el enlace de navegación.
+              {modal.mode === "create" && modal.preselectedParentId
+                ? "Se creará como submenú del elemento seleccionado."
+                : "Introduce los detalles para el enlace de navegación."}
             </DialogDescription>
           </DialogHeader>
 
@@ -362,7 +436,11 @@ export default function MenuClient({ initialItems, families }: MenuClientProps) 
                 <select
                   id="parentId"
                   name="parentId"
-                  defaultValue={modal.mode === "edit" ? modal.data?.parentId || "" : ""}
+                  defaultValue={
+                    modal.mode === "edit"
+                      ? modal.data?.parentId || ""
+                      : modal.preselectedParentId || ""
+                  }
                   disabled={isFormPending}
                   className="flex h-10 w-full rounded-xl border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                 >

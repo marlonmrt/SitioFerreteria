@@ -92,196 +92,200 @@ export function SiteHeader({ session, menuItems }: SiteHeaderProps) {
   const parentLinks = normalizedLinks.filter((link) => !link.parentId);
   return (
     <header className="sticky top-0 z-50 border-b border-border/60 bg-background/90 backdrop-blur-xl">
-      <div className="mx-auto flex max-w-7xl items-center gap-3 px-4 py-3 sm:px-6 lg:px-8">
-        <Link href="/" className="flex items-center gap-3 rounded-2xl px-2 py-1 transition-colors hover:bg-accent/40">
-          <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-primary text-primary-foreground shadow-glow">
-            <Store className="h-5 w-5" />
-          </span>
-          <span className="flex flex-col leading-tight">
-            <span className="text-sm font-semibold uppercase tracking-[0.24em] text-muted-foreground">
-              Ferretería
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        {/* Fila superior: logo + nav/actions */}
+        <div className="flex items-center gap-3 py-3">
+          <Link href="/" className="flex items-center gap-3 rounded-2xl px-2 py-1 transition-colors hover:bg-accent/40 shrink-0">
+            <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-primary text-primary-foreground shadow-glow">
+              <Store className="h-5 w-5" />
             </span>
-            <span className="text-base font-semibold text-foreground">Sitio Catálogo</span>
-          </span>
-        </Link>
+            <span className="flex-col leading-tight hidden sm:flex">
+              <span className="text-sm font-semibold uppercase tracking-[0.24em] text-muted-foreground">
+                Ferretería
+              </span>
+              <span className="text-base font-semibold text-foreground">Sitio Catálogo</span>
+            </span>
+          </Link>
 
-        {/* Buscador inteligente en desktop */}
-        <div className="hidden flex-1 max-w-md lg:block mx-4">
-          <SearchBar />
-        </div>
+          {/* Buscador - visible en tablet y desktop en la misma fila */}
+          <div className="flex-1 max-w-md mx-2 hidden sm:block">
+            <SearchBar />
+          </div>
 
-        <div className="hidden items-center gap-2 lg:flex">
-          <NavigationMenu>
-            <NavigationMenuList>
-              {parentLinks.map((link) => {
-                const subLinks = normalizedLinks.filter((child) => child.parentId === link.id);
-                if (subLinks.length > 0) {
-                  return (
-                    <NavigationMenuItem key={link.id}>
-                      <NavigationMenuTrigger className="gap-1 rounded-xl">
-                        <span>{link.label}</span>
-                      </NavigationMenuTrigger>
-                      <NavigationMenuContent>
-                        <div className="flex flex-col w-[200px] p-2 gap-1 bg-popover rounded-xl border border-border/40 shadow-md">
-                          <NavigationMenuLink asChild>
-                            <Link
-                              href={link.href}
-                              className="block rounded-lg px-3 py-2 text-sm font-semibold hover:bg-accent hover:text-accent-foreground"
-                            >
-                              Ver todo
-                            </Link>
-                          </NavigationMenuLink>
-                          <div className="h-px bg-border/40 my-1" />
-                          {subLinks.map((subLink) => (
-                            <NavigationMenuLink key={subLink.id} asChild>
+          {/* Navegación y acciones (desktop) */}
+          <div className="hidden items-center gap-2 lg:flex ml-auto">
+            <NavigationMenu>
+              <NavigationMenuList>
+                {parentLinks.map((link) => {
+                  const subLinks = normalizedLinks.filter((child) => child.parentId === link.id);
+                  if (subLinks.length > 0) {
+                    return (
+                      <NavigationMenuItem key={link.id}>
+                        <NavigationMenuTrigger className="gap-1 rounded-xl">
+                          <span>{link.label}</span>
+                        </NavigationMenuTrigger>
+                        <NavigationMenuContent>
+                          <div className="flex flex-col w-[200px] p-2 gap-1 bg-popover rounded-xl border border-border/40 shadow-md">
+                            <NavigationMenuLink asChild>
                               <Link
-                                href={subLink.href}
-                                className="block rounded-lg px-3 py-2 text-sm text-muted-foreground hover:bg-accent hover:text-accent-foreground"
+                                href={link.href}
+                                className="block rounded-lg px-3 py-2 text-sm font-semibold hover:bg-accent hover:text-accent-foreground"
                               >
-                                {subLink.label}
+                                Ver todo
                               </Link>
                             </NavigationMenuLink>
-                          ))}
-                        </div>
-                      </NavigationMenuContent>
+                            <div className="h-px bg-border/40 my-1" />
+                            {subLinks.map((subLink) => (
+                              <NavigationMenuLink key={subLink.id} asChild>
+                                <Link
+                                  href={subLink.href}
+                                  className="block rounded-lg px-3 py-2 text-sm text-muted-foreground hover:bg-accent hover:text-accent-foreground"
+                                >
+                                  {subLink.label}
+                                </Link>
+                              </NavigationMenuLink>
+                            ))}
+                          </div>
+                        </NavigationMenuContent>
+                      </NavigationMenuItem>
+                    );
+                  }
+
+                  return (
+                    <NavigationMenuItem key={link.id}>
+                      <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
+                        <Link href={link.href}>{link.label}</Link>
+                      </NavigationMenuLink>
                     </NavigationMenuItem>
                   );
-                }
+                })}
 
-                return (
-                  <NavigationMenuItem key={link.id}>
-                    <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
-                      <Link href={link.href}>{link.label}</Link>
-                    </NavigationMenuLink>
+                {session?.user ? (
+                  <NavigationMenuItem>
+                    <NavigationMenuTrigger>
+                      <span className="font-medium text-primary">Hola, {session.user.name}</span>
+                      <ChevronDown className="ml-1 h-4 w-4" />
+                    </NavigationMenuTrigger>
+                    <NavigationMenuContent>
+                      <div className="flex flex-col w-[220px] p-2 gap-1 bg-popover rounded-xl">
+                        <span className="px-3 py-1.5 text-xs text-muted-foreground border-b border-border mb-1">
+                          {session.user.type === "ADMIN"
+                            ? "Administrador"
+                            : session.user.type === "B2B"
+                              ? "Profesional B2B"
+                              : "Particular B2C"}
+                        </span>
+                        {session.user.type === "ADMIN" && (
+                          <NavigationMenuLink asChild>
+                            <Link
+                              href="/admin"
+                              className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm hover:bg-accent"
+                            >
+                              <LayoutDashboard className="h-4 w-4 text-muted-foreground" />
+                              Panel Admin
+                            </Link>
+                          </NavigationMenuLink>
+                        )}
+                        {session.user.type === "B2B" && (
+                          <>
+                            <NavigationMenuLink asChild>
+                              <Link
+                                href="/mi-cuenta-empresa"
+                                className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm hover:bg-accent"
+                              >
+                                <User className="h-4 w-4 text-muted-foreground" />
+                                Mi Cuenta B2B
+                              </Link>
+                            </NavigationMenuLink>
+                            <NavigationMenuLink asChild>
+                              <Link
+                                href="/mi-cuenta-empresa/favoritos"
+                                className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm hover:bg-accent"
+                              >
+                                <Heart className="h-4 w-4 text-muted-foreground" />
+                                Favoritos
+                              </Link>
+                            </NavigationMenuLink>
+                          </>
+                        )}
+                        {session.user.type === "B2C" && (
+                          <>
+                            <NavigationMenuLink asChild>
+                              <Link
+                                href="/mi-cuenta"
+                                className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm hover:bg-accent"
+                              >
+                                <User className="h-4 w-4 text-muted-foreground" />
+                                Mi Cuenta
+                              </Link>
+                            </NavigationMenuLink>
+                            <NavigationMenuLink asChild>
+                              <Link
+                                href="/mi-cuenta/favoritos"
+                                className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm hover:bg-accent"
+                              >
+                                <Heart className="h-4 w-4 text-muted-foreground" />
+                                Favoritos
+                              </Link>
+                            </NavigationMenuLink>
+                          </>
+                        )}
+                        <button
+                          onClick={() => signOut({ callbackUrl: "/" })}
+                          className="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-sm text-destructive hover:bg-destructive/10 text-left"
+                        >
+                          <LogOut className="h-4 w-4" />
+                          Cerrar sesión
+                        </button>
+                      </div>
+                    </NavigationMenuContent>
                   </NavigationMenuItem>
-                );
-              })}
+                ) : (
+                  <NavigationMenuItem>
+                    <NavigationMenuTrigger>
+                      <span>Acceder</span>
+                      <ChevronDown className="ml-1 h-4 w-4" />
+                    </NavigationMenuTrigger>
+                    <NavigationMenuContent>
+                      <div className="grid w-[340px] gap-2 p-3 md:w-[420px] md:grid-cols-2">
+                        <AccessLinks />
+                      </div>
+                    </NavigationMenuContent>
+                  </NavigationMenuItem>
+                )}
+              </NavigationMenuList>
+            </NavigationMenu>
 
-              {session?.user ? (
-                <NavigationMenuItem>
-                  <NavigationMenuTrigger>
-                    <span className="font-medium text-primary">Hola, {session.user.name}</span>
-                    <ChevronDown className="ml-1 h-4 w-4" />
-                  </NavigationMenuTrigger>
-                  <NavigationMenuContent>
-                    <div className="flex flex-col w-[220px] p-2 gap-1 bg-popover rounded-xl">
-                      <span className="px-3 py-1.5 text-xs text-muted-foreground border-b border-border mb-1">
-                        {session.user.type === "ADMIN"
-                          ? "Administrador"
-                          : session.user.type === "B2B"
-                            ? "Profesional B2B"
-                            : "Particular B2C"}
-                      </span>
-                      {session.user.type === "ADMIN" && (
-                        <NavigationMenuLink asChild>
-                          <Link
-                            href="/admin"
-                            className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm hover:bg-accent"
-                          >
-                            <LayoutDashboard className="h-4 w-4 text-muted-foreground" />
-                            Panel Admin
-                          </Link>
-                        </NavigationMenuLink>
-                      )}
-                      {session.user.type === "B2B" && (
-                        <>
-                          <NavigationMenuLink asChild>
-                            <Link
-                              href="/mi-cuenta-empresa"
-                              className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm hover:bg-accent"
-                            >
-                              <User className="h-4 w-4 text-muted-foreground" />
-                              Mi Cuenta B2B
-                            </Link>
-                          </NavigationMenuLink>
-                          <NavigationMenuLink asChild>
-                            <Link
-                              href="/mi-cuenta-empresa/favoritos"
-                              className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm hover:bg-accent"
-                            >
-                              <Heart className="h-4 w-4 text-muted-foreground" />
-                              Favoritos
-                            </Link>
-                          </NavigationMenuLink>
-                        </>
-                      )}
-                      {session.user.type === "B2C" && (
-                        <>
-                          <NavigationMenuLink asChild>
-                            <Link
-                              href="/mi-cuenta"
-                              className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm hover:bg-accent"
-                            >
-                              <User className="h-4 w-4 text-muted-foreground" />
-                              Mi Cuenta
-                            </Link>
-                          </NavigationMenuLink>
-                          <NavigationMenuLink asChild>
-                            <Link
-                              href="/mi-cuenta/favoritos"
-                              className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm hover:bg-accent"
-                            >
-                              <Heart className="h-4 w-4 text-muted-foreground" />
-                              Favoritos
-                            </Link>
-                          </NavigationMenuLink>
-                        </>
-                      )}
-                      <button
-                        onClick={() => signOut({ callbackUrl: "/" })}
-                        className="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-sm text-destructive hover:bg-destructive/10 text-left"
-                      >
-                        <LogOut className="h-4 w-4" />
-                        Cerrar sesión
-                      </button>
-                    </div>
-                  </NavigationMenuContent>
-                </NavigationMenuItem>
-              ) : (
-                <NavigationMenuItem>
-                  <NavigationMenuTrigger>
-                    <span>Acceder</span>
-                    <ChevronDown className="ml-1 h-4 w-4" />
-                  </NavigationMenuTrigger>
-                  <NavigationMenuContent>
-                    <div className="grid w-[340px] gap-2 p-3 md:w-[420px] md:grid-cols-2">
-                      <AccessLinks />
-                    </div>
-                  </NavigationMenuContent>
-                </NavigationMenuItem>
-              )}
-            </NavigationMenuList>
-          </NavigationMenu>
-
-          {!session?.user && (
-            <Button asChild className="rounded-2xl px-5">
-              <Link href="/registro">Crear cuenta</Link>
-            </Button>
-          )}
-        </div>
-
-        <div className="ml-auto flex items-center gap-2 lg:hidden">
-          <Button asChild variant="secondary" size="icon" className="rounded-2xl">
-            <Link href="/tiendas" aria-label="Ver tiendas">
-              <Store className="h-4 w-4" />
-            </Link>
-          </Button>
-
-          <Sheet>
-            <SheetTrigger asChild>
-              <Button variant="outline" size="icon" className="rounded-2xl">
-                <Menu className="h-4 w-4" />
+            {!session?.user && (
+              <Button asChild className="rounded-2xl px-5">
+                <Link href="/registro">Crear cuenta</Link>
               </Button>
-            </SheetTrigger>
-            <SheetContent side="right" className="w-full max-w-sm">
-              <SheetHeader className="text-left">
-                <SheetTitle>Sitio Ferretería</SheetTitle>
-              </SheetHeader>
-              <div className="mt-6 space-y-6">
-                {/* Buscador en mobile */}
-                <div>
-                  <SearchBar />
-                </div>
+            )}
+          </div>
+
+          {/* Acciones mobile */}
+          <div className="flex items-center gap-2 lg:hidden ml-auto">
+            <Button asChild variant="secondary" size="icon" className="rounded-2xl">
+              <Link href="/tiendas" aria-label="Ver tiendas">
+                <Store className="h-4 w-4" />
+              </Link>
+            </Button>
+
+            <Sheet>
+              <SheetTrigger asChild>
+                <Button variant="outline" size="icon" className="rounded-2xl">
+                  <Menu className="h-4 w-4" />
+                </Button>
+              </SheetTrigger>
+              <SheetContent side="right" className="w-full max-w-sm">
+                <SheetHeader className="text-left">
+                  <SheetTitle>Sitio Ferretería</SheetTitle>
+                </SheetHeader>
+                <div className="mt-6 space-y-6">
+                  {/* Buscador en mobile */}
+                  <div>
+                    <SearchBar />
+                  </div>
                 <div className="space-y-3">
                   {parentLinks.map((link) => {
                     const subLinks = normalizedLinks.filter((child) => child.parentId === link.id);
@@ -390,6 +394,12 @@ export function SiteHeader({ session, menuItems }: SiteHeaderProps) {
             </SheetContent>
           </Sheet>
         </div>
+      </div>
+
+      {/* Buscador en fila inferior solo en móvil */}
+      <div className="sm:hidden border-t border-border/40 px-4 py-2">
+        <SearchBar />
+      </div>
       </div>
     </header>
   );

@@ -135,6 +135,14 @@ export async function approveB2bAction(
   }
 
   try {
+    // Verificar que el adminId proporcionado existe en la base de datos y es un ADMIN
+    const admin = await db.query.users.findFirst({
+      where: eq(users.id, adminId)
+    });
+    if (!admin || admin.type !== "ADMIN") {
+      return { error: "Sesión de administrador inválida o expirada. Por favor, cierre sesión e inicie sesión de nuevo." };
+    }
+
     const user = await db.query.users.findFirst({
       where: eq(users.id, userId)
     });
@@ -170,7 +178,15 @@ export async function approveB2bAction(
     return { success: true };
   } catch (error) {
     const errorMsg = error instanceof Error ? error.message : "Error al aprobar la cuenta comercial";
-    logger.error("B2B account approval failed", { userId, priceListCode, adminId, error: errorMsg });
+    const pgError = error as { code?: string; detail?: string; message?: string };
+    logger.error("B2B account approval failed", {
+      userId,
+      priceListCode,
+      adminId,
+      error: errorMsg,
+      pgCode: pgError.code,
+      pgDetail: pgError.detail,
+    });
     return { error: errorMsg };
   }
 }

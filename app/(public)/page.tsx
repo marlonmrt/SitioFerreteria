@@ -6,19 +6,71 @@ import {
   Store,
   Bath,
   Layers,
-  Wind,
   Hammer,
-  Home as HomeIcon,
   Wrench,
   Clock,
   Phone,
-  MapPin
+  MapPin,
+  ArrowRight,
+  Sprout,
+  Zap,
+  Lightbulb,
+  Cog,
+  Flower2,
+  Tent,
+  Flame,
+  ToolCase,
+  CookingPot,
+  Fan,
+  Tv,
+  CircuitBoard,
+  Dumbbell,
+  Fuel,
+  Droplets,
+  Shield,
+  ShoppingBag,
+  Warehouse
 } from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 import HeroCarousel from "@/components/shared/hero-carousel";
-import { getFamilies, getStores } from "@/lib/db/queries/catalog";
+import BrandCarousel from "@/components/shared/brand-carousel";
+import { ProductCard } from "@/components/catalog/product-card";
+import { getFamilies, getStores, getUniqueBrands, getArticles } from "@/lib/db/queries/catalog";
+import { getFavoriteIds } from "@/lib/db/queries/catalog";
+import { auth } from "@/auth";
+
+function getCategoryIcon(slug: string) {
+  const key = slug.toLowerCase();
+  if (key.includes("agricult")) return Sprout;
+  if (key.includes("ban") || key.includes("bano")) return Bath;
+  if (key.includes("camp") || key.includes("gas")) return Tent;
+  if (key.includes("electric")) return Zap;
+  if (key.includes("ilumin")) return Lightbulb;
+  if (key.includes("inform") || key.includes("electron")) return CircuitBoard;
+  if (key.includes("maquin")) return Cog;
+  if (key.includes("orden")) return Layers;
+  if (key.includes("muebl")) return Warehouse;
+  if (key.includes("sold")) return Flame;
+  if (key.includes("autom")) return Fuel;
+  if (key.includes("bricolaj")) return ToolCase;
+  if (key.includes("cocin")) return CookingPot;
+  if (key.includes("herram") || key.includes("h-electrica")) return ShoppingBag;
+  if (key.includes("imagen") || key.includes("sonido")) return Tv;
+  if (key.includes("jardin")) return Flower2;
+  if (key.includes("hostel")) return CookingPot;
+  if (key.includes("ocio") || key.includes("deport")) return Dumbbell;
+  if (key.includes("electrodom")) return Fan;
+  if (key.includes("repuest")) return Wrench;
+  if (key.includes("climat")) return Fan;
+  if (key.includes("constru")) return Hammer;
+  if (key.includes("fontan") || key.includes("agua")) return Droplets;
+  if (key.includes("seguridad") || key.includes("proteccion")) return Shield;
+  if (key.includes("limpie")) return Droplets;
+  return Layers;
+}
 
 const heroSlides = [
   {
@@ -59,80 +111,128 @@ const highlights = [
   }
 ];
 
-function getFamilyIcon(slug: string) {
-  switch (slug) {
-    case "banos":
-      return Bath;
-    case "ceramicas":
-      return Layers;
-    case "climatizacion":
-      return Wind;
-    case "construccion":
-      return Hammer;
-    case "hogar-electrodomesticos":
-      return HomeIcon;
-    case "sellado-fijacion":
-      return Wrench;
-    default:
-      return Layers;
-  }
-}
-
-const gradientClasses = [
-  "from-blue-500 to-indigo-600",
-  "from-emerald-400 to-teal-600",
-  "from-orange-400 to-red-600",
-  "from-pink-500 to-rose-600",
-  "from-purple-500 to-violet-600",
-  "from-amber-400 to-orange-600"
+const categoryGradients = [
+  "from-blue-600 to-indigo-700",
+  "from-emerald-500 to-teal-700",
+  "from-orange-500 to-red-600",
+  "from-pink-500 to-rose-700",
+  "from-purple-500 to-violet-700",
+  "from-amber-500 to-orange-600",
+  "from-cyan-500 to-blue-600",
+  "from-lime-500 to-green-600",
+  "from-rose-500 to-pink-600",
+  "from-sky-500 to-indigo-600",
+  "from-teal-500 to-emerald-600",
+  "from-red-500 to-rose-600",
+  "from-violet-500 to-purple-600",
+  "from-yellow-500 to-amber-600",
+  "from-fuchsia-500 to-pink-700",
+  "from-green-500 to-emerald-700"
 ];
 
 export default async function HomePage() {
   const familiesList = await getFamilies();
   const storesList = await getStores();
+  const brands = await getUniqueBrands();
+  const session = await auth();
+  const user = session?.user as { id?: string; type?: string } | undefined;
+  const userId = user?.id;
+
+  const featuredArticles = await getArticles({ limit: 8 });
+  const favoriteIds = userId ? new Set(await getFavoriteIds(userId)) : new Set<string>();
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8 lg:py-16">
       {/* Hero Carousel */}
       <HeroCarousel slides={heroSlides} />
 
-      {/* Grid de Familias */}
-      <section className="mt-16">
+      {/* Nuestras Marcas - Carrusel */}
+      {brands.length > 0 && (
+        <section className="mt-20">
+          <BrandCarousel brands={brands} />
+        </section>
+      )}
+
+      {/* Rectángulos de Categorías - versión visual */}
+      <section className="mt-20">
         <div className="flex flex-col items-center text-center mb-10">
-          <Badge variant="secondary" className="rounded-full px-3 py-1">Nuestros Productos</Badge>
-          <h2 className="mt-4 text-3xl font-semibold tracking-tight sm:text-4xl">Explora por Familias</h2>
+          <Badge variant="secondary" className="rounded-full px-3 py-1">Categorías</Badge>
+          <h2 className="mt-4 text-3xl font-semibold tracking-tight sm:text-4xl">Compra por Categorías</h2>
           <p className="mt-3 max-w-2xl text-muted-foreground text-sm sm:text-base">
-            Selecciona una de las familias principales del catálogo para ver todas las subfamilias y artículos disponibles.
+            Explora nuestras familias de productos y encuentra todo lo que necesitas.
           </p>
         </div>
 
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {familiesList.map((family, index) => {
-            const IconComponent = getFamilyIcon(family.slug);
-            const gradient = gradientClasses[index % gradientClasses.length];
-
+        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          {familiesList.slice(0, 12).map((family, index) => {
+            const Icon = getCategoryIcon(family.slug);
+            const gradient = categoryGradients[index % categoryGradients.length];
             return (
               <Link
                 href={`/familias/${family.slug}`}
                 key={family.id}
-                className="group relative overflow-hidden rounded-3xl border border-border/70 bg-card p-6 shadow-sm transition-all hover:-translate-y-1 hover:shadow-soft"
+                className="group relative overflow-hidden rounded-3xl border border-border/70 bg-card shadow-sm transition-all hover:-translate-y-1 hover:shadow-soft"
               >
-                <div className="flex items-center gap-4">
-                  <div className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br ${gradient} text-white shadow-sm`}>
-                    <IconComponent className="h-5 w-5" />
+                <div className={`absolute inset-0 bg-gradient-to-br ${gradient} opacity-90 group-hover:opacity-100 transition-opacity`} />
+                <div className="relative p-6 flex flex-col min-h-[160px] justify-end">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/20 backdrop-blur-sm text-white mb-3">
+                    <Icon className="h-5 w-5" />
                   </div>
-                  <div>
-                    <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors">
-                      {family.name}
-                    </h3>
-                    <p className="text-xs text-muted-foreground mt-1">Ver artículos →</p>
-                  </div>
+                  <h3 className="text-xl font-bold text-white">{family.name}</h3>
+                  <p className="text-sm text-white/70 mt-1 flex items-center gap-1">
+                    Explorar
+                    <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
+                  </p>
                 </div>
               </Link>
             );
           })}
         </div>
+
+        {familiesList.length > 12 && (
+          <div className="mt-8 text-center">
+            <Button asChild variant="outline" className="rounded-2xl">
+              <Link href="/articulos">
+                Ver todas las categorías
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Link>
+            </Button>
+          </div>
+        )}
       </section>
+
+      {/* Productos Destacados */}
+      {featuredArticles.length > 0 && (
+        <section className="mt-20">
+          <div className="flex flex-col items-center text-center mb-10">
+            <Badge variant="secondary" className="rounded-full px-3 py-1">Catálogo</Badge>
+            <h2 className="mt-4 text-3xl font-semibold tracking-tight sm:text-4xl">Productos Destacados</h2>
+            <p className="mt-3 max-w-2xl text-muted-foreground text-sm sm:text-base">
+              Una selección de artículos disponibles en nuestro catálogo.
+            </p>
+          </div>
+
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            {featuredArticles.map((article) => (
+              <ProductCard
+                key={article.id}
+                article={article}
+                isLoggedIn={!!userId}
+                initialIsFavorited={favoriteIds.has(article.id)}
+              />
+            ))}
+          </div>
+
+          <div className="mt-8 text-center">
+            <Button asChild className="rounded-2xl px-8">
+              <Link href="/articulos">
+                Ver catálogo completo
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Link>
+            </Button>
+          </div>
+        </section>
+      )}
 
       {/* Grid de Tiendas */}
       <section className="mt-20">
@@ -190,6 +290,37 @@ export default async function HomePage() {
             </Card>
           );
         })}
+      </section>
+
+      {/* CTA Newsletter / Profesional */}
+      <section className="mt-20 rounded-3xl bg-[#0c0c0c] border border-white/10 p-8 sm:p-12 shadow-soft">
+        <div className="flex flex-col lg:flex-row items-center justify-between gap-8">
+          <div className="max-w-xl">
+            <Badge variant="secondary" className="rounded-full px-3 py-1 bg-white/10 text-white hover:bg-white/15 border-0">
+              Profesionales
+            </Badge>
+            <h2 className="mt-4 text-2xl sm:text-3xl font-semibold tracking-tight text-white">
+              ¿Eres profesional del sector?
+            </h2>
+            <p className="mt-3 text-white/70 text-sm sm:text-base leading-7">
+                Solicita tu cuenta B2B y accede a tarifas especiales, precios personalizados y
+                atención preferente. Nuestro equipo comercial validará tu solicitud.
+            </p>
+          </div>
+          <div className="flex flex-col sm:flex-row gap-3 shrink-0">
+            <Button asChild size="lg" className="rounded-2xl px-8 bg-primary hover:bg-primary/90 text-white">
+              <Link href="/registro-empresa">
+                Solicitar alta B2B
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Link>
+            </Button>
+            <Button asChild size="lg" variant="outline" className="rounded-2xl px-8 border-white/20 text-white hover:bg-white/10 hover:text-white">
+              <Link href="/contacto">
+                Contactar
+              </Link>
+            </Button>
+          </div>
+        </div>
       </section>
     </div>
   );

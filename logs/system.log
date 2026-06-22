@@ -424,3 +424,10 @@
 [2026-06-21T17:15:12.062Z] [INFO] B2B account approved by admin | Context: {"userId":"4c0a1053-8355-48d4-93bc-c3e7d4c49216","priceListCode":"PRO_b645ce4f","adminId":"86961c82-f16e-4142-9951-8e3e18d323cc","companyId":"4e837c9e-313c-4d8b-a245-3ae54e81782f"}
 [2026-06-21T17:30:39.479Z] [INFO] User login successful | Context: {"email":"admin@ferreteria.local"}
 [2026-06-22T00:16:30.087Z] [INFO] Articles active status bulk toggled | Context: {"count":20,"isActive":true}
+[2026-06-22T11:37:47.712Z] [INFO] Info request submitted successfully | Context: {"name":"MARLON RODRIGUEZ TOLEDO","email":"Marlon.mrt@gmail.com","articleId":"93559630-b834-42b2-ab0f-7a7726cd5235"}
+[2026-06-22T11:43:03.607Z] [INFO] User login successful | Context: {"email":"admin@ferreteria.local"}
+[2026-06-22T11:43:20.277Z] [INFO] Family deleted | Context: {"id":"5e5c8ac9-04f9-4175-b1b1-1bc939728e5b"}
+[2026-06-22T11:44:03.807Z] [ERROR] B2C registration failed | Context: {"email":"asd@asd.om","error":"Read more at https://errors.authjs.dev#credentialssignin"}
+[2026-06-22T11:44:25.218Z] [INFO] B2C User registered successfully | Context: {"email":"asdasd@sdsd.ocm","userId":"fdc34d85-a4eb-4a17-a4cf-1829552686c2"}
+[2026-06-22T11:47:23.945Z] [INFO] B2B Company registration requested successfully | Context: {"email":"revdfsdsd@asdf.com","userId":"3e850c8e-b393-427e-b01f-f3b8dad4407d","companyId":"739a3ae8-f4d0-40d5-a2a6-42332c6ba1e7","legalName":"construc","taxId":"B1555469"}
+[2026-06-22T11:47:38.345Z] [INFO] B2B account approved by admin | Context: {"userId":"3e850c8e-b393-427e-b01f-f3b8dad4407d","priceListCode":"PRO_01","adminId":"092638b7-dca3-44e6-b807-c49655880122","companyId":"739a3ae8-f4d0-40d5-a2a6-42332c6ba1e7"}

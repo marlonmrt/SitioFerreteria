@@ -432,3 +432,4 @@
 [2026-06-22T11:47:23.945Z] [INFO] B2B Company registration requested successfully | Context: {"email":"revdfsdsd@asdf.com","userId":"3e850c8e-b393-427e-b01f-f3b8dad4407d","companyId":"739a3ae8-f4d0-40d5-a2a6-42332c6ba1e7","legalName":"construc","taxId":"B1555469"}
 [2026-06-22T11:47:38.345Z] [INFO] B2B account approved by admin | Context: {"userId":"3e850c8e-b393-427e-b01f-f3b8dad4407d","priceListCode":"PRO_01","adminId":"092638b7-dca3-44e6-b807-c49655880122","companyId":"739a3ae8-f4d0-40d5-a2a6-42332c6ba1e7"}
 [2026-06-23T01:08:11.459Z] [INFO] Favorite status toggled | Context: {"userId":"092638b7-dca3-44e6-b807-c49655880122","articleId":"a1145c50-8219-489e-a249-7d301c6f9530","isFavorited":true}
+[2026-06-23T10:29:57.173Z] [INFO] User login successful | Context: {"email":"admin@ferreteria.local"}

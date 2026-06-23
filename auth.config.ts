@@ -1,10 +1,12 @@
 import type { NextAuthConfig } from "next-auth";
 
 export const authConfig = {
+  trustHost: true,
   pages: {
     signIn: "/login",
     newUser: "/registro"
   },
+  session: { strategy: "jwt" },
   callbacks: {
     authorized({ auth, request: { nextUrl } }) {
       const isLoggedIn = !!auth?.user;

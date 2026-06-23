@@ -58,8 +58,7 @@
   },
   "scripts": {
     "dev": "next dev",
-    "build": "drizzle-kit migrate && next build",
-    "vercel-build": "drizzle-kit migrate && next build",
+    "build": "next build",
     "start": "next start",
     "lint": "eslint .",
     "drizzle:generate": "drizzle-kit generate",

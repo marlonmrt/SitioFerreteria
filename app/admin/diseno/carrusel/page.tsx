@@ -6,7 +6,12 @@ export const metadata = {
 };
 
 export default async function CarruselPage() {
-  const slides = await getAllCarouselSlides();
+  let slides: Awaited<ReturnType<typeof getAllCarouselSlides>> = [];
+  try {
+    slides = await getAllCarouselSlides();
+  } catch {
+    // Tabla aún no existe (migración no aplicada en este entorno)
+  }
 
   return (
     <div className="space-y-6">

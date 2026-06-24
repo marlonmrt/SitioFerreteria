@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 80" fill="none">
+  <rect width="200" height="80" rx="12" fill="white"/>
+  <path d="M36 24 L28 40 L36 40 L30 56 L50 38 L40 38 L48 24 L36 24Z" fill="#DC2626"/>
+  <text x="66" y="45" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="700" fill="#DC2626">Fast</text>
+  <text x="66" y="62" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="300" fill="#475569">Fix</text>
+</svg>

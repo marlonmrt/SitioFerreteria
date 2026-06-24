@@ -1,14 +1,8 @@
 "use client";
 
-import { useEffect, useState, type ElementType } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
-import {
-  ChevronLeft, ChevronRight,
-  Wrench, Cog, Zap, Bath, Flower2, Fan, Hammer, Shield,
-  Tent, Droplets, Lightbulb, Sprout, Fuel, CookingPot,
-  Warehouse, Dumbbell, CircuitBoard, Tv, Flame, ToolCase,
-  ShoppingBag, Layers, Home, Drill, Paintbrush
-} from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
 
@@ -16,58 +10,39 @@ interface BrandCarouselProps {
   brands: string[];
 }
 
-const brandIconPool: ElementType[] = [
-  Wrench, Cog, Zap, Bath, Flower2, Fan, Hammer, Shield,
-  Tent, Droplets, Lightbulb, Sprout, Fuel, CookingPot,
-  Warehouse, Dumbbell, CircuitBoard, Tv, Flame, ToolCase,
-  ShoppingBag, Layers, Home, Drill, Paintbrush
-];
-
-function getBrandIcon(name: string, index: number): ElementType {
-  const key = name.toLowerCase();
-  if (key.includes("icer")) return Cog;
-  if (key.includes("air") || key.includes("vent")) return Fan;
-  if (key.includes("benotti") || key.includes("ban") || key.includes("bath")) return Bath;
-  if (key.includes("donna") || key.includes("garden") || key.includes("jardin")) return Flower2;
-  if (key.includes("fargo") || key.includes("tool")) return ToolCase;
-  if (key.includes("sowell")) return Shield;
-  if (key.includes("takuma")) return Cog;
-  if (key.includes("larry") || key.includes("house")) return Home;
-  if (key.includes("pamacon")) return Wrench;
-  if (key.includes("momi")) return ShoppingBag;
-  if (key.includes("athansport") || key.includes("sport") || key.includes("auto")) return Fuel;
-  if (key.includes("volten")) return Zap;
-  if (key.includes("nodofix") || key.includes("fix")) return Hammer;
-  if (key.includes("electr")) return Zap;
-  if (key.includes("ilumin") || key.includes("led")) return Lightbulb;
-  if (key.includes("maquin") || key.includes("machine")) return Cog;
-  if (key.includes("agricult") || key.includes("campo")) return Sprout;
-  if (key.includes("camp") || key.includes("gas")) return Tent;
-  if (key.includes("fontan") || key.includes("agua")) return Droplets;
-  if (key.includes("cocin") || key.includes("cook")) return CookingPot;
-  if (key.includes("muebl")) return Warehouse;
-  if (key.includes("jardin")) return Flower2;
-  if (key.includes("hostel") || key.includes("bar")) return CookingPot;
-  if (key.includes("deport") || key.includes("ocio")) return Dumbbell;
-  if (key.includes("electrodom") || key.includes("hogar")) return Home;
-  if (key.includes("inform") || key.includes("electron")) return CircuitBoard;
-  if (key.includes("sold") || key.includes("solder")) return Flame;
-  return brandIconPool[index % brandIconPool.length];
+function brandLogoPath(name: string): string {
+  const map: Record<string, string> = {
+    airflow: "airflow",
+    aquapro: "aquapro",
+    buildfix: "buildfix",
+    cooltech: "cooltech",
+    fastfix: "fastfix",
+    fixtile: "fixtile",
+    homelab: "homelab",
+    nordbath: "nordbath",
+    probuild: "probuild",
+    sealpro: "sealpro",
+    stoneline: "stoneline",
+    storemax: "storemax",
+    warmhome: "warmhome"
+  };
+  return map[name.toLowerCase().replace(/[\s-]/g, "")] || name.toLowerCase().replace(/[\s-]/g, "");
 }
 
-const brandGradients = [
-  "from-blue-600 to-blue-800",
-  "from-emerald-600 to-teal-800",
-  "from-orange-600 to-red-700",
-  "from-purple-600 to-violet-800",
-  "from-rose-600 to-pink-800",
-  "from-cyan-600 to-sky-800",
-  "from-amber-600 to-yellow-800",
-  "from-lime-600 to-green-800",
-  "from-indigo-600 to-blue-900",
-  "from-red-600 to-rose-800",
-  "from-teal-600 to-emerald-800",
-  "from-fuchsia-600 to-purple-800"
+const brandAccents = [
+  { border: "border-sky-200", bg: "bg-sky-50", text: "text-sky-700" },
+  { border: "border-blue-200", bg: "bg-blue-50", text: "text-blue-700" },
+  { border: "border-orange-200", bg: "bg-orange-50", text: "text-orange-700" },
+  { border: "border-cyan-200", bg: "bg-cyan-50", text: "text-cyan-700" },
+  { border: "border-red-200", bg: "bg-red-50", text: "text-red-700" },
+  { border: "border-emerald-200", bg: "bg-emerald-50", text: "text-emerald-700" },
+  { border: "border-violet-200", bg: "bg-violet-50", text: "text-violet-700" },
+  { border: "border-blue-200", bg: "bg-blue-50", text: "text-blue-700" },
+  { border: "border-amber-200", bg: "bg-amber-50", text: "text-amber-700" },
+  { border: "border-teal-200", bg: "bg-teal-50", text: "text-teal-700" },
+  { border: "border-stone-200", bg: "bg-stone-50", text: "text-stone-700" },
+  { border: "border-indigo-200", bg: "bg-indigo-50", text: "text-indigo-700" },
+  { border: "border-rose-200", bg: "bg-rose-50", text: "text-rose-700" }
 ];
 
 export default function BrandCarousel({ brands }: BrandCarouselProps) {
@@ -131,8 +106,8 @@ export default function BrandCarousel({ brands }: BrandCarouselProps) {
           className="flex gap-4 overflow-x-auto scrollbar-none py-2 px-0.5 snap-x"
         >
           {brands.map((brand, index) => {
-            const Icon = getBrandIcon(brand, index);
-            const gradient = brandGradients[index % brandGradients.length];
+            const logo = brandLogoPath(brand);
+            const accent = brandAccents[index % brandAccents.length];
             return (
               <Link
                 key={brand}
@@ -140,10 +115,15 @@ export default function BrandCarousel({ brands }: BrandCarouselProps) {
                 className="snap-start shrink-0"
               >
                 <div
-                  className={`flex flex-col items-center justify-center gap-3 h-28 w-40 rounded-2xl bg-gradient-to-br ${gradient} shadow-sm transition-transform hover:scale-105 hover:shadow-md`}
+                  className={`flex flex-col items-center justify-center gap-2 h-28 w-40 rounded-2xl border ${accent.border} ${accent.bg} shadow-sm transition-transform hover:scale-105 hover:shadow-md`}
                 >
-                  <Icon className="h-8 w-8 text-white/90" strokeWidth={1.5} />
-                  <span className="text-white font-bold text-sm tracking-wide px-3 text-center leading-tight">
+                  <img
+                    src={`/images/brands/${logo}.svg`}
+                    alt={brand}
+                    className="h-12 w-auto max-w-[120px] object-contain"
+                    loading="lazy"
+                  />
+                  <span className={`text-xs font-semibold ${accent.text} tracking-wide text-center leading-tight`}>
                     {brand}
                   </span>
                 </div>

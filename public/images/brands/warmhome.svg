@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 80" fill="none">
+  <rect width="200" height="80" rx="12" fill="white"/>
+  <path d="M44 48 L32 36 L38 36 L38 28 L50 28 L50 36 L56 36 L44 48Z" stroke="#EF4444" stroke-width="2" fill="none"/>
+  <path d="M34 42 Q38 32 44 36 Q48 30 52 36 Q56 40 52 46" stroke="#EF4444" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.4"/>
+  <text x="72" y="45" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="700" fill="#EF4444">Warm</text>
+  <text x="72" y="62" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="300" fill="#475569">Home</text>
+</svg>

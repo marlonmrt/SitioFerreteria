@@ -111,6 +111,15 @@ const highlights = [
   }
 ];
 
+const categoryImages: Record<string, string> = {
+  banos: "/images/categories/banos.jpg",
+  ceramicas: "/images/categories/ceramicas.jpg",
+  climatizacion: "/images/categories/climatizacion.jpg",
+  construccion: "/images/categories/construccion.jpg",
+  "hogar-electrodomesticos": "/images/categories/hogar.jpg",
+  "sellado-fijacion": "/images/categories/sellado.jpg",
+};
+
 const categoryGradients = [
   "from-blue-600 to-indigo-700",
   "from-emerald-500 to-teal-700",
@@ -146,13 +155,6 @@ export default async function HomePage() {
       {/* Hero Carousel */}
       <HeroCarousel slides={heroSlides} />
 
-      {/* Nuestras Marcas - Carrusel */}
-      {brands.length > 0 && (
-        <section className="mt-20">
-          <BrandCarousel brands={brands} />
-        </section>
-      )}
-
       {/* Rectángulos de Categorías - versión visual */}
       <section className="mt-20">
         <div className="flex flex-col items-center text-center mb-10">
@@ -167,13 +169,20 @@ export default async function HomePage() {
           {familiesList.slice(0, 12).map((family, index) => {
             const Icon = getCategoryIcon(family.slug);
             const gradient = categoryGradients[index % categoryGradients.length];
+            const bgImage = categoryImages[family.slug];
             return (
               <Link
                 href={`/familias/${family.slug}`}
                 key={family.id}
                 className="group relative overflow-hidden rounded-3xl border border-border/70 bg-card shadow-sm transition-all hover:-translate-y-1 hover:shadow-soft"
               >
-                <div className={`absolute inset-0 bg-gradient-to-br ${gradient} opacity-90 group-hover:opacity-100 transition-opacity`} />
+                {bgImage ? (
+                  <div
+                    className="absolute inset-0 bg-cover bg-center"
+                    style={{ backgroundImage: `url(${bgImage})` }}
+                  />
+                ) : null}
+                <div className={`absolute inset-0 bg-gradient-to-br ${gradient} opacity-85 group-hover:opacity-90 transition-opacity`} />
                 <div className="relative p-6 flex flex-col min-h-[160px] justify-end">
                   <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/20 backdrop-blur-sm text-white mb-3">
                     <Icon className="h-5 w-5" />
@@ -231,6 +240,13 @@ export default async function HomePage() {
               </Link>
             </Button>
           </div>
+        </section>
+      )}
+
+      {/* Nuestras Marcas - Carrusel */}
+      {brands.length > 0 && (
+        <section className="mt-20">
+          <BrandCarousel brands={brands} />
         </section>
       )}
 

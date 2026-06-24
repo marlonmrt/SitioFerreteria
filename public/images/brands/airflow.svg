@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 80" fill="none">
+  <defs>
+    <linearGradient id="af" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0EA5E9"/>
+      <stop offset="100%" stop-color="#0284C7"/>
+    </linearGradient>
+  </defs>
+  <rect width="200" height="80" rx="12" fill="white"/>
+  <path d="M30 50 Q40 20 60 35 Q70 42 65 50 Q75 30 85 40 Q90 45 85 50" stroke="url(#af)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  <path d="M30 55 Q40 48 50 52 Q60 56 70 48 Q80 40 90 50" stroke="url(#af)" stroke-width="2.5" fill="none" stroke-linecap="round" opacity="0.5"/>
+  <text x="105" y="48" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="700" fill="#0EA5E9">Air</text>
+  <text x="105" y="66" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="300" fill="#475569">Flow</text>
+</svg>

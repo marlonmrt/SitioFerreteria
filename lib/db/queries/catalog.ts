@@ -7,9 +7,10 @@ import {
   stores,
   faqs,
   favorites,
-  articleImages
+  articleImages,
+  carouselSlides
 } from "../schema";
-import { eq, and, or, ilike, sql, asc, isNotNull, inArray, gte, lte, lt, type SQL } from "drizzle-orm";
+import { eq, and, or, ilike, sql, asc, desc, isNotNull, inArray, gte, lte, lt, type SQL } from "drizzle-orm";
 
 export async function getFamilies() {
   return db.select().from(families).orderBy(asc(families.sortOrder));
@@ -358,4 +359,79 @@ export async function getStores() {
 
 export async function getFaqs() {
   return db.select().from(faqs).orderBy(asc(faqs.sortOrder));
+}
+
+export async function getCarouselSlides() {
+  return db
+    .select()
+    .from(carouselSlides)
+    .where(eq(carouselSlides.isActive, true))
+    .orderBy(asc(carouselSlides.sortOrder));
+}
+
+export async function getAllCarouselSlides() {
+  return db
+    .select()
+    .from(carouselSlides)
+    .orderBy(asc(carouselSlides.sortOrder));
+}
+
+export async function getCarouselSlideById(id: string) {
+  const result = await db.select().from(carouselSlides).where(eq(carouselSlides.id, id)).limit(1);
+  return result[0] || null;
+}
+
+export async function createCarouselSlide(data: {
+  title: string;
+  subtitle: string;
+  ctaLabel?: string | null;
+  ctaHref?: string | null;
+  gradientFrom: string;
+  gradientVia?: string | null;
+  gradientTo: string;
+  backgroundImage?: string | null;
+  sortOrder?: number;
+}) {
+  const [slide] = await db
+    .insert(carouselSlides)
+    .values({
+      title: data.title,
+      subtitle: data.subtitle,
+      ctaLabel: data.ctaLabel ?? null,
+      ctaHref: data.ctaHref ?? null,
+      gradientFrom: data.gradientFrom,
+      gradientVia: data.gradientVia ?? null,
+      gradientTo: data.gradientTo,
+      backgroundImage: data.backgroundImage ?? null,
+      sortOrder: data.sortOrder ?? 0
+    })
+    .returning();
+  return slide;
+}
+
+export async function updateCarouselSlide(
+  id: string,
+  data: {
+    title?: string;
+    subtitle?: string;
+    ctaLabel?: string | null;
+    ctaHref?: string | null;
+    gradientFrom?: string;
+    gradientVia?: string | null;
+    gradientTo?: string;
+    backgroundImage?: string | null;
+    sortOrder?: number;
+    isActive?: boolean;
+  }
+) {
+  const [slide] = await db
+    .update(carouselSlides)
+    .set(data)
+    .where(eq(carouselSlides.id, id))
+    .returning();
+  return slide;
+}
+
+export async function deleteCarouselSlide(id: string) {
+  await db.delete(carouselSlides).where(eq(carouselSlides.id, id));
 }

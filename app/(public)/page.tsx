@@ -38,7 +38,7 @@ import { Button } from "@/components/ui/button";
 import HeroCarousel from "@/components/shared/hero-carousel";
 import BrandCarousel from "@/components/shared/brand-carousel";
 import { ProductCard } from "@/components/catalog/product-card";
-import { getFamilies, getStores, getUniqueBrands, getArticles } from "@/lib/db/queries/catalog";
+import { getFamilies, getStores, getUniqueBrands, getArticles, getCarouselSlides } from "@/lib/db/queries/catalog";
 import { getFavoriteIds } from "@/lib/db/queries/catalog";
 import { auth } from "@/auth";
 
@@ -72,7 +72,7 @@ function getCategoryIcon(slug: string) {
   return Layers;
 }
 
-const heroSlides = [
+const defaultSlides = [
   {
     gradient: "bg-gradient-to-br from-[#1e3a5f] via-[#2a5a8a] to-[#3a7abd]",
     title: "Ferretería conectada al ERP",
@@ -150,6 +150,28 @@ export default async function HomePage() {
   const featuredArticles = await getArticles({ limit: 8 });
   const favoriteIds = userId ? new Set(await getFavoriteIds(userId)) : new Set<string>();
 
+  let heroSlides;
+  try {
+    const dbSlides = await getCarouselSlides();
+    if (dbSlides.length > 0) {
+      heroSlides = dbSlides.map((s) => {
+        const via = s.gradientVia ? ` via-[${s.gradientVia}]` : "";
+        return {
+          gradient: `bg-gradient-to-br from-[${s.gradientFrom}]${via} to-[${s.gradientTo}]`,
+          title: s.title,
+          subtitle: s.subtitle,
+          ...(s.backgroundImage ? { backgroundImage: s.backgroundImage } : {}),
+          ...(s.ctaLabel && s.ctaHref ? { cta: { label: s.ctaLabel, href: s.ctaHref } } : {})
+        };
+      });
+    }
+  } catch {
+    // fallback
+  }
+  if (!heroSlides) {
+    heroSlides = defaultSlides;
+  }
+
   return (
     <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8 lg:py-16">
       {/* Hero Carousel */}
@@ -181,8 +203,10 @@ export default async function HomePage() {
                     className="absolute inset-0 bg-cover bg-center"
                     style={{ backgroundImage: `url(${bgImage})` }}
                   />
-                ) : null}
-                <div className={`absolute inset-0 bg-gradient-to-br ${gradient} opacity-85 group-hover:opacity-90 transition-opacity`} />
+                ) : (
+                  <div className={`absolute inset-0 bg-gradient-to-br ${gradient}`} />
+                )}
+                <div className="absolute inset-0 bg-black/50 group-hover:bg-black/40 transition-colors" />
                 <div className="relative p-6 flex flex-col min-h-[160px] justify-end">
                   <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/20 backdrop-blur-sm text-white mb-3">
                     <Icon className="h-5 w-5" />

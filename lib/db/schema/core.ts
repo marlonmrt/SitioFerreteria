@@ -227,6 +227,20 @@ export const faqs = pgTable("faqs", {
   sortOrder: integer("sort_order").notNull().default(0)
 });
 
+export const carouselSlides = pgTable("carousel_slides", {
+  id: uuid("id").defaultRandom().primaryKey(),
+  title: text("title").notNull(),
+  subtitle: text("subtitle").notNull(),
+  ctaLabel: text("cta_label"),
+  ctaHref: text("cta_href"),
+  gradientFrom: text("gradient_from").notNull(),
+  gradientVia: text("gradient_via"),
+  gradientTo: text("gradient_to").notNull(),
+  backgroundImage: text("background_image"),
+  sortOrder: integer("sort_order").notNull().default(0),
+  isActive: boolean("is_active").notNull().default(true)
+});
+
 export const menuItems = pgTable("menu_items", {
   id: uuid("id").defaultRandom().primaryKey(),
   label: text("label").notNull(),
@@ -258,7 +272,8 @@ export const schemaTables = {
   infoRequests,
   importBatches,
   faqs,
-  menuItems
+  menuItems,
+  carouselSlides
 };
 
 export const schemaEnums = {

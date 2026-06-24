@@ -12,6 +12,7 @@ interface Slide {
   title: string;
   subtitle: string;
   cta?: { label: string; href: string };
+  backgroundImage?: string;
 }
 
 interface HeroCarouselProps {
@@ -51,8 +52,22 @@ export default function HeroCarousel({ slides }: HeroCarouselProps) {
               index === current ? "opacity-100" : "opacity-0 pointer-events-none"
             )}
           >
-            {/* Fondo gradiente */}
-            <div className={cn("absolute inset-0", slide.gradient)} />
+            {/* Imagen de fondo (si existe) */}
+            {slide.backgroundImage && (
+              <div
+                className="absolute inset-0 bg-cover bg-center"
+                style={{ backgroundImage: `url(${slide.backgroundImage})` }}
+              />
+            )}
+
+            {/* Gradiente superpuesto: semitransparente si hay imagen, opaco si no */}
+            <div
+              className={cn(
+                "absolute inset-0",
+                slide.gradient,
+                slide.backgroundImage && "opacity-60"
+              )}
+            />
 
             {/* Grid decorativo */}
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(255,255,255,0.12),_transparent_40%)]" />

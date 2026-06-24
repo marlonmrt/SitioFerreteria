@@ -188,8 +188,6 @@ SELECT pg_catalog.setval('drizzle.__drizzle_migrations_id_seq', 6, true);
 
 -- ===== END OF datos_migracion_bloque_6.sql =====
 
-
-
 -- ============================================================
 -- Bloque 7: Datos restantes (menÃºs, tiendas, FAQs, import_batches)
 -- ============================================================
@@ -197,6 +195,11 @@ SELECT pg_catalog.setval('drizzle.__drizzle_migrations_id_seq', 6, true);
 -- los bloques 1-6: menu_items, stores, faqs, import_batches.
 -- Ejecutar DESPUÃ‰S de haber migrado el esquema (drizzle-kit) y
 -- los bloques 1-6.
+
+-- 0. Nueva migraciÃ³n Drizzle (carousel_slides)
+INSERT INTO drizzle.__drizzle_migrations (id, hash, created_at) VALUES
+(7, '0006_daffy_lake', EXTRACT(EPOCH FROM NOW()) * 1000)
+ON CONFLICT (id) DO NOTHING;
 
 -- 1. MenÃº del sitio (nodos padre primero para respetar FK circular)
 INSERT INTO public.menu_items (id, label, href, parent_id, sort_order, is_active, created_at) VALUES
@@ -236,5 +239,12 @@ ON CONFLICT (id) DO NOTHING;
 INSERT INTO public.import_batches (id, file_name, type, started_at, finished_at, status, total_rows, success_rows, error_rows, error_log) VALUES
 ('9a475460-e856-4a66-8245-32eacdfc76ae', 'seed-import.csv', 'CSV', '2026-06-21 17:14:48.447+00', '2026-06-21 17:14:48.447+00', 'SUCCESS', 20, 20, 0, '[]'),
 ('aec8f6e1-d2d5-49bb-8c3a-25f2f48a5977', 'test-import.csv', 'CSV', '2026-06-21 17:15:11.98+00', '2026-06-21 17:15:12.007+00', 'SUCCESS', 1, 1, 0, '[]')
+ON CONFLICT (id) DO NOTHING;
+
+-- 6. Diapositivas del carrusel principal (por defecto)
+INSERT INTO public.carousel_slides (id, title, subtitle, cta_label, cta_href, gradient_from, gradient_via, gradient_to, background_image, sort_order, is_active) VALUES
+('89cb604e-3b6a-4b1a-ad39-0af327ea6baa', 'FerreterÃ­a conectada al ERP', 'Consulta artÃ­culos, familias, tarifas pÃºblicas y acceso profesional validado sin carrito ni checkout. El catÃ¡logo se actualiza desde los ficheros exportados por el ERP.', 'Crear cuenta particular', '/registro', '#1e3a5f', '#2a5a8a', '#3a7abd', '/images/categories/construccion.jpg', 0, true),
+('2b3c8d66-b82c-4ad1-be84-d513a52df5b5', 'Tarifas especiales para profesionales', 'Solicita tu alta B2B y accede a precios exclusivos con tu tarifa personalizada. AprobaciÃ³n manual por nuestro equipo comercial.', 'Solicitar alta B2B', '/registro-empresa', '#5c2d0a', '#8b4513', '#c07030', '/images/categories/banos.jpg', 1, true),
+('35d17bb1-06bd-4a87-98ba-7b113daa4cdd', 'Materiales para obra y reforma', 'Explora nuestro catÃ¡logo completo de materiales de construcciÃ³n, fontanerÃ­a, electricidad y mÃ¡s. Solicita informaciÃ³n y presupuesto sin compromiso.', 'Ver catÃ¡logo', '/articulos', '#0d3b2e', '#1a6b4a', '#28a06b', '/images/categories/ceramicas.jpg', 2, true)
 ON CONFLICT (id) DO NOTHING;
 

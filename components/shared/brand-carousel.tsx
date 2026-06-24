@@ -30,19 +30,7 @@ function brandLogoPath(name: string): string {
 }
 
 const brandAccents = [
-  { border: "border-sky-200", bg: "bg-sky-50", text: "text-sky-700" },
-  { border: "border-blue-200", bg: "bg-blue-50", text: "text-blue-700" },
-  { border: "border-orange-200", bg: "bg-orange-50", text: "text-orange-700" },
-  { border: "border-cyan-200", bg: "bg-cyan-50", text: "text-cyan-700" },
-  { border: "border-red-200", bg: "bg-red-50", text: "text-red-700" },
-  { border: "border-emerald-200", bg: "bg-emerald-50", text: "text-emerald-700" },
-  { border: "border-violet-200", bg: "bg-violet-50", text: "text-violet-700" },
-  { border: "border-blue-200", bg: "bg-blue-50", text: "text-blue-700" },
-  { border: "border-amber-200", bg: "bg-amber-50", text: "text-amber-700" },
-  { border: "border-teal-200", bg: "bg-teal-50", text: "text-teal-700" },
-  { border: "border-stone-200", bg: "bg-stone-50", text: "text-stone-700" },
-  { border: "border-indigo-200", bg: "bg-indigo-50", text: "text-indigo-700" },
-  { border: "border-rose-200", bg: "bg-rose-50", text: "text-rose-700" }
+  { border: "border-white/10", bg: "bg-white/5", text: "text-white/90" }
 ];
 
 export default function BrandCarousel({ brands }: BrandCarouselProps) {
@@ -115,15 +103,16 @@ export default function BrandCarousel({ brands }: BrandCarouselProps) {
                 className="snap-start shrink-0"
               >
                 <div
-                  className={`flex flex-col items-center justify-center gap-2 h-28 w-40 rounded-2xl border ${accent.border} ${accent.bg} shadow-sm transition-transform hover:scale-105 hover:shadow-md`}
+                  className={`relative flex flex-col items-center justify-center gap-2 h-28 w-40 rounded-2xl border ${accent.border} bg-zinc-900 shadow-sm transition-transform hover:scale-105 hover:shadow-md overflow-hidden`}
                 >
+                  <div className="absolute inset-0 bg-black/50" />
                   <img
                     src={`/images/brands/${logo}.svg`}
                     alt={brand}
-                    className="h-12 w-auto max-w-[120px] object-contain"
+                    className="h-12 w-auto max-w-[120px] object-contain relative"
                     loading="lazy"
                   />
-                  <span className={`text-xs font-semibold ${accent.text} tracking-wide text-center leading-tight`}>
+                  <span className={`text-xs font-semibold ${accent.text} tracking-wide text-center leading-tight relative`}>
                     {brand}
                   </span>
                 </div>

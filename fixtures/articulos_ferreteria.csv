@@ -1,0 +1,50 @@
+COD_ART,NOMBRE,DESCRIPCION,MARCA,UNIDAD,FAMILIA,SUBFAMILIA,IMAGEN,PRECIO_PVP,PRECIO_PRO_01
+BAN-GRI-001,Grifo monomando lavabo cromado,Grifo monomando para lavabo con cartucho cerámico y acabado cromo brillo.,AquaPro,ud,Baños,Grifería,/images/articulos/grifo-monomando-lavabo-cromado.jpg,54.90,45.50
+BAN-GRI-002,Columna de ducha termostática,"Columna de ducha con rociador superior, teleducha y mezclador termostático.",AquaPro,ud,Baños,Grifería,/images/articulos/columna-ducha-termostatica.jpg,199.00,169.00
+BAN-GRI-003,Grifo de cocina extraíble,Grifo monomando de cocina con caño extraíble y doble chorro.,AquaPro,ud,Baños,Grifería,/images/articulos/grifo-cocina-extraible.jpg,79.00,66.00
+BAN-MOB-001,Mueble bajo lavabo 80 cm,Mueble de baño suspendido con dos cajones de cierre suave.,NordBath,ud,Baños,Mobiliario,/images/articulos/mueble-bajo-lavabo-80cm.jpg,249.00,209.00
+BAN-MOB-002,Espejo de baño con luz LED,Espejo retroiluminado con sistema antivaho y interruptor táctil.,NordBath,ud,Baños,Mobiliario,/images/articulos/espejo-bano-led.jpg,129.00,109.00
+BAN-SAN-001,Inodoro suspendido con cisterna,Inodoro suspendido de porcelana con sistema de doble descarga.,NordBath,ud,Baños,Sanitarios,/images/articulos/inodoro-suspendido-cisterna.jpg,179.00,149.00
+BAN-ACC-001,Toallero radiador eléctrico,"Toallero radiador eléctrico para baño, acabado blanco mate.",PAMACON,ud,Baños,Accesorios de baño,/images/articulos/toallero-radiador-electrico.jpg,119.00,99.00
+BRI-LLA-001,"Llave ajustable 10"" cromo vanadio",Llave inglesa ajustable de 10 pulgadas en acero cromo vanadio.,PAMACON,ud,Bricolaje,Llaves ajustables,/images/articulos/llave-ajustable-10-pulgadas.jpg,9.90,7.95
+BRI-LLA-002,Juego de llaves Allen 9 piezas,Set de llaves Allen hexagonales de distintas medidas en estuche.,PAMACON,set,Bricolaje,Llaves ajustables,/images/articulos/juego-llaves-allen-9pz.jpg,6.50,5.20
+BRI-PAL-001,Rastrillo de jardín 14 púas,Rastrillo de acero con púas flexibles y mango regulable en altura.,AIRMEC,ud,Bricolaje,Palas y rastrillos,/images/articulos/rastrillo-jardin-14-puas.jpg,7.50,6.10
+BRI-PAL-002,Pala de punta acero forjado,Pala de punta con hoja de acero forjado y mango de madera.,AIRMEC,ud,Bricolaje,Palas y rastrillos,/images/articulos/pala-punta-acero-forjado.jpg,13.90,11.50
+BRI-TOR-001,Surtido tornillería 1000 piezas,"Caja surtida de tornillos, tuercas y arandelas de uso general.",PAMACON,caja,Bricolaje,Tornillería,/images/articulos/surtido-tornilleria-1000pz.jpg,24.90,20.50
+BRI-CIN-001,Cinta americana multiuso 50mm,Cinta adhesiva textil de alta resistencia para reparaciones.,PAMACON,ud,Bricolaje,Cintas y adhesivos,/images/articulos/cinta-americana-50mm.jpg,4.20,3.40
+CAM-FOG-001,Hornillo de camping piezoeléctrico,Hornillo portátil con encendido piezoeléctrico y quemador ancho.,AIRMEC,ud,Camping,Fogones,/images/articulos/hornillo-camping-piezoelectrico.jpg,12.90,10.50
+CAM-FOG-002,Bombona de gas camping 450g,Cartucho de gas butano-propano roscado para hornillos portátiles.,AIRMEC,ud,Camping,Fogones,/images/articulos/bombona-gas-camping-450g.jpg,5.90,4.80
+CAM-MOB-001,Silla plegable camping reforzada,Silla plegable con reposabrazos y estructura de acero reforzada.,BENOTTI,ud,Camping,Mobiliario camping,/images/articulos/silla-plegable-camping.jpg,19.90,16.50
+CAM-LIN-001,Linterna LED recargable camping,Linterna LED recargable por USB con tres modos de luz.,NODOFIX,ud,Camping,Iluminación camping,/images/articulos/linterna-led-recargable.jpg,14.90,12.30
+COC-PEQ-001,Batidora de mano 700W,Batidora de mano con velocidad variable y vaso medidor incluido.,HomeLab,ud,Cocina,Pequeño electrodoméstico,/images/articulos/batidora-mano-700w.jpg,27.90,23.10
+COC-PEQ-002,Tostadora doble ranura inox,Tostadora de doble ranura ancha con acabado en acero inoxidable.,HomeLab,ud,Cocina,Pequeño electrodoméstico,/images/articulos/tostadora-doble-ranura.jpg,24.90,20.60
+COC-UTE-001,Set de cuchillos de cocina 6 piezas,Juego de cuchillos de cocina con hoja de acero inoxidable.,HomeLab,set,Cocina,Utensilios,/images/articulos/set-cuchillos-cocina-6pz.jpg,18.90,15.60
+COC-UTE-002,Tabla de corte de bambú,"Tabla de corte de bambú natural, apta para todo tipo de alimentos.",HomeLab,ud,Cocina,Utensilios,/images/articulos/tabla-corte-bambu.jpg,9.90,8.10
+ELE-CAB-001,Cable manguera 3x1.5mm 25m,Bobina de cable manguera flexible de 3x1.5mm² para instalaciones.,VOLTEN,rollo,Electricidad,Cableado,/images/articulos/cable-manguera-3x1-5-25m.jpg,22.90,18.90
+ELE-MEC-001,Interruptor de superficie con tapa,Interruptor unipolar de superficie con tapa estanca IP44.,VOLTEN,ud,Electricidad,Mecanismos,/images/articulos/interruptor-superficie-tapa.jpg,6.90,5.60
+ELE-MEC-002,Enchufe base superficie con toma tierra,Base de enchufe de superficie con toma de tierra lateral.,VOLTEN,ud,Electricidad,Mecanismos,/images/articulos/enchufe-base-superficie.jpg,4.50,3.70
+ELE-PRO-001,Cuadro eléctrico magnetotérmicos 12 módulos,Caja de protección con cuadro listo para 12 módulos eléctricos.,VOLTEN,ud,Electricidad,Protección eléctrica,/images/articulos/cuadro-electrico-12-modulos.jpg,39.90,33.20
+ILU-LED-001,Bombilla LED E27 9W luz cálida,"Bombilla LED estándar de bajo consumo, casquillo E27.",NODOFIX,ud,Iluminación,Bombillas LED,/images/articulos/bombilla-led-e27-9w.jpg,3.90,3.10
+ILU-LED-002,Panel LED techo 60x60 cm,"Panel LED de empotrar para techo, ideal para oficinas y locales.",NODOFIX,ud,Iluminación,Bombillas LED,/images/articulos/panel-led-techo-60x60.jpg,29.90,24.50
+ILU-FOC-001,Foco LED exterior con sensor,Foco LED de exterior con sensor de movimiento y carcasa IP65.,NODOFIX,ud,Iluminación,Focos exteriores,/images/articulos/foco-led-exterior-sensor.jpg,17.90,14.60
+ILU-LIN-001,Linterna frontal LED recargable,Linterna frontal recargable con foco LED de alta potencia.,NODOFIX,ud,Iluminación,Linternas,/images/articulos/linterna-frontal-led.jpg,12.50,10.20
+JAR-HER-001,Tijera de podar profesional,Tijera de podar con hoja de acero al carbono y mango ergonómico.,DONNA GARDEN,ud,Jardín,Herramientas de jardín,/images/articulos/tijera-podar-profesional.jpg,15.90,13.10
+JAR-HER-002,Cortacésped manual 38 cm,Cortacésped manual sin motor con cuchillas de corte helicoidal.,DONNA GARDEN,ud,Jardín,Herramientas de jardín,/images/articulos/cortacesped-manual-38cm.jpg,89.00,75.00
+JAR-RIE-001,Manguera de riego 25m con racores,Manguera flexible de jardín con racores de conexión rápida incluidos.,DONNA GARDEN,ud,Jardín,Riego,/images/articulos/manguera-riego-25m.jpg,24.90,20.50
+JAR-RIE-002,Programador de riego digital,Programador de riego automático con pantalla digital y batería.,DONNA GARDEN,ud,Jardín,Riego,/images/articulos/programador-riego-digital.jpg,34.90,28.90
+JAR-MOB-001,Set mesa y 4 sillas de jardín,Conjunto de mesa y cuatro sillas apilables para exterior.,BENOTTI,set,Jardín,Mobiliario de jardín,/images/articulos/set-mesa-4-sillas-jardin.jpg,159.00,134.00
+HEL-TAL-001,Taladro percutor 18V con batería,Taladro percutor inalámbrico de 18V con batería y cargador.,AICER,ud,Herramienta Eléctrica,Taladros,/images/articulos/taladro-percutor-18v.jpg,119.00,99.00
+HEL-PUL-001,Amoladora angular 125mm 750W,Amoladora angular de 750W para disco de 125mm de diámetro.,AICER,ud,Herramienta Eléctrica,Pulidoras,/images/articulos/amoladora-angular-125mm.jpg,44.90,37.50
+HEL-CIN-001,Cincel SDS-Plus puntero,Cincel puntero SDS-Plus en acero 40Cr para martillo perforador.,AICER,ud,Herramienta Eléctrica,Cinceles,/images/articulos/cincel-sds-plus-puntero.jpg,7.90,6.40
+HEL-ATO-001,Atornillador eléctrico 12V,Atornillador inalámbrico compacto de 12V con maletín y puntas.,FARGO TOOLS,ud,Herramienta Eléctrica,Atornilladores,/images/articulos/atornillador-electrico-12v.jpg,54.90,46.00
+AUT-NEU-001,Pistola de inflado digital,Pistola de inflado con pantalla digital y manguera flexible.,FARGO TOOLS,ud,Automoción,Herramienta neumática,/images/articulos/pistola-inflado-digital.jpg,29.90,24.90
+AUT-NEU-002,Manómetro digital de neumáticos,Manómetro digital portátil para comprobar la presión de neumáticos.,FARGO TOOLS,ud,Automoción,Herramienta neumática,/images/articulos/manometro-digital-neumaticos.jpg,8.90,7.20
+AUT-GAT-001,Gato hidráulico de botella 20T,Gato hidráulico de botella con capacidad de carga de 20 toneladas.,FARGO TOOLS,ud,Automoción,Gatos y carretillas,/images/articulos/gato-hidraulico-botella-20t.jpg,219.00,185.00
+AUT-UTI-001,Mesa de trabajo móvil ajustable,Mesa de taller móvil con altura regulable en 8 posiciones.,FARGO TOOLS,ud,Automoción,Utillaje de taller,/images/articulos/mesa-trabajo-movil-ajustable.jpg,115.00,97.00
+ELD-BAT-001,Batidora de brazo industrial 550W,Batidora de brazo de uso profesional con motor de 550W nominales.,LARRYHOUSE,ud,Pequeño Electrodoméstico,Batidoras industriales,/images/articulos/batidora-brazo-industrial-550w.jpg,175.00,148.00
+ELD-HER-001,Exprimidor de naranja automático 200W,Exprimidor automático industrial con alimentación continua de fruta.,LARRYHOUSE,ud,Pequeño Electrodoméstico,Hervidores y exprimidores,/images/articulos/exprimidor-naranja-automatico-200w.jpg,899.00,765.00
+MAQ-TAL-001,Apilador manual hidráulico 1500kg,Apilador manual hidráulico con elevación de hasta 1600mm.,FARGO TOOLS,ud,Maquinaria,Maquinaria de taller,/images/articulos/apilador-manual-hidraulico-1500kg.jpg,1320.00,1120.00
+MAQ-PRE-001,Prensa hidráulica de taller 40T,Prensa hidráulica profesional con capacidad de 40 toneladas.,FARGO TOOLS,ud,Maquinaria,Prensas hidráulicas,/images/articulos/prensa-hidraulica-taller-40t.jpg,1020.00,865.00
+SOL-EQU-001,Soldador inverter MMA 160A,Equipo de soldadura inverter MMA con salida de hasta 160A.,SOWELL,ud,Soldadura,Equipos de soldadura,/images/articulos/soldador-inverter-mma-160a.jpg,139.00,116.00
+SOL-CON-001,Electrodos rutilo 2.5mm caja 5kg,Caja de electrodos rutilo de 2.5mm para soldadura de uso general.,SOWELL,caja,Soldadura,Consumibles de soldadura,/images/articulos/electrodos-rutilo-2-5mm-5kg.jpg,22.90,18.90
+SOL-EQU-002,Máscara de soldar autooscurecente,Máscara de soldadura con filtro autooscurecente regulable.,ATHANSPORT,ud,Soldadura,Equipos de soldadura,/images/articulos/mascara-soldar-autooscurecente.jpg,34.90,28.60

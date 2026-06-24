@@ -1,0 +1,56 @@
+"use strict";(self.__LOADABLE_LOADED_CHUNKS__=self.__LOADABLE_LOADED_CHUNKS__||[]).push([["36676"],{96023:function(e,t,a){a.d(t,{K:()=>d});var i=a(74848),o=a(39836),l=a(3155),s=a(35740),n=a(96540);let d=e=>{let{className:t,disabled:a,ghost:d,icon:g,label:r,large:c,loading:u,small:p,withLoader:h,onClick:m,children:f,...S}=e,[$,v]=(0,n.useState)(!1);return(0,i.jsx)("button",{onClick:e=>{if(!h)return m&&m(e);v(!0),setTimeout(()=>{m&&m(e),v(!1)})},"aria-label":r,className:(0,o.$)("container-RTEERx",t,{"ghost-GRNIf8":d,"large-Ykj58K":c,"small-pUqfSi":p,"disabled-_rlcio":a}),disabled:a,...S,children:u||$?(0,i.jsx)(s.a,{dark:!0,size:c?"big":"small"}):(0,i.jsxs)(i.Fragment,{children:[(0,i.jsx)(l.I,{icon:g,big:c,small:p||!c,className:(0,o.$)("icon-LMA56t",{"disabledIcon-oPtWcz":a,"needsLoaderIcon-KaUh8t":$})}),f]})})}},31803:function(e,t,a){a.d(t,{J:()=>i});let i=["ad_storage","personalization_storage","ad_personalization"]},43959:function(e,t,a){a.d(t,{J:()=>o});var i=a(96540);let o=e=>{let[t,a]=(0,i.useState)(!1);return(0,i.useEffect)(()=>{function t(){let t=window.localStorage.getItem("consentMode");if(t&&""!==t){let i=JSON.parse(t);i&&"object"==typeof i&&!e.some(e=>"denied"===i[e])&&a(!0)}}return t(),window.addEventListener("updatedConsentMode",t),()=>{window.removeEventListener("updatedConsentMode",t)}},[e]),t}},51076:function(e,t,a){a.r(t),a.d(t,{DFPProductDetail:()=>u});var i=a(74848),o=a(39836),l=a(43601),s=a(79629),n=a(20573),d=a(46636),g=a(23332);let r=[{viewPort:{width:768,height:0},adSizes:[{width:272,height:272}]},{viewPort:{width:416,height:0},adSizes:[{width:748,height:120}]},{viewPort:{width:0,height:0},adSizes:"fluid"}];var c=a(82674);let u=e=>{let{idArticle:t,brand:a,category:u}=e,p=(0,l.d4)(s.Tb),h=(0,c.K)(p),m={language:((0,l.d4)(d.lW)||"es_ES").toString().substring(0,2),estatico:t,marca:a,familia:u};return n.QK.has(h)?(0,i.jsx)("div",{className:"dfpContainer-fHQmdd",children:(0,i.jsx)(g.DFP,{adUnitPath:"/60840406/Ficha_producto_responsive",adSizeMapping:r,adElementId:"div-gpt-ad-1682702235299-0",adTargeting:m,className:(0,o.$)("dfp-banner-article-detail","dfpBannerArticleDetail-u3loiZ")})}):(0,i.jsx)(i.Fragment,{})}},23332:function(e,t,a){a.r(t),a.d(t,{DFP:()=>r});var i=a(74848),o=a(96023),l=a(80545),s=a(39836),n=a(2212),d=a(31803),g=a(43959);let r=e=>{let{adUnitPath:t,adSizeMapping:a,adElementId:r,adTargeting:c,adStyle:u,className:p,slotOnload:h,onClose:m,...f}=e,S=(0,g.J)(d.J);if((0,n.f)())return null;let $=r.replace(/-/g,""),v=Object.keys(c||{}).reduce((e,t)=>[...e,...c&&c[t]&&[`${$}.setTargeting('${t}', ["${c[t].toString().replace(/,/g,"")}"]);`]||[]],[]).join(" "),b="";a.forEach(e=>{"string"==typeof e.adSizes?b+="'"+e.adSizes+"',":e.adSizes.length>0&&(b+=e.adSizes.map(e=>`[${e.width},${e.height}],`).join(""))}),b=b.slice(0,-1);let w="";return a.forEach(e=>{let t="string"==typeof e.adSizes?"'"+e.adSizes+"'":`[${e.adSizes.map(e=>`[${e.width.toString()},${e.height.toString()}]`).join(",")}]`;e.viewPort&&(w+=`.addSize([${e.viewPort.width},${e.viewPort.height}],${t})`)}),S?(0,i.jsxs)(i.Fragment,{children:[(0,i.jsxs)(l.mg,{children:[(0,i.jsx)("script",{defer:!0,src:"https://securepubads.g.doubleclick.net/tag/js/gpt.js"}),(0,i.jsx)("script",{children:`
+              window.googletag = window.googletag || {cmd: []};              
+              googletag.cmd.push(function() {
+                let slots = googletag.pubads().getSlots();
+                let ${$} = null;
+
+                if(slots) {
+                  slots.forEach(innerSlot => {
+                    if(innerSlot.getSlotElementId() == '${r}') {
+                      ${$} = innerSlot
+                    } 
+                  });
+                }
+                
+                if(${$} === null) {
+                  ${$} = googletag.defineSlot(
+                    '${t}', 
+                    [${b}],
+                    '${r}'
+                  );
+                }
+
+                var mapping = googletag.sizeMapping()${w}.build();
+                ${$}.defineSizeMapping(mapping);
+                
+                ${$}.addService(googletag.pubads());
+
+                googletag.pubads().enableSingleRequest();
+                googletag.pubads().enableAsyncRendering();
+                googletag.pubads().collapseEmptyDivs();
+                googletag.pubads().addEventListener('slotOnload', function (event) {
+                  if (event.slot.getSlotElementId() === '${r}') {
+                    (${h??(()=>void 0)})(event);
+                  }
+                });
+                googletag.enableServices();     
+              
+                googletag.cmd.push(function() {
+                  ${$}.clearTargeting();                    
+                  googletag.pubads().refresh([${$}]);
+                });
+                
+                ${v}
+                googletag.cmd.push(function() {
+                  googletag.pubads().collapseEmptyDivs(true);
+                  googletag.pubads().refresh([${$}]);
+                });   
+              });
+            `})]}),(0,i.jsxs)("div",{className:(0,s.$)("adSlotContainer-q4VXDl",{"adSlotTop-xTN9LK":null==p?void 0:p.includes("ad-slot-top"),"adSlotBottom-Ze55kk":null==p?void 0:p.includes("ad-slot-bottom")}),children:[(0,i.jsx)("div",{...f,className:(0,s.$)(p,"adSlot-z56EXm"),style:u,id:r,"data-testid":r,dangerouslySetInnerHTML:{__html:`<script>
+                          googletag.cmd.push(
+                              function() { 
+                                  googletag.display('${r}'); 
+                              }
+                          );
+                       </script>`}}),!!m&&(0,i.jsx)(o.K,{className:"closeButton-hNJtFg",onClick:m,label:"Close modal",icon:"remove",small:!0,withLoader:!0})]})]}):(0,i.jsx)(i.Fragment,{})}}}]);
+//# sourceMappingURL=DFPProductDetail.338a6d46.js.map

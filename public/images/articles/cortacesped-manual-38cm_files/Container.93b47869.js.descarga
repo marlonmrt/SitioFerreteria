@@ -1,0 +1,2 @@
+"use strict";(self.__LOADABLE_LOADED_CHUNKS__=self.__LOADABLE_LOADED_CHUNKS__||[]).push([["64321"],{96153:function(_,e,s){s.r(e),s.d(e,{default:()=>r});var l=s(74848);let r=_=>{let{children:e,className:s,id:r,style:t}=_;return s||r?(0,l.jsx)("div",{...s&&{className:s},...r&&{id:r},...t&&{style:t},children:e}):(0,l.jsx)(l.Fragment,{children:e})}}}]);
+//# sourceMappingURL=Container.93b47869.js.map

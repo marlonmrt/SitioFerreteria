@@ -6,11 +6,6 @@
 -- Ejecutar DESPUÉS de haber migrado el esquema (drizzle-kit) y
 -- los bloques 1-6.
 
--- 0. Nueva migración Drizzle (carousel_slides)
-INSERT INTO drizzle.__drizzle_migrations (id, hash, created_at) VALUES
-(7, '0006_daffy_lake', EXTRACT(EPOCH FROM NOW()) * 1000)
-ON CONFLICT (id) DO NOTHING;
-
 -- 1. Menú del sitio (nodos padre primero para respetar FK circular)
 INSERT INTO public.menu_items (id, label, href, parent_id, sort_order, is_active, created_at) VALUES
 ('2de4dd41-99da-4d93-9bfc-acc5fa2110fa', 'Productos', '/articulos', NULL, 0, true, '2026-06-21 14:55:02.996985+00'),

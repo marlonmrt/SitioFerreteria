@@ -14,7 +14,8 @@ TRUNCATE TABLE
     public.companies, 
     public.import_batches, 
     public.stores, 
-    public.faqs 
+    public.faqs,
+    public.carousel_slides
 CASCADE;
 
 -- ===== END OF datos_migracion_bloque_1.sql =====
@@ -195,11 +196,6 @@ SELECT pg_catalog.setval('drizzle.__drizzle_migrations_id_seq', 6, true);
 -- los bloques 1-6: menu_items, stores, faqs, import_batches.
 -- Ejecutar DESPUÃ‰S de haber migrado el esquema (drizzle-kit) y
 -- los bloques 1-6.
-
--- 0. Nueva migraciÃ³n Drizzle (carousel_slides)
-INSERT INTO drizzle.__drizzle_migrations (id, hash, created_at) VALUES
-(7, '0006_daffy_lake', EXTRACT(EPOCH FROM NOW()) * 1000)
-ON CONFLICT (id) DO NOTHING;
 
 -- 1. MenÃº del sitio (nodos padre primero para respetar FK circular)
 INSERT INTO public.menu_items (id, label, href, parent_id, sort_order, is_active, created_at) VALUES

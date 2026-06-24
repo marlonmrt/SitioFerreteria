@@ -433,3 +433,7 @@
 [2026-06-22T11:47:38.345Z] [INFO] B2B account approved by admin | Context: {"userId":"3e850c8e-b393-427e-b01f-f3b8dad4407d","priceListCode":"PRO_01","adminId":"092638b7-dca3-44e6-b807-c49655880122","companyId":"739a3ae8-f4d0-40d5-a2a6-42332c6ba1e7"}
 [2026-06-23T01:08:11.459Z] [INFO] Favorite status toggled | Context: {"userId":"092638b7-dca3-44e6-b807-c49655880122","articleId":"a1145c50-8219-489e-a249-7d301c6f9530","isFavorited":true}
 [2026-06-23T10:29:57.173Z] [INFO] User login successful | Context: {"email":"admin@ferreteria.local"}
+[2026-06-24T11:39:37.643Z] [INFO] ERP sync started | Context: {"batchId":"989c6052-d41e-421d-abb3-781998b1a80f","fileName":"articulos_ferreteria.csv","fileType":"CSV","totalRows":49}
+[2026-06-24T11:39:38.671Z] [INFO] ERP sync batch processed successfully | Context: {"batchId":"989c6052-d41e-421d-abb3-781998b1a80f","count":49,"progress":"49/49"}
+[2026-06-24T11:39:38.671Z] [INFO] ERP sync checking deactivations | Context: {"batchId":"989c6052-d41e-421d-abb3-781998b1a80f"}
+[2026-06-24T11:39:38.729Z] [INFO] ERP sync finished | Context: {"batchId":"989c6052-d41e-421d-abb3-781998b1a80f","success":true,"successCount":49,"errorCount":0}

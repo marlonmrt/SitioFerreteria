@@ -10,23 +10,42 @@ interface BrandCarouselProps {
   brands: string[];
 }
 
+function BrandImage({ logo, brand }: { logo: string; brand: string }) {
+  const [ext, setExt] = useState<string | null>("svg");
+  if (!ext) return null;
+  return (
+    <img
+      src={`/images/brands/${logo}.${ext}`}
+      alt={brand}
+      className="h-12 w-auto max-w-[120px] object-contain relative"
+      loading="lazy"
+      onError={() => setExt(ext === "svg" ? "jpg" : null)}
+    />
+  );
+}
+
+function brandSlug(name: string): string {
+  return name.toLowerCase().replace(/\s+/g, "-");
+}
+
 function brandLogoPath(name: string): string {
   const map: Record<string, string> = {
-    airflow: "airflow",
+    aicer: "aicer",
+    airmec: "airmec",
     aquapro: "aquapro",
-    buildfix: "buildfix",
-    cooltech: "cooltech",
-    fastfix: "fastfix",
-    fixtile: "fixtile",
+    athansport: "athansport",
+    benotti: "benotti",
+    "donna-garden": "donna-garden",
+    "fargo-tools": "fargo-tools",
     homelab: "homelab",
+    larryhouse: "larryhouse",
+    nodofix: "nodofix",
     nordbath: "nordbath",
-    probuild: "probuild",
-    sealpro: "sealpro",
-    stoneline: "stoneline",
-    storemax: "storemax",
-    warmhome: "warmhome"
+    pamacon: "pamacon",
+    sowell: "sowell",
+    volten: "volten"
   };
-  return map[name.toLowerCase().replace(/[\s-]/g, "")] || name.toLowerCase().replace(/[\s-]/g, "");
+  return map[brandSlug(name)] || brandSlug(name);
 }
 
 const brandAccents = [
@@ -106,12 +125,7 @@ export default function BrandCarousel({ brands }: BrandCarouselProps) {
                   className={`relative flex flex-col items-center justify-center gap-2 h-28 w-40 rounded-2xl border ${accent.border} bg-zinc-900 shadow-sm transition-transform hover:scale-105 hover:shadow-md overflow-hidden`}
                 >
                   <div className="absolute inset-0 bg-black/50" />
-                  <img
-                    src={`/images/brands/${logo}.svg`}
-                    alt={brand}
-                    className="h-12 w-auto max-w-[120px] object-contain relative"
-                    loading="lazy"
-                  />
+                  <BrandImage logo={logo} brand={brand} />
                   <span className={`text-xs font-semibold ${accent.text} tracking-wide text-center leading-tight relative`}>
                     {brand}
                   </span>

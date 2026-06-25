@@ -42,7 +42,7 @@ export default function HeroCarousel({ slides }: HeroCarouselProps) {
   if (slides.length === 0) return null;
 
   return (
-    <section className="relative overflow-hidden rounded-[2rem] border border-border/70 bg-card shadow-soft">
+    <section className="relative overflow-hidden  border border-border/70 bg-card shadow-soft">
       <div className="relative h-[400px] w-full sm:h-[480px] lg:h-[520px]">
         {slides.map((slide, index) => (
           <div
@@ -85,7 +85,7 @@ export default function HeroCarousel({ slides }: HeroCarouselProps) {
                   <Button
                     asChild
                     size="lg"
-                    className="mt-6 rounded-2xl px-6 bg-white text-foreground hover:bg-white/90"
+                    className="mt-6  px-6 bg-white text-foreground hover:bg-white/90"
                   >
                     <Link href={slide.cta.href}>{slide.cta.label}</Link>
                   </Button>

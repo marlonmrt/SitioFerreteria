@@ -4,32 +4,32 @@ import {
   Factory,
   ShieldCheck,
   Store,
-  Bath,
-  Layers,
-  Hammer,
-  Wrench,
   Clock,
   Phone,
   MapPin,
   ArrowRight,
-  Sprout,
-  Zap,
-  Lightbulb,
-  Cog,
-  Flower2,
-  Tent,
-  Flame,
-  ToolCase,
-  CookingPot,
-  Fan,
-  Tv,
+  Bath,
   CircuitBoard,
-  Dumbbell,
-  Fuel,
+  Cog,
+  CookingPot,
   Droplets,
+  Dumbbell,
+  Fan,
+  Flame,
+  Flower2,
+  Fuel,
+  Hammer,
+  Layers,
+  Lightbulb,
   Shield,
   ShoppingBag,
-  Warehouse
+  Sprout,
+  Tent,
+  ToolCase,
+  Tv,
+  Warehouse,
+  Wrench,
+  Zap
 } from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
@@ -41,6 +41,27 @@ import { ProductCard } from "@/components/catalog/product-card";
 import { getFamilies, getStores, getUniqueBrands, getArticles, getCarouselSlides } from "@/lib/db/queries/catalog";
 import { getFavoriteIds } from "@/lib/db/queries/catalog";
 import { auth } from "@/auth";
+
+const defaultSlides = [
+  {
+    gradient: "bg-gradient-to-br from-[#1e3a5f] via-[#2a5a8a] to-[#3a7abd]",
+    title: "Ferretería conectada al ERP",
+    subtitle: "Consulta artículos, familias, tarifas públicas y acceso profesional validado sin carrito ni checkout. El catálogo se actualiza desde los ficheros exportados por el ERP.",
+    cta: { label: "Crear cuenta particular", href: "/registro" }
+  },
+  {
+    gradient: "bg-gradient-to-br from-[#5c2d0a] via-[#8b4513] to-[#c07030]",
+    title: "Tarifas especiales para profesionales",
+    subtitle: "Solicita tu alta B2B y accede a precios exclusivos con tu tarifa personalizada. Aprobación manual por nuestro equipo comercial.",
+    cta: { label: "Solicitar alta B2B", href: "/registro-empresa" }
+  },
+  {
+    gradient: "bg-gradient-to-br from-[#0d3b2e] via-[#1a6b4a] to-[#28a06b]",
+    title: "Materiales para obra y reforma",
+    subtitle: "Explora nuestro catálogo completo de materiales de construcción, fontanería, electricidad y más. Solicita información y presupuesto sin compromiso.",
+    cta: { label: "Ver catálogo", href: "/articulos" }
+  }
+];
 
 function getCategoryIcon(slug: string) {
   const key = slug.toLowerCase();
@@ -72,27 +93,6 @@ function getCategoryIcon(slug: string) {
   return Layers;
 }
 
-const defaultSlides = [
-  {
-    gradient: "bg-gradient-to-br from-[#1e3a5f] via-[#2a5a8a] to-[#3a7abd]",
-    title: "Ferretería conectada al ERP",
-    subtitle: "Consulta artículos, familias, tarifas públicas y acceso profesional validado sin carrito ni checkout. El catálogo se actualiza desde los ficheros exportados por el ERP.",
-    cta: { label: "Crear cuenta particular", href: "/registro" }
-  },
-  {
-    gradient: "bg-gradient-to-br from-[#5c2d0a] via-[#8b4513] to-[#c07030]",
-    title: "Tarifas especiales para profesionales",
-    subtitle: "Solicita tu alta B2B y accede a precios exclusivos con tu tarifa personalizada. Aprobación manual por nuestro equipo comercial.",
-    cta: { label: "Solicitar alta B2B", href: "/registro-empresa" }
-  },
-  {
-    gradient: "bg-gradient-to-br from-[#0d3b2e] via-[#1a6b4a] to-[#28a06b]",
-    title: "Materiales para obra y reforma",
-    subtitle: "Explora nuestro catálogo completo de materiales de construcción, fontanería, electricidad y más. Solicita información y presupuesto sin compromiso.",
-    cta: { label: "Ver catálogo", href: "/articulos" }
-  }
-];
-
 const highlights = [
   {
     icon: Factory,
@@ -109,34 +109,6 @@ const highlights = [
     title: "Catálogo público",
     description: "Cualquier visitante puede consultar familias, fichas y precio orientativo."
   }
-];
-
-const categoryImages: Record<string, string> = {
-  banos: "/images/categories/banos.jpg",
-  ceramicas: "/images/categories/ceramicas.jpg",
-  climatizacion: "/images/categories/climatizacion.jpg",
-  construccion: "/images/categories/construccion.jpg",
-  "hogar-electrodomesticos": "/images/categories/hogar.jpg",
-  "sellado-fijacion": "/images/categories/sellado.jpg",
-};
-
-const categoryGradients = [
-  "from-blue-600 to-indigo-700",
-  "from-emerald-500 to-teal-700",
-  "from-orange-500 to-red-600",
-  "from-pink-500 to-rose-700",
-  "from-purple-500 to-violet-700",
-  "from-amber-500 to-orange-600",
-  "from-cyan-500 to-blue-600",
-  "from-lime-500 to-green-600",
-  "from-rose-500 to-pink-600",
-  "from-sky-500 to-indigo-600",
-  "from-teal-500 to-emerald-600",
-  "from-red-500 to-rose-600",
-  "from-violet-500 to-purple-600",
-  "from-yellow-500 to-amber-600",
-  "from-fuchsia-500 to-pink-700",
-  "from-green-500 to-emerald-700"
 ];
 
 export default async function HomePage() {
@@ -187,32 +159,26 @@ export default async function HomePage() {
           </p>
         </div>
 
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          {familiesList.slice(0, 12).map((family, index) => {
+        <div className="grid gap-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          {familiesList.slice(0, 12).map((family) => {
+            const bgImage = family.image;
             const Icon = getCategoryIcon(family.slug);
-            const gradient = categoryGradients[index % categoryGradients.length];
-            const bgImage = categoryImages[family.slug];
             return (
               <Link
                 href={`/familias/${family.slug}`}
                 key={family.id}
-                className="group relative overflow-hidden rounded-3xl border border-border/70 bg-card shadow-sm transition-all hover:-translate-y-1 hover:shadow-soft"
+                className="group relative overflow-hidden border border-zinc-800 bg-transparent shadow-sm transition-transform hover:scale-[1.02]"
               >
                 {bgImage ? (
                   <div
                     className="absolute inset-0 bg-cover bg-center"
                     style={{ backgroundImage: `url(${bgImage})` }}
                   />
-                ) : (
-                  <div className={`absolute inset-0 bg-gradient-to-br ${gradient}`} />
-                )}
-                <div className="absolute inset-0 bg-black/50 group-hover:bg-black/40 transition-colors" />
+                ) : null}
                 <div className="relative p-6 flex flex-col min-h-[160px] justify-end">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/20 backdrop-blur-sm text-white mb-3">
-                    <Icon className="h-5 w-5" />
-                  </div>
-                  <h3 className="text-xl font-bold text-white">{family.name}</h3>
-                  <p className="text-sm text-white/70 mt-1 flex items-center gap-1">
+                  <Icon className="h-6 w-6 text-black mb-1" />
+                  <h3 className="text-xl font-bold text-black">{family.name}</h3>
+                  <p className="text-sm text-black/70 mt-1 flex items-center gap-1">
                     Explorar
                     <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
                   </p>

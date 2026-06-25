@@ -26,7 +26,7 @@ export default function DisenoPage() {
   return (
     <div className="space-y-6">
       <div className="flex items-center gap-3">
-        <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 text-primary">
+        <span className="flex h-10 w-10 items-center justify-center  bg-primary/10 text-primary">
           <Palette className="h-5 w-5" />
         </span>
         <div>
@@ -45,11 +45,11 @@ export default function DisenoPage() {
               key={s.href}
               asChild
               variant="outline"
-              className="justify-start h-auto p-5 rounded-2xl"
+              className="justify-start h-auto p-5 "
             >
               <Link href={s.href}>
                 <div className="flex items-start gap-4">
-                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary">
+                  <span className="flex h-10 w-10 shrink-0 items-center justify-center  bg-primary/10 text-primary">
                     <Icon className="h-5 w-5" />
                   </span>
                   <div className="text-left">

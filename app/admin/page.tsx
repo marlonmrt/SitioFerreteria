@@ -45,7 +45,7 @@ export default async function AdminDashboardPage() {
       {/* Grid de Tarjetas de Métricas */}
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {/* Artículos Activos */}
-        <Card className="rounded-2xl border-border/70 shadow-sm">
+        <Card className=" border-border/70 shadow-sm">
           <CardHeader className="flex flex-row items-center justify-between pb-2">
             <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
               Artículos Activos
@@ -61,7 +61,7 @@ export default async function AdminDashboardPage() {
         </Card>
 
         {/* Solicitudes B2B */}
-        <Card className={`rounded-2xl border-border/70 shadow-sm ${pendingB2bCount > 0 ? "border-amber-300 bg-amber-500/5" : ""}`}>
+        <Card className={` border-border/70 shadow-sm ${pendingB2bCount > 0 ? "border-amber-300 bg-amber-500/5" : ""}`}>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
             <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
               Solicitudes B2B Pendientes
@@ -86,7 +86,7 @@ export default async function AdminDashboardPage() {
         </Card>
 
         {/* Consultas Nuevas */}
-        <Card className={`rounded-2xl border-border/70 shadow-sm ${newInfoCount > 0 ? "border-primary/30 bg-primary/5" : ""}`}>
+        <Card className={` border-border/70 shadow-sm ${newInfoCount > 0 ? "border-primary/30 bg-primary/5" : ""}`}>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
             <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
               Consultas Nuevas
@@ -113,7 +113,7 @@ export default async function AdminDashboardPage() {
 
       <div className="grid gap-6 lg:grid-cols-2">
         {/* Última Sincronización ERP */}
-        <Card className="rounded-2xl border-border/70 shadow-sm">
+        <Card className=" border-border/70 shadow-sm">
           <CardHeader className="pb-4">
             <CardTitle className="text-lg">Última Sincronización ERP</CardTitle>
             <CardDescription>Detalles del lote de importación más reciente.</CardDescription>
@@ -177,7 +177,7 @@ export default async function AdminDashboardPage() {
                 </div>
 
                 {lastImport.status === "ERROR" && (
-                  <div className="rounded-xl border border-destructive/20 bg-destructive/5 p-3 flex items-start gap-2 text-xs text-destructive">
+                  <div className=" border border-destructive/20 bg-destructive/5 p-3 flex items-start gap-2 text-xs text-destructive">
                     <AlertCircle className="h-4.5 w-4.5 shrink-0 mt-0.5" />
                     <div>
                       Se detectaron fallos de parseo o integridad en el archivo. Revise los registros de error en el panel de importaciones.
@@ -185,7 +185,7 @@ export default async function AdminDashboardPage() {
                   </div>
                 )}
 
-                <Button asChild variant="outline" className="w-full rounded-xl">
+                <Button asChild variant="outline" className="w-full ">
                   <Link href="/admin/importaciones">Historial completo</Link>
                 </Button>
               </div>
@@ -199,7 +199,7 @@ export default async function AdminDashboardPage() {
         </Card>
 
         {/* Consultas Pendientes de Clientes */}
-        <Card className="rounded-2xl border-border/70 shadow-sm flex flex-col">
+        <Card className=" border-border/70 shadow-sm flex flex-col">
           <CardHeader className="pb-4">
             <CardTitle className="text-lg">Últimas Consultas de Clientes</CardTitle>
             <CardDescription>Fichas de información pendientes de respuesta.</CardDescription>
@@ -210,7 +210,7 @@ export default async function AdminDashboardPage() {
                 {lastInquiries.map((inquiry) => (
                   <div
                     key={inquiry.id}
-                    className="flex flex-col gap-1.5 p-3.5 border border-border/50 bg-muted/5 rounded-2xl text-xs hover:bg-muted/10 transition-colors"
+                    className="flex flex-col gap-1.5 p-3.5 border border-border/50 bg-muted/5  text-xs hover:bg-muted/10 transition-colors"
                   >
                     <div className="flex items-center justify-between">
                       <span className="font-semibold text-foreground flex items-center gap-1.5">
@@ -236,7 +236,7 @@ export default async function AdminDashboardPage() {
                   </div>
                 ))}
 
-                <Button asChild variant="outline" className="w-full rounded-xl mt-auto">
+                <Button asChild variant="outline" className="w-full  mt-auto">
                   <Link href="/admin/solicitudes">Gestionar consultas</Link>
                 </Button>
               </div>

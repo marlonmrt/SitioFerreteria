@@ -30,7 +30,7 @@ function SuggestionImage({ src, alt }: { src: string | null; alt: string }) {
   }, [src]);
 
   return (
-    <div className="relative h-8 w-8 shrink-0 overflow-hidden rounded-lg border border-border bg-muted/20">
+    <div className="relative h-8 w-8 shrink-0 overflow-hidden  border border-border bg-muted/20">
       <Image
         src={imgSrc}
         alt={alt}
@@ -126,13 +126,13 @@ export function SearchBar() {
             if (query.trim().length >= 2) setIsOpen(true);
           }}
           placeholder="Buscar artículos, familias o códigos ERP..."
-          className="h-11 w-full rounded-2xl border-border/70 bg-card pl-10 pr-4 shadow-sm transition-all focus:border-primary/50 focus:ring-1 focus:ring-primary/30"
+          className="h-11 w-full  border-border/70 bg-card pl-10 pr-4 shadow-sm transition-all focus:border-primary/50 focus:ring-1 focus:ring-primary/30"
           aria-label="Buscar artículos"
         />
       </form>
 
       {isOpen && (suggestions.articles.length > 0 || suggestions.families.length > 0) && (
-        <div className="absolute left-0 right-0 z-50 mt-2 max-h-[350px] overflow-y-auto rounded-2xl border border-border bg-popover p-2 shadow-soft backdrop-blur-md">
+        <div className="absolute left-0 right-0 z-50 mt-2 max-h-[350px] overflow-y-auto  border border-border bg-popover p-2 shadow-soft backdrop-blur-md">
           {suggestions.families.length > 0 && (
             <div className="mb-2">
               <div className="px-3 py-1.5 text-xs font-semibold tracking-wider text-muted-foreground uppercase">
@@ -144,7 +144,7 @@ export function SearchBar() {
                     <Link
                       href={`/familias/${family.slug}`}
                       onClick={clearAndClose}
-                      className="flex items-center gap-2.5 rounded-xl px-3 py-2 text-sm text-foreground transition-colors hover:bg-accent"
+                      className="flex items-center gap-2.5  px-3 py-2 text-sm text-foreground transition-colors hover:bg-accent"
                     >
                       <FolderOpen className="h-4 w-4 text-primary" />
                       <span>{family.name}</span>
@@ -166,7 +166,7 @@ export function SearchBar() {
                     <Link
                       href={`/articulos/${article.slug}`}
                       onClick={clearAndClose}
-                      className="flex items-center gap-3 rounded-xl px-3 py-2 text-sm text-foreground transition-colors hover:bg-accent"
+                      className="flex items-center gap-3  px-3 py-2 text-sm text-foreground transition-colors hover:bg-accent"
                     >
                       <SuggestionImage src={article.mainImage} alt={article.name} />
                       <div className="flex flex-col">

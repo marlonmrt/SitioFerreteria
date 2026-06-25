@@ -165,7 +165,7 @@ export function ImportPanel({ initialBatches }: ImportPanelProps) {
   return (
     <div className="grid gap-6 lg:grid-cols-[1fr_2fr]">
       {/* Columna Izquierda: Panel de Subida */}
-      <Card className="rounded-[2rem] border-border/75 bg-card shadow-soft h-fit">
+      <Card className=" border-border/75 bg-card shadow-soft h-fit">
         <CardHeader>
           <CardTitle className="text-xl">Importar catálogo</CardTitle>
           <CardDescription>
@@ -176,7 +176,7 @@ export function ImportPanel({ initialBatches }: ImportPanelProps) {
           <form onSubmit={handleSubmit} className="space-y-5">
             {/* Zona Dropzone */}
             <div
-              className={`relative flex flex-col items-center justify-center rounded-2xl border-2 border-dashed p-6 text-center transition-colors ${
+              className={`relative flex flex-col items-center justify-center  border-2 border-dashed p-6 text-center transition-colors ${
                 file
                   ? "border-primary/50 bg-primary/5"
                   : "border-border/80 bg-background/50 hover:bg-accent/40"
@@ -200,12 +200,12 @@ export function ImportPanel({ initialBatches }: ImportPanelProps) {
 
             {/* Selector de tipo */}
             {file && (
-              <div className="flex gap-2 rounded-2xl bg-muted p-1">
+              <div className="flex gap-2  bg-muted p-1">
                 <Button
                   type="button"
                   variant={fileType === "CSV" ? "default" : "ghost"}
                   onClick={() => setFileType("CSV")}
-                  className="flex-1 rounded-xl h-9 text-xs"
+                  className="flex-1  h-9 text-xs"
                 >
                   <FileCode className="mr-1.5 h-3.5 w-3.5" /> CSV
                 </Button>
@@ -213,7 +213,7 @@ export function ImportPanel({ initialBatches }: ImportPanelProps) {
                   type="button"
                   variant={fileType === "XLSX" ? "default" : "ghost"}
                   onClick={() => setFileType("XLSX")}
-                  className="flex-1 rounded-xl h-9 text-xs"
+                  className="flex-1  h-9 text-xs"
                 >
                   <FileSpreadsheet className="mr-1.5 h-3.5 w-3.5" /> Excel
                 </Button>
@@ -223,7 +223,7 @@ export function ImportPanel({ initialBatches }: ImportPanelProps) {
             {/* Botón de envío o indicador de carga */}
             <Button
               type="submit"
-              className="w-full rounded-2xl h-11"
+              className="w-full  h-11"
               disabled={uploading || !file || activeBatchId !== null}
             >
               {uploading ? (
@@ -241,7 +241,7 @@ export function ImportPanel({ initialBatches }: ImportPanelProps) {
 
             {/* Alerta de procesamiento activo */}
             {activeBatchId && (
-              <div className="flex items-center gap-3 rounded-2xl bg-amber-500/10 p-4 text-amber-500 text-sm">
+              <div className="flex items-center gap-3  bg-amber-500/10 p-4 text-amber-500 text-sm">
                 <AlertCircle className="h-5 w-5 shrink-0" />
                 <p>Una sincronización está corriendo en segundo plano. Espera a que finalice.</p>
               </div>
@@ -251,7 +251,7 @@ export function ImportPanel({ initialBatches }: ImportPanelProps) {
       </Card>
 
       {/* Columna Derecha: Historial de Lotes */}
-      <Card className="rounded-[2rem] border-border/75 bg-card shadow-soft">
+      <Card className=" border-border/75 bg-card shadow-soft">
         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
           <div>
             <CardTitle className="text-xl">Historial de sincronización</CardTitle>
@@ -260,7 +260,7 @@ export function ImportPanel({ initialBatches }: ImportPanelProps) {
           <Button
             variant="outline"
             size="icon"
-            className="rounded-xl h-9 w-9"
+            className=" h-9 w-9"
             onClick={handleRefresh}
             disabled={isPending}
           >
@@ -268,7 +268,7 @@ export function ImportPanel({ initialBatches }: ImportPanelProps) {
           </Button>
         </CardHeader>
         <CardContent>
-          <div className="overflow-hidden rounded-xl border border-border/60">
+          <div className="overflow-hidden  border border-border/60">
             <Table>
               <TableHeader className="bg-muted/40">
                 <TableRow>
@@ -323,17 +323,17 @@ export function ImportPanel({ initialBatches }: ImportPanelProps) {
                       </TableCell>
                       <TableCell className="text-center">
                         {batch.status === "PENDING" && (
-                          <Badge variant="outline" className="bg-blue-500/10 text-blue-500 border-blue-500/20 rounded-lg">
+                          <Badge variant="outline" className="bg-blue-500/10 text-blue-500 border-blue-500/20 ">
                             <Loader2 className="mr-1 h-3 w-3 animate-spin" /> Procesando
                           </Badge>
                         )}
                         {batch.status === "SUCCESS" && (
-                          <Badge variant="outline" className="bg-emerald-500/10 text-emerald-500 border-emerald-500/20 rounded-lg">
+                          <Badge variant="outline" className="bg-emerald-500/10 text-emerald-500 border-emerald-500/20 ">
                             <Check className="mr-1 h-3 w-3" /> Completado
                           </Badge>
                         )}
                         {batch.status === "ERROR" && (
-                          <Badge variant="outline" className="bg-destructive/10 text-destructive border-destructive/20 rounded-lg">
+                          <Badge variant="outline" className="bg-destructive/10 text-destructive border-destructive/20 ">
                             <AlertTriangle className="mr-1 h-3 w-3" /> Error
                           </Badge>
                         )}
@@ -342,11 +342,11 @@ export function ImportPanel({ initialBatches }: ImportPanelProps) {
                         {batch.status === "ERROR" ? (
                           <Dialog>
                             <DialogTrigger asChild>
-                              <Button variant="ghost" size="sm" className="rounded-xl text-xs hover:bg-destructive/5 hover:text-destructive">
+                              <Button variant="ghost" size="sm" className=" text-xs hover:bg-destructive/5 hover:text-destructive">
                                 Ver Log
                               </Button>
                             </DialogTrigger>
-                            <DialogContent className="max-w-xl rounded-3xl">
+                            <DialogContent className="max-w-xl ">
                               <DialogHeader>
                                 <DialogTitle className="flex items-center gap-2 text-destructive">
                                   <XCircle className="h-5 w-5" /> Log de errores de importación
@@ -355,7 +355,7 @@ export function ImportPanel({ initialBatches }: ImportPanelProps) {
                                   Detalles de las filas que fallaron durante el procesamiento del archivo: {batch.fileName}
                                 </DialogDescription>
                               </DialogHeader>
-                              <div className="mt-4 max-h-[300px] overflow-y-auto rounded-2xl bg-muted p-4 font-mono text-xs text-muted-foreground space-y-2">
+                              <div className="mt-4 max-h-[300px] overflow-y-auto  bg-muted p-4 font-mono text-xs text-muted-foreground space-y-2">
                                 {(() => {
                                   try {
                                     const logs = JSON.parse(batch.errorLog);

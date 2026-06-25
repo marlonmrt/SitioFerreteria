@@ -80,11 +80,11 @@ export function InfoRequestForm({
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button size="lg" className="w-full rounded-2xl py-6 font-semibold shadow-glow">
+        <Button size="lg" className="w-full  py-6 font-semibold shadow-glow">
           Solicitar información / presupuesto
         </Button>
       </DialogTrigger>
-      <DialogContent className="max-w-md rounded-[2rem] p-6">
+      <DialogContent className="max-w-md  p-6">
         <DialogHeader>
           <DialogTitle className="text-xl font-semibold">Solicitud de Información</DialogTitle>
           <DialogDescription className="text-sm mt-1">
@@ -110,7 +110,7 @@ export function InfoRequestForm({
                 required
                 defaultValue={session?.user?.name || ""}
                 placeholder="Ej. Juan Pérez"
-                className="pl-9 rounded-xl"
+                className="pl-9 "
               />
             </div>
             {errors.name && <p className="text-xs text-red-500">{errors.name[0]}</p>}
@@ -132,7 +132,7 @@ export function InfoRequestForm({
                 required
                 defaultValue={session?.user?.email || ""}
                 placeholder="Ej. juan@correo.com"
-                className="pl-9 rounded-xl"
+                className="pl-9 "
               />
             </div>
             {errors.email && <p className="text-xs text-red-500">{errors.email[0]}</p>}
@@ -151,7 +151,7 @@ export function InfoRequestForm({
                 id="phone"
                 name="phone"
                 placeholder="Ej. +34 600 000 000"
-                className="pl-9 rounded-xl"
+                className="pl-9 "
               />
             </div>
             {errors.phone && <p className="text-xs text-red-500">{errors.phone[0]}</p>}
@@ -163,12 +163,12 @@ export function InfoRequestForm({
               Tienda física de recogida/consulta
             </Label>
             <Select name="storeId">
-              <SelectTrigger className="rounded-xl">
+              <SelectTrigger className="">
                 <SelectValue placeholder="Seleccione una tienda cercana..." />
               </SelectTrigger>
-              <SelectContent className="rounded-xl">
+              <SelectContent className="">
                 {stores.map((store) => (
-                  <SelectItem key={store.id} value={store.id} className="rounded-lg">
+                  <SelectItem key={store.id} value={store.id} className="">
                     {store.name}
                   </SelectItem>
                 ))}
@@ -190,14 +190,14 @@ export function InfoRequestForm({
                 rows={4}
                 defaultValue={defaultMessage}
                 placeholder="Escriba su consulta aquí..."
-                className="w-full rounded-xl border border-input bg-transparent px-3 py-2 text-sm shadow-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
+                className="w-full  border border-input bg-transparent px-3 py-2 text-sm shadow-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
               />
             </div>
             {errors.message && <p className="text-xs text-red-500">{errors.message[0]}</p>}
           </div>
 
           {/* Botón de Envío */}
-          <Button type="submit" disabled={isPending} className="w-full rounded-xl py-5 mt-2">
+          <Button type="submit" disabled={isPending} className="w-full  py-5 mt-2">
             {isPending ? (
               <>
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />

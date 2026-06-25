@@ -5,7 +5,7 @@ function Toaster(props: ToasterProps) {
     <Sonner
       toastOptions={{
         classNames: {
-          toast: "rounded-2xl border border-border bg-background text-foreground shadow-lg",
+          toast: " border border-border bg-background text-foreground shadow-lg",
           description: "text-muted-foreground"
         }
       }}

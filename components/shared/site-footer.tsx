@@ -36,7 +36,7 @@ export function SiteFooter() {
 
           <div className="mt-8 grid gap-4 sm:grid-cols-2">
             {stores.map((store) => (
-              <article key={store.name} className="rounded-3xl border border-border/70 bg-background p-5 shadow-sm">
+              <article key={store.name} className=" border border-border/70 bg-background p-5 shadow-sm">
                 <h3 className="text-base font-semibold">{store.name}</h3>
                 <ul className="mt-4 space-y-3 text-sm text-muted-foreground">
                   <li className="flex gap-2">
@@ -57,7 +57,7 @@ export function SiteFooter() {
           </div>
         </div>
 
-        <div className="rounded-3xl border border-border/70 bg-background p-6 shadow-sm">
+        <div className=" border border-border/70 bg-background p-6 shadow-sm">
           <h3 className="text-lg font-semibold">Contacto</h3>
           <p className="mt-2 text-sm text-muted-foreground">
             ¿Necesitas una ficha, tarifa B2B o confirmar stock en tienda? Escríbenos o llámanos.

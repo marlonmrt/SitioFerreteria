@@ -58,7 +58,7 @@ export default function TiendasClient({ initialStores }: TiendasClientProps) {
         {/* Left column: Stores list */}
         <div className="space-y-4">
           {initialStores.length === 0 ? (
-            <Card className="rounded-3xl border-border/70 p-6 bg-card text-center text-muted-foreground">
+            <Card className=" border-border/70 p-6 bg-card text-center text-muted-foreground">
               No se han encontrado tiendas registradas.
             </Card>
           ) : (
@@ -68,7 +68,7 @@ export default function TiendasClient({ initialStores }: TiendasClientProps) {
                 <Card
                   key={store.id}
                   onClick={() => setSelectedStore(store)}
-                  className={`rounded-3xl border-border/70 cursor-pointer transition-all duration-300 ${
+                  className={` border-border/70 cursor-pointer transition-all duration-300 ${
                     isSelected
                       ? "ring-2 ring-primary bg-primary/5 border-primary/30"
                       : "hover:bg-muted/30"
@@ -102,7 +102,7 @@ export default function TiendasClient({ initialStores }: TiendasClientProps) {
                       <Button
                         size="sm"
                         variant={isSelected ? "default" : "outline"}
-                        className="rounded-2xl gap-1.5"
+                        className=" gap-1.5"
                         onClick={(e) => {
                           e.stopPropagation();
                           setSelectedStore(store);
@@ -120,7 +120,7 @@ export default function TiendasClient({ initialStores }: TiendasClientProps) {
         </div>
 
         {/* Right column: Interactive map iframe */}
-        <div className="relative rounded-[2rem] border border-border/70 overflow-hidden bg-card min-h-[400px] lg:min-h-[500px] shadow-soft">
+        <div className="relative  border border-border/70 overflow-hidden bg-card min-h-[400px] lg:min-h-[500px] shadow-soft">
           <iframe
             src={getMapUrl(selectedStore)}
             className="absolute inset-0 w-full h-full border-0"

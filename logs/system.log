@@ -446,3 +446,6 @@
 [2026-06-24T23:32:48.515Z] [INFO] Family updated | Context: {"id":"16c8abec-6a1c-460f-b169-f4bb623bb776","slug":"bricolaje","name":"Bricolaje"}
 [2026-06-24T23:33:07.530Z] [INFO] Family updated | Context: {"id":"16c8abec-6a1c-460f-b169-f4bb623bb776","slug":"bricolaje","name":"Bricolaje"}
 [2026-06-24T23:33:47.484Z] [INFO] Family updated | Context: {"id":"28422576-0ea2-42f8-be07-f7970378d394","slug":"jardin","name":"Jardín"}
+[2026-06-25T09:48:32.123Z] [INFO] Family updated | Context: {"id":"ef12fd9c-1b5a-44ca-a14f-92030ce57303","slug":"banos","name":"Baños"}
+[2026-06-25T09:48:43.119Z] [INFO] Family updated | Context: {"id":"14c61ba3-f3ca-4e75-89ac-86bc9a2e583c","slug":"ceramicas","name":"Cerámicas"}
+[2026-06-25T09:54:35.403Z] [INFO] Family updated | Context: {"id":"deb22ac5-1e54-4723-833b-8e318ac68e04","slug":"soldadura","name":"Soldadura"}

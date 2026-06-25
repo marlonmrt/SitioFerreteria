@@ -33,7 +33,7 @@ export default function ConocenosPage() {
   return (
     <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8 lg:py-16">
       {/* Hero section */}
-      <section className="relative overflow-hidden rounded-[2rem] border border-border/70 bg-card p-8 sm:p-12 md:p-16 shadow-soft mb-12">
+      <section className="relative overflow-hidden  border border-border/70 bg-card p-8 sm:p-12 md:p-16 shadow-soft mb-12">
         <div className="absolute inset-0 bg-hero-grid bg-[length:18px_18px] opacity-10" />
         <div className="relative max-w-3xl">
           <Badge className="rounded-full px-4 py-1.5 text-xs uppercase tracking-[0.2em]">
@@ -50,9 +50,9 @@ export default function ConocenosPage() {
 
       {/* History and Mission grid */}
       <div className="grid gap-8 lg:grid-cols-2 mb-16">
-        <Card className="rounded-[2rem] border-border/70 bg-card shadow-sm p-6 sm:p-8 flex flex-col justify-between">
+        <Card className=" border-border/70 bg-card shadow-sm p-6 sm:p-8 flex flex-col justify-between">
           <CardHeader className="p-0">
-            <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-2xl bg-primary/10 text-primary">
+            <div className="mb-6 flex h-12 w-12 items-center justify-center  bg-primary/10 text-primary">
               <History className="h-6 w-6" />
             </div>
             <CardTitle className="text-2xl font-semibold">Nuestra Historia</CardTitle>
@@ -64,9 +64,9 @@ export default function ConocenosPage() {
           </CardContent>
         </Card>
 
-        <Card className="rounded-[2rem] border-border/70 bg-card shadow-sm p-6 sm:p-8 flex flex-col justify-between">
+        <Card className=" border-border/70 bg-card shadow-sm p-6 sm:p-8 flex flex-col justify-between">
           <CardHeader className="p-0">
-            <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-2xl bg-primary/10 text-primary">
+            <div className="mb-6 flex h-12 w-12 items-center justify-center  bg-primary/10 text-primary">
               <Target className="h-6 w-6" />
             </div>
             <CardTitle className="text-2xl font-semibold">Misión y Visión</CardTitle>
@@ -95,9 +95,9 @@ export default function ConocenosPage() {
           {values.map((val) => {
             const Icon = val.icon;
             return (
-              <Card key={val.title} className="rounded-3xl border-border/70 bg-card shadow-sm transition-all hover:shadow-soft">
+              <Card key={val.title} className=" border-border/70 bg-card shadow-sm transition-all hover:shadow-soft">
                 <CardHeader>
-                  <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-primary/5 text-primary">
+                  <div className="mb-4 flex h-12 w-12 items-center justify-center  bg-primary/5 text-primary">
                     <Icon className="h-6 w-6" />
                   </div>
                   <CardTitle className="text-lg font-semibold">{val.title}</CardTitle>
@@ -120,12 +120,12 @@ export default function ConocenosPage() {
             Regístrate hoy mismo como particular o solicita tu cuenta de empresa para acceder a tus tarifas personalizadas directamente desde el ERP.
           </p>
           <div className="mt-8 flex flex-col gap-3 justify-center sm:flex-row">
-            <Button asChild size="lg" variant="secondary" className="rounded-2xl px-6 bg-white text-primary hover:bg-white/90">
+            <Button asChild size="lg" variant="secondary" className=" px-6 bg-white text-primary hover:bg-white/90">
               <Link href="/registro">
                 Cuenta Particular <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
             </Button>
-            <Button asChild size="lg" className="rounded-2xl px-6 border border-white/25 bg-transparent hover:bg-white/10 text-white">
+            <Button asChild size="lg" className=" px-6 border border-white/25 bg-transparent hover:bg-white/10 text-white">
               <Link href="/registro-empresa">Solicitar Alta B2B</Link>
             </Button>
           </div>

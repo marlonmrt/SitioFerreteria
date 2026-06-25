@@ -130,7 +130,7 @@ export default function CarruselClient({ initialSlides }: Props) {
         <p className="text-sm text-muted-foreground">
           {slides.length} diapositiva{slides.length !== 1 ? "s" : ""}
         </p>
-        <Button onClick={openNew} size="sm" className="rounded-xl">
+        <Button onClick={openNew} size="sm" className="">
           <Plus className="h-4 w-4 mr-1.5" />
           Nueva diapositiva
         </Button>
@@ -158,7 +158,7 @@ export default function CarruselClient({ initialSlides }: Props) {
                 </div>
 
                 <div
-                  className="h-20 w-36 shrink-0 rounded-xl flex items-center justify-center text-white text-xs font-bold px-2 text-center leading-tight"
+                  className="h-20 w-36 shrink-0  flex items-center justify-center text-white text-xs font-bold px-2 text-center leading-tight"
                   style={{
                     background: `linear-gradient(135deg, ${slide.gradientFrom}, ${slide.gradientVia || slide.gradientTo}, ${slide.gradientTo})`
                   }}
@@ -365,7 +365,7 @@ export default function CarruselClient({ initialSlides }: Props) {
 
             {/* Preview */}
             <div
-              className="h-24 rounded-xl flex items-center justify-center text-white font-bold relative overflow-hidden"
+              className="h-24  flex items-center justify-center text-white font-bold relative overflow-hidden"
             >
               {form.backgroundImage && (
                 <div

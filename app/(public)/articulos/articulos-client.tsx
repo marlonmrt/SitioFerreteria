@@ -230,7 +230,7 @@ export default function ArticulosClient({
         {/* === SIDEBAR (MENÚ DE CATEGORÍAS Y FILTROS) === */}
         <aside className="space-y-6 lg:col-span-1">
           {/* Menú Lateral de Categorías */}
-          <div className="rounded-2xl border border-border/70 bg-card p-5 shadow-sm space-y-4">
+          <div className=" border border-border/70 bg-card p-5 shadow-sm space-y-4">
             <h2 className="font-bold text-foreground text-sm uppercase tracking-wider flex items-center gap-2">
               <Folder className="h-4.5 w-4.5 text-primary" />
               Categorías
@@ -244,7 +244,7 @@ export default function ArticulosClient({
                 return (
                   <div key={fam.id} className="space-y-1">
                     <div
-                      className={`flex items-center justify-between rounded-xl px-3 py-2 text-sm font-medium transition-all ${
+                      className={`flex items-center justify-between  px-3 py-2 text-sm font-medium transition-all ${
                         isSelected
                           ? "bg-primary/15 text-primary"
                           : "hover:bg-accent text-muted-foreground hover:text-foreground"
@@ -264,7 +264,7 @@ export default function ArticulosClient({
                         <button
                           type="button"
                           onClick={(e) => toggleFamilyExpand(fam.id, e)}
-                          className="p-1 rounded-lg hover:bg-muted-foreground/10 transition-colors ml-1"
+                          className="p-1  hover:bg-muted-foreground/10 transition-colors ml-1"
                           aria-label={isExpanded ? "Contraer" : "Expandir"}
                         >
                           {isExpanded ? (
@@ -289,7 +289,7 @@ export default function ArticulosClient({
                                 e.preventDefault();
                                 updateQueryParams({ category: sub.slug });
                               }}
-                              className={`block rounded-lg px-3 py-1.5 text-xs font-medium transition-all ${
+                              className={`block  px-3 py-1.5 text-xs font-medium transition-all ${
                                 isSubSelected
                                   ? "text-primary bg-primary/5 font-semibold"
                                   : "text-muted-foreground/80 hover:text-foreground hover:bg-accent/40"
@@ -308,7 +308,7 @@ export default function ArticulosClient({
           </div>
 
           {/* Filtros Generales */}
-          <div className="rounded-2xl border border-border/70 bg-card p-5 shadow-sm space-y-6">
+          <div className=" border border-border/70 bg-card p-5 shadow-sm space-y-6">
             <h2 className="font-bold text-foreground text-sm uppercase tracking-wider flex items-center gap-2">
               <SlidersHorizontal className="h-4.5 w-4.5 text-primary" />
               Filtros
@@ -332,7 +332,7 @@ export default function ArticulosClient({
                       updateQueryParams({ q: value || null });
                     }, 350);
                   }}
-                  className="rounded-xl h-9 text-xs pl-8"
+                  className=" h-9 text-xs pl-8"
                 />
                 {searchInput && (
                   <button
@@ -378,7 +378,7 @@ export default function ArticulosClient({
                     value={minInput}
                     disabled={isPending}
                     onChange={(e) => setMinInput(e.target.value)}
-                    className="rounded-xl h-9 text-xs"
+                    className=" h-9 text-xs"
                   />
                   <span className="text-muted-foreground text-xs font-medium">al</span>
                   <Input
@@ -387,10 +387,10 @@ export default function ArticulosClient({
                     value={maxInput}
                     disabled={isPending}
                     onChange={(e) => setMaxInput(e.target.value)}
-                    className="rounded-xl h-9 text-xs"
+                    className=" h-9 text-xs"
                   />
                 </div>
-                <Button type="submit" size="sm" className="w-full rounded-xl text-xs h-8" disabled={isPending}>
+                <Button type="submit" size="sm" className="w-full  text-xs h-8" disabled={isPending}>
                   Aplicar precio
                 </Button>
               </form>
@@ -429,11 +429,11 @@ export default function ArticulosClient({
         <main className="lg:col-span-3 space-y-6">
           {/* Active Badges Panel */}
           {(searchParams.category || searchParams.min || searchParams.max || searchParams.offers === "true" || searchParams.brands || searchParams.q) && (
-            <div className="flex flex-wrap items-center gap-2 p-3 bg-muted/30 rounded-2xl border border-border/50">
+            <div className="flex flex-wrap items-center gap-2 p-3 bg-muted/30  border border-border/50">
               <span className="text-xs font-semibold text-muted-foreground px-2">Filtros activos:</span>
               
               {searchParams.category && activeCategoryName && (
-                <Badge variant="secondary" className="rounded-lg py-1 px-2.5 gap-1 font-medium bg-background border text-xs">
+                <Badge variant="secondary" className=" py-1 px-2.5 gap-1 font-medium bg-background border text-xs">
                   Categoría: {activeCategoryName}
                   <button onClick={() => updateQueryParams({ category: null })} className="hover:text-destructive transition-colors ml-0.5">
                     <X className="h-3 w-3" />
@@ -442,7 +442,7 @@ export default function ArticulosClient({
               )}
 
               {searchParams.offers === "true" && (
-                <Badge variant="secondary" className="rounded-lg py-1 px-2.5 gap-1 font-medium bg-background border text-xs">
+                <Badge variant="secondary" className=" py-1 px-2.5 gap-1 font-medium bg-background border text-xs">
                   Solo en oferta
                   <button onClick={() => updateQueryParams({ offers: null })} className="hover:text-destructive transition-colors ml-0.5">
                     <X className="h-3 w-3" />
@@ -451,7 +451,7 @@ export default function ArticulosClient({
               )}
 
               {(searchParams.min || searchParams.max) && (
-                <Badge variant="secondary" className="rounded-lg py-1 px-2.5 gap-1 font-medium bg-background border text-xs">
+                <Badge variant="secondary" className=" py-1 px-2.5 gap-1 font-medium bg-background border text-xs">
                   Precio: {searchParams.min || "0"}€ - {searchParams.max || "∞"}€
                   <button onClick={() => { setMinInput(""); setMaxInput(""); updateQueryParams({ min: null, max: null }); }} className="hover:text-destructive transition-colors ml-0.5">
                     <X className="h-3 w-3" />
@@ -460,7 +460,7 @@ export default function ArticulosClient({
               )}
 
               {selectedBrandsList.map((brand) => (
-                <Badge key={brand} variant="secondary" className="rounded-lg py-1 px-2.5 gap-1 font-medium bg-background border text-xs">
+                <Badge key={brand} variant="secondary" className=" py-1 px-2.5 gap-1 font-medium bg-background border text-xs">
                   Marca: {brand}
                   <button onClick={() => handleBrandChange(brand, false)} className="hover:text-destructive transition-colors ml-0.5">
                     <X className="h-3 w-3" />
@@ -469,7 +469,7 @@ export default function ArticulosClient({
               ))}
 
               {searchParams.q && (
-                <Badge variant="secondary" className="rounded-lg py-1 px-2.5 gap-1 font-medium bg-background border text-xs">
+                <Badge variant="secondary" className=" py-1 px-2.5 gap-1 font-medium bg-background border text-xs">
                   Búsqueda: &quot;{searchParams.q}&quot;
                   <button onClick={() => { setSearchInput(""); updateQueryParams({ q: null }); }} className="hover:text-destructive transition-colors ml-0.5">
                     <X className="h-3 w-3" />
@@ -481,7 +481,7 @@ export default function ArticulosClient({
                 variant="ghost"
                 size="sm"
                 onClick={handleClearAllFilters}
-                className="text-xs h-7 ml-auto text-destructive hover:bg-destructive/10 rounded-lg font-semibold"
+                className="text-xs h-7 ml-auto text-destructive hover:bg-destructive/10  font-semibold"
               >
                 Limpiar filtros
               </Button>
@@ -502,13 +502,13 @@ export default function ArticulosClient({
               ))}
             </div>
           ) : (
-            <div className="flex flex-col items-center justify-center rounded-3xl border border-dashed border-border/80 p-16 text-center bg-card shadow-sm">
+            <div className="flex flex-col items-center justify-center  border border-dashed border-border/80 p-16 text-center bg-card shadow-sm">
               <Tag className="h-12 w-12 text-muted-foreground/60 stroke-[1.2] mb-3" />
               <h3 className="text-lg font-medium text-foreground">Sin productos</h3>
               <p className="text-muted-foreground text-sm mt-1.5 max-w-sm">
                 No hay productos disponibles que coincidan con la combinación de filtros seleccionados.
               </p>
-              <Button onClick={handleClearAllFilters} className="mt-5 rounded-xl text-xs h-9">
+              <Button onClick={handleClearAllFilters} className="mt-5  text-xs h-9">
                 Restaurar catálogo
               </Button>
             </div>
@@ -520,7 +520,7 @@ export default function ArticulosClient({
               <Button
                 variant="outline"
                 size="sm"
-                className="rounded-xl"
+                className=""
                 disabled={currentPage <= 1 || isPending}
                 onClick={() => handlePageChange(currentPage - 1)}
               >
@@ -535,7 +535,7 @@ export default function ArticulosClient({
               <Button
                 variant="outline"
                 size="sm"
-                className="rounded-xl"
+                className=""
                 disabled={currentPage >= totalPages || isPending}
                 onClick={() => handlePageChange(currentPage + 1)}
               >

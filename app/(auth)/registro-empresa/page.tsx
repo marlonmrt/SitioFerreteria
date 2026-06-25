@@ -23,7 +23,7 @@ export default function RegisterCompanyPage() {
   if (state?.success) {
     return (
       <div className="mx-auto flex min-h-[calc(100vh-8rem)] max-w-md items-center px-4 py-12">
-        <Card className="w-full rounded-[2rem] border-border/70 shadow-soft text-center p-6">
+        <Card className="w-full  border-border/70 shadow-soft text-center p-6">
           <CardHeader className="flex flex-col items-center justify-center">
             <CheckCircle2 className="h-16 w-16 text-emerald-500 mb-4" />
             <CardTitle className="text-3xl font-bold">Solicitud recibida</CardTitle>
@@ -37,7 +37,7 @@ export default function RegisterCompanyPage() {
             </p>
           </CardContent>
           <CardFooter className="flex flex-col gap-4">
-            <Button asChild className="w-full rounded-2xl h-11">
+            <Button asChild className="w-full  h-11">
               <Link href="/">Volver al inicio</Link>
             </Button>
           </CardFooter>
@@ -48,7 +48,7 @@ export default function RegisterCompanyPage() {
 
   return (
     <div className="mx-auto flex min-h-[calc(100vh-8rem)] max-w-lg items-center px-4 py-12">
-      <Card className="w-full rounded-[2rem] border-border/70 shadow-soft">
+      <Card className="w-full  border-border/70 shadow-soft">
         <CardHeader className="space-y-1">
           <CardTitle className="text-3xl font-bold">Solicitud Alta B2B</CardTitle>
           <CardDescription className="text-sm">
@@ -58,7 +58,7 @@ export default function RegisterCompanyPage() {
         <form action={formAction}>
           <CardContent className="space-y-5">
             {state?.error && (
-              <div className="rounded-2xl bg-destructive/10 p-4 text-sm font-medium text-destructive">
+              <div className=" bg-destructive/10 p-4 text-sm font-medium text-destructive">
                 {state.error}
               </div>
             )}
@@ -76,7 +76,7 @@ export default function RegisterCompanyPage() {
                   type="text"
                   placeholder="Carlos Pérez"
                   required
-                  className="rounded-2xl h-11"
+                  className=" h-11"
                 />
               </div>
               <div className="space-y-2">
@@ -87,7 +87,7 @@ export default function RegisterCompanyPage() {
                   type="email"
                   placeholder="carlos@empresa.com"
                   required
-                  className="rounded-2xl h-11"
+                  className=" h-11"
                 />
               </div>
             </div>
@@ -99,7 +99,7 @@ export default function RegisterCompanyPage() {
                 name="password"
                 type="password"
                 required
-                className="rounded-2xl h-11"
+                className=" h-11"
               />
             </div>
 
@@ -115,7 +115,7 @@ export default function RegisterCompanyPage() {
                 type="text"
                 placeholder="Construcciones Atlántico S.L."
                 required
-                className="rounded-2xl h-11"
+                className=" h-11"
               />
             </div>
 
@@ -128,7 +128,7 @@ export default function RegisterCompanyPage() {
                   type="text"
                   placeholder="B12345678"
                   required
-                  className="rounded-2xl h-11"
+                  className=" h-11"
                 />
               </div>
               <div className="space-y-2">
@@ -139,13 +139,13 @@ export default function RegisterCompanyPage() {
                   type="tel"
                   placeholder="+34 922 000 000"
                   required
-                  className="rounded-2xl h-11"
+                  className=" h-11"
                 />
               </div>
             </div>
           </CardContent>
           <CardFooter className="flex flex-col gap-4">
-            <Button type="submit" className="w-full rounded-2xl h-11" disabled={isPending}>
+            <Button type="submit" className="w-full  h-11" disabled={isPending}>
               {isPending ? (
                 <>
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Procesando solicitud...

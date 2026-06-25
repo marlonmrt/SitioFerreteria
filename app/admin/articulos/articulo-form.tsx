@@ -107,7 +107,7 @@ export default function ArticuloForm({
     <div className="space-y-6">
       {/* Botón de volver */}
       <div className="flex items-center gap-4">
-        <Button asChild variant="outline" className="rounded-2xl h-10 px-4">
+        <Button asChild variant="outline" className=" h-10 px-4">
           <Link href="/admin/articulos" className="flex items-center gap-2">
             <ArrowLeft className="h-4 w-4" />
             Volver a Artículos
@@ -123,7 +123,7 @@ export default function ArticuloForm({
         </div>
       </div>
 
-      <Card className="rounded-[2rem] border-border/70 bg-card p-6 sm:p-8 shadow-sm">
+      <Card className=" border-border/70 bg-card p-6 sm:p-8 shadow-sm">
         <form action={formAction} className="space-y-6">
           {/* Nombre y ERP */}
           <div className="grid gap-4 sm:grid-cols-2">
@@ -188,7 +188,7 @@ export default function ArticuloForm({
                 name="unit"
                 defaultValue={initialData?.unit || "ud"}
                 disabled={isPending}
-                className="flex h-10 w-full rounded-xl border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                className="flex h-10 w-full  border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
               >
                 <option value="ud">ud (Unidad)</option>
                 <option value="m2">m² (Metro cuadrado)</option>
@@ -226,7 +226,7 @@ export default function ArticuloForm({
                 value={selectedFamilyId}
                 onChange={(e) => setSelectedFamilyId(e.target.value)}
                 disabled={isPending}
-                className="flex h-10 w-full rounded-xl border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                className="flex h-10 w-full  border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                 required
               >
                 <option value="" disabled>Selecciona una Familia</option>
@@ -245,7 +245,7 @@ export default function ArticuloForm({
                 name="subfamilyId"
                 defaultValue={initialData?.subfamilyId || ""}
                 disabled={isPending || !selectedFamilyId}
-                className="flex h-10 w-full rounded-xl border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                className="flex h-10 w-full  border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                 required
               >
                 <option value="" disabled>Selecciona una Subfamilia</option>
@@ -271,7 +271,7 @@ export default function ArticuloForm({
               placeholder="Especificaciones técnicas, potencia, medidas..."
               disabled={isPending}
               rows={4}
-              className="flex w-full rounded-xl border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 min-h-[100px]"
+              className="flex w-full  border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 min-h-[100px]"
             />
             {validationErrors.description && (
               <p className="text-xs text-destructive mt-1">{validationErrors.description[0]}</p>
@@ -355,7 +355,7 @@ export default function ArticuloForm({
                   id="offerTarget"
                   name="offerTarget"
                   defaultValue={initialData?.offerTarget || "B2C"}
-                  className="flex h-10 w-full rounded-xl border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                  className="flex h-10 w-full  border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                 >
                   <option value="B2C">BTC (Clientes Particulares / B2C)</option>
                   <option value="B2B">BTB (Clientes Profesionales / B2B)</option>
@@ -370,14 +370,14 @@ export default function ArticuloForm({
               asChild
               type="button"
               variant="outline"
-              className="rounded-2xl h-11 px-6"
+              className=" h-11 px-6"
             >
               <Link href="/admin/articulos">Cancelar</Link>
             </Button>
             <Button
               type="submit"
               disabled={isPending}
-              className="rounded-2xl h-11 px-6 gap-2"
+              className=" h-11 px-6 gap-2"
             >
               {isPending ? (
                 "Guardando..."

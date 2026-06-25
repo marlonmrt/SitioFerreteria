@@ -97,7 +97,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
             ))}
           </div>
         ) : (
-          <div className="flex flex-col items-center justify-center rounded-3xl border border-dashed border-border/80 p-16 text-center bg-card shadow-sm">
+          <div className="flex flex-col items-center justify-center  border border-dashed border-border/80 p-16 text-center bg-card shadow-sm">
             <Search className="h-12 w-12 text-muted-foreground/60 stroke-[1.2] mb-3" />
             <h3 className="text-lg font-medium text-foreground">Sin resultados</h3>
             <p className="text-muted-foreground text-sm mt-1.5 max-w-sm">
@@ -113,7 +113,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
               asChild
               variant="outline"
               size="sm"
-              className="rounded-xl"
+              className=""
               disabled={currentPage <= 1}
             >
               {currentPage > 1 ? (
@@ -133,7 +133,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
               asChild
               variant="outline"
               size="sm"
-              className="rounded-xl"
+              className=""
               disabled={currentPage >= totalPages}
             >
               {currentPage < totalPages ? (

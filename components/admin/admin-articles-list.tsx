@@ -162,7 +162,7 @@ export function AdminArticlesList({
   return (
     <div className="space-y-6">
       {/* Actions and Filters Bar */}
-      <div className="space-y-4 rounded-2xl border border-border/60 bg-muted/20 p-4">
+      <div className="space-y-4  border border-border/60 bg-muted/20 p-4">
         <div className="flex flex-wrap items-center justify-between gap-4">
           <form onSubmit={handleSearchSubmit} className="flex max-w-md flex-1 gap-2">
             <div className="relative flex-1">
@@ -172,15 +172,15 @@ export function AdminArticlesList({
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 placeholder="Buscar por nombre, código o marca..."
-                className="pl-9 rounded-xl bg-background"
+                className="pl-9  bg-background"
               />
             </div>
-            <Button type="submit" className="rounded-xl">
+            <Button type="submit" className="">
               Buscar
             </Button>
           </form>
 
-          <Button asChild className="rounded-xl gap-1.5 h-10">
+          <Button asChild className=" gap-1.5 h-10">
             <Link href="/admin/articulos/nuevo">
               <Plus className="h-4.5 w-4.5" />
               Nuevo Artículo
@@ -199,7 +199,7 @@ export function AdminArticlesList({
                 setSelectedFamilyOrSubfamily(val);
                 updateFilters({ category: val || null });
               }}
-              className="flex h-10 w-full md:w-56 rounded-xl border border-input bg-background px-3 py-2 text-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 cursor-pointer font-medium"
+              className="flex h-10 w-full md:w-56  border border-input bg-background px-3 py-2 text-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 cursor-pointer font-medium"
             >
               <option value="">Todas las Categorías</option>
               {families.map((fam) => {
@@ -227,7 +227,7 @@ export function AdminArticlesList({
                 setSelectedBrand(val);
                 updateFilters({ brand: val || null });
               }}
-              className="flex h-10 w-full md:w-48 rounded-xl border border-input bg-background px-3 py-2 text-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 cursor-pointer font-medium"
+              className="flex h-10 w-full md:w-48  border border-input bg-background px-3 py-2 text-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 cursor-pointer font-medium"
             >
               <option value="">Todas las Marcas</option>
               {brands.map((b) => (
@@ -247,7 +247,7 @@ export function AdminArticlesList({
                 setSelectedOffer(val);
                 updateFilters({ offer: val || null });
               }}
-              className="flex h-10 w-full md:w-48 rounded-xl border border-input bg-background px-3 py-2 text-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 cursor-pointer font-medium"
+              className="flex h-10 w-full md:w-48  border border-input bg-background px-3 py-2 text-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 cursor-pointer font-medium"
             >
               <option value="">Todas las Ofertas</option>
               <option value="only-offers">Solo en Oferta</option>
@@ -267,7 +267,7 @@ export function AdminArticlesList({
                 setSelectedOffer("");
                 router.push("/admin/articulos");
               }}
-              className="h-9 self-end text-xs text-destructive hover:bg-destructive/10 rounded-xl font-semibold"
+              className="h-9 self-end text-xs text-destructive hover:bg-destructive/10  font-semibold"
             >
               Limpiar Filtros
             </Button>
@@ -277,14 +277,14 @@ export function AdminArticlesList({
 
       {/* Bulk Actions Panel */}
       {selectedIds.length > 0 && (
-        <div className="flex items-center justify-between gap-4 p-4 bg-primary/5 rounded-2xl border border-primary/20 animate-in fade-in slide-in-from-top-1">
+        <div className="flex items-center justify-between gap-4 p-4 bg-primary/5  border border-primary/20 animate-in fade-in slide-in-from-top-1">
           <span className="text-xs font-semibold text-primary">
             {selectedIds.length} artículos seleccionados
           </span>
           <div className="flex gap-2">
             <Button
               size="sm"
-              className="rounded-xl text-xs h-9 px-4"
+              className=" text-xs h-9 px-4"
               disabled={isPending}
               onClick={() => handleBulkToggleActive(true)}
             >
@@ -293,7 +293,7 @@ export function AdminArticlesList({
             <Button
               size="sm"
               variant="outline"
-              className="rounded-xl text-xs h-9 px-4 border-destructive text-destructive hover:bg-destructive/10"
+              className=" text-xs h-9 px-4 border-destructive text-destructive hover:bg-destructive/10"
               disabled={isPending}
               onClick={() => handleBulkToggleActive(false)}
             >
@@ -304,7 +304,7 @@ export function AdminArticlesList({
       )}
 
       {/* Articles Table */}
-      <div className="rounded-2xl border border-border/70 bg-card overflow-hidden shadow-sm">
+      <div className=" border border-border/70 bg-card overflow-hidden shadow-sm">
         <Table>
           <TableHeader className="bg-muted/40">
             <TableRow>
@@ -382,7 +382,7 @@ export function AdminArticlesList({
                         size="sm"
                         variant={article.isActive ? "outline" : "default"}
                         disabled={isToggling}
-                        className="rounded-lg h-8 px-3"
+                        className=" h-8 px-3"
                         onClick={() => handleToggleActive(article)}
                       >
                         {isToggling ? (
@@ -401,7 +401,7 @@ export function AdminArticlesList({
                             asChild
                             size="sm"
                             variant="secondary"
-                            className="rounded-lg h-8 px-2.5"
+                            className=" h-8 px-2.5"
                             title="Editar artículo"
                           >
                             <Link href={`/admin/articulos/${article.id}/editar`}>
@@ -412,7 +412,7 @@ export function AdminArticlesList({
                           <Button
                             size="sm"
                             variant="secondary"
-                            className="rounded-lg h-8 px-2.5 text-destructive hover:text-destructive hover:bg-destructive/10"
+                            className=" h-8 px-2.5 text-destructive hover:text-destructive hover:bg-destructive/10"
                             title="Eliminar artículo"
                             onClick={() => handleDeleteArticle(article)}
                           >

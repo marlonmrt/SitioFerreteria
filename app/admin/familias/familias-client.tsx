@@ -147,7 +147,7 @@ export default function FamiliasClient({ initialFamilies, initialSubfamilies }: 
       <div className="flex flex-wrap gap-3">
         <Button
           onClick={() => setFamilyModal({ open: true, mode: "create" })}
-          className="rounded-2xl gap-2"
+          className=" gap-2"
         >
           <FolderPlus className="h-4.5 w-4.5" />
           Nueva Familia
@@ -161,7 +161,7 @@ export default function FamiliasClient({ initialFamilies, initialSubfamilies }: 
           return (
             <Card
               key={family.id}
-              className="rounded-3xl border-border/70 bg-card shadow-sm overflow-hidden flex flex-col justify-between"
+              className=" border-border/70 bg-card shadow-sm overflow-hidden flex flex-col justify-between"
             >
               <CardHeader className="bg-muted/15 border-b border-border/50 pb-4">
                 <div className="flex items-start justify-between gap-3">
@@ -191,7 +191,7 @@ export default function FamiliasClient({ initialFamilies, initialSubfamilies }: 
                       {associatedSubs.map((sub) => (
                         <li
                           key={sub.id}
-                          className="flex items-center justify-between gap-2 text-sm bg-muted/20 p-2.5 rounded-xl border border-border/40"
+                          className="flex items-center justify-between gap-2 text-sm bg-muted/20 p-2.5  border border-border/40"
                         >
                           <span className="font-medium text-foreground">{sub.name}</span>
                           <div className="flex items-center gap-1.5 shrink-0">
@@ -201,7 +201,7 @@ export default function FamiliasClient({ initialFamilies, initialSubfamilies }: 
                                   size="icon"
                                   variant="ghost"
                                   title="Editar Subfamilia"
-                                  className="h-7 w-7 rounded-lg text-muted-foreground hover:text-foreground"
+                                  className="h-7 w-7  text-muted-foreground hover:text-foreground"
                                   onClick={() =>
                                     setSubfamilyModal({
                                       open: true,
@@ -217,7 +217,7 @@ export default function FamiliasClient({ initialFamilies, initialSubfamilies }: 
                                   size="icon"
                                   variant="ghost"
                                   title="Eliminar Subfamilia"
-                                  className="h-7 w-7 rounded-lg text-destructive/80 hover:text-destructive hover:bg-destructive/10"
+                                  className="h-7 w-7  text-destructive/80 hover:text-destructive hover:bg-destructive/10"
                                   onClick={() => handleDeleteSubfamily(sub.id)}
                                 >
                                   <Trash2 className="h-3.5 w-3.5" />
@@ -240,7 +240,7 @@ export default function FamiliasClient({ initialFamilies, initialSubfamilies }: 
                   <Button
                     size="sm"
                     variant="outline"
-                    className="rounded-xl text-xs gap-1"
+                    className=" text-xs gap-1"
                     onClick={() =>
                       setSubfamilyModal({
                         open: true,
@@ -258,7 +258,7 @@ export default function FamiliasClient({ initialFamilies, initialSubfamilies }: 
                       size="icon"
                       variant="secondary"
                       title="Editar Familia"
-                      className="h-8 w-8 rounded-lg"
+                      className="h-8 w-8 "
                       onClick={() =>
                         setFamilyModal({
                           open: true,
@@ -273,7 +273,7 @@ export default function FamiliasClient({ initialFamilies, initialSubfamilies }: 
                       size="icon"
                       variant="secondary"
                       title="Eliminar Familia"
-                      className="h-8 w-8 rounded-lg text-destructive hover:text-destructive hover:bg-destructive/10"
+                      className="h-8 w-8  text-destructive hover:text-destructive hover:bg-destructive/10"
                       onClick={() => handleDeleteFamily(family.id)}
                     >
                       <Trash2 className="h-4 w-4" />
@@ -291,7 +291,7 @@ export default function FamiliasClient({ initialFamilies, initialSubfamilies }: 
         open={familyModal.open}
         onOpenChange={(open) => !open && setFamilyModal({ open: false, mode: "create" })}
       >
-        <DialogContent className="rounded-3xl max-w-md">
+        <DialogContent className=" max-w-md">
           <DialogHeader>
             <DialogTitle>
               {familyModal.mode === "create" ? "Nueva Familia" : "Editar Familia"}
@@ -337,13 +337,13 @@ export default function FamiliasClient({ initialFamilies, initialSubfamilies }: 
               <Button
                 type="button"
                 variant="outline"
-                className="rounded-2xl"
+                className=""
                 onClick={() => setFamilyModal({ open: false, mode: "create" })}
                 disabled={isFamPending}
               >
                 Cancelar
               </Button>
-              <Button type="submit" className="rounded-2xl" disabled={isFamPending}>
+              <Button type="submit" className="" disabled={isFamPending}>
                 {isFamPending ? "Guardando..." : "Guardar"}
               </Button>
             </DialogFooter>
@@ -356,7 +356,7 @@ export default function FamiliasClient({ initialFamilies, initialSubfamilies }: 
         open={subfamilyModal.open}
         onOpenChange={(open) => !open && setSubfamilyModal({ open: false, mode: "create" })}
       >
-        <DialogContent className="rounded-3xl max-w-md">
+        <DialogContent className=" max-w-md">
           <DialogHeader>
             <DialogTitle>
               {subfamilyModal.mode === "create" ? "Nueva Subfamilia" : "Editar Subfamilia"}
@@ -393,13 +393,13 @@ export default function FamiliasClient({ initialFamilies, initialSubfamilies }: 
               <Button
                 type="button"
                 variant="outline"
-                className="rounded-2xl"
+                className=""
                 onClick={() => setSubfamilyModal({ open: false, mode: "create" })}
                 disabled={isSubPending}
               >
                 Cancelar
               </Button>
-              <Button type="submit" className="rounded-2xl" disabled={isSubPending}>
+              <Button type="submit" className="" disabled={isSubPending}>
                 {isSubPending ? "Guardando..." : "Guardar"}
               </Button>
             </DialogFooter>

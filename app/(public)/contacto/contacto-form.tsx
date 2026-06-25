@@ -63,7 +63,7 @@ export default function ContactoForm({ stores }: ContactoFormProps) {
       <div className="grid gap-8 md:grid-cols-[1fr_2fr]">
         {/* Info sidebar */}
         <div className="space-y-6">
-          <Card className="rounded-3xl border-border/70 bg-card p-6 shadow-sm">
+          <Card className=" border-border/70 bg-card p-6 shadow-sm">
             <CardHeader className="p-0 mb-4">
               <CardTitle className="text-lg font-semibold">Atención Directa</CardTitle>
             </CardHeader>
@@ -100,7 +100,7 @@ export default function ContactoForm({ stores }: ContactoFormProps) {
         </div>
 
         {/* Form panel */}
-        <Card className="rounded-[2rem] border-border/70 bg-card p-6 sm:p-8 shadow-sm">
+        <Card className=" border-border/70 bg-card p-6 sm:p-8 shadow-sm">
           <form ref={formRef} action={formAction} className="space-y-5">
             {/* Grid for Name and Email */}
             <div className="grid gap-4 sm:grid-cols-2">
@@ -157,7 +157,7 @@ export default function ContactoForm({ stores }: ContactoFormProps) {
                   name="storeId"
                   defaultValue=""
                   disabled={isPending}
-                  className="flex h-10 w-full rounded-xl border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                  className="flex h-10 w-full  border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                 >
                   <option value="">Ninguna (Consulta General)</option>
                   {stores.map((store) => (
@@ -182,7 +182,7 @@ export default function ContactoForm({ stores }: ContactoFormProps) {
                 required
                 disabled={isPending}
                 rows={5}
-                className="flex w-full rounded-xl border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 min-h-[120px]"
+                className="flex w-full  border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 min-h-[120px]"
               />
               {validationErrors.message && (
                 <p className="text-xs text-destructive mt-1">{validationErrors.message[0]}</p>
@@ -194,7 +194,7 @@ export default function ContactoForm({ stores }: ContactoFormProps) {
               <Button
                 type="submit"
                 disabled={isPending}
-                className="w-full sm:w-auto rounded-2xl px-6 gap-2"
+                className="w-full sm:w-auto  px-6 gap-2"
               >
                 <Send className="h-4 w-4" />
                 {isPending ? "Enviando..." : "Enviar mensaje"}

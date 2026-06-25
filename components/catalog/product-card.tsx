@@ -101,7 +101,7 @@ export function ProductCard({
     : isOfferActive;
 
   return (
-    <Card className="group relative flex flex-col overflow-hidden rounded-3xl border border-border/70 bg-card transition-all duration-300 hover:-translate-y-1 hover:shadow-soft">
+    <Card className="group relative flex flex-col overflow-hidden  border border-border/70 bg-card transition-all duration-300 hover:-translate-y-1 hover:shadow-soft">
       {/* Imagen del Artículo */}
       <Link href={`/articulos/${article.slug}`} className="relative aspect-square block w-full overflow-hidden bg-muted/40 border-b border-border/50">
         <Image
@@ -141,7 +141,7 @@ export function ProductCard({
 
         {/* Oferta Badge */}
         {isOfferActive && (
-          <Badge className="absolute left-3 top-3 z-10 rounded-lg bg-emerald-500 text-white font-bold text-xs tracking-wide px-2.5 py-1.5 shadow-sm uppercase border-0">
+          <Badge className="absolute left-3 top-3 z-10  bg-emerald-500 text-white font-bold text-xs tracking-wide px-2.5 py-1.5 shadow-sm uppercase border-0">
             Oferta -{offerDiscount}%
           </Badge>
         )}
@@ -150,7 +150,7 @@ export function ProductCard({
         {article.brand && (
           <Badge
             variant="secondary"
-            className="absolute left-3 bottom-3 rounded-lg border border-border/50 bg-background/80 backdrop-blur-sm text-xs font-medium"
+            className="absolute left-3 bottom-3  border border-border/50 bg-background/80 backdrop-blur-sm text-xs font-medium"
           >
             {article.brand}
           </Badge>
@@ -200,7 +200,7 @@ export function ProductCard({
           <span className="text-xs text-muted-foreground/70">/ {article.unit}</span>
         </div>
 
-        <Button asChild variant="outline" size="sm" className="w-full rounded-xl text-xs font-medium">
+        <Button asChild variant="outline" size="sm" className="w-full  text-xs font-medium">
           <Link href={`/articulos/${article.slug}`}>Ver ficha técnica</Link>
         </Button>
       </CardFooter>

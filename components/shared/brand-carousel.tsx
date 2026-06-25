@@ -49,7 +49,7 @@ function brandLogoPath(name: string): string {
 }
 
 const brandAccents = [
-  { border: "border-white/10", bg: "bg-white/5", text: "text-white/90" }
+  { border: "border-zinc-800" }
 ];
 
 export default function BrandCarousel({ brands }: BrandCarouselProps) {
@@ -122,13 +122,9 @@ export default function BrandCarousel({ brands }: BrandCarouselProps) {
                 className="snap-start shrink-0"
               >
                 <div
-                  className={`relative flex flex-col items-center justify-center gap-2 h-28 w-40 rounded-2xl border ${accent.border} bg-zinc-900 shadow-sm transition-transform hover:scale-105 hover:shadow-md overflow-hidden`}
+                  className={`flex flex-col items-center justify-center gap-2 h-28 w-40  border ${accent.border} bg-transparent transition-transform hover:scale-105 overflow-hidden`}
                 >
-                  <div className="absolute inset-0 bg-black/50" />
                   <BrandImage logo={logo} brand={brand} />
-                  <span className={`text-xs font-semibold ${accent.text} tracking-wide text-center leading-tight relative`}>
-                    {brand}
-                  </span>
                 </div>
               </Link>
             );

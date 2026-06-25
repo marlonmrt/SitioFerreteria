@@ -39,7 +39,7 @@ export function ProductGallery({ mainImage, images, name }: ProductGalleryProps)
   return (
     <div className="flex flex-col gap-4">
       {/* Imagen Grande Activa */}
-      <div className="relative aspect-square w-full overflow-hidden rounded-3xl border border-border bg-card shadow-sm flex items-center justify-center">
+      <div className="relative aspect-square w-full overflow-hidden  border border-border bg-card shadow-sm flex items-center justify-center">
         <Image
           src={imgSrc}
           alt={name}
@@ -61,7 +61,7 @@ export function ProductGallery({ mainImage, images, name }: ProductGalleryProps)
                 key={idx}
                 type="button"
                 onClick={() => setActiveImage(url)}
-                className={`relative h-16 w-16 overflow-hidden rounded-xl border-2 transition-all ${
+                className={`relative h-16 w-16 overflow-hidden  border-2 transition-all ${
                   isActive
                     ? "border-primary shadow-sm scale-102"
                     : "border-border/60 hover:border-muted-foreground/50"

@@ -109,7 +109,7 @@ function AccessLinks() {
         <NavigationMenuLink key={link.href} asChild>
           <Link
             href={link.href}
-            className="block rounded-xl border border-transparent p-3 transition-colors hover:border-border hover:bg-accent/60"
+            className="block  border border-transparent p-3 transition-colors hover:border-border hover:bg-accent/60"
           >
             <div className="text-sm font-semibold">{link.title}</div>
             <p className="mt-1 text-sm text-muted-foreground">{link.description}</p>
@@ -159,8 +159,8 @@ export function SiteHeader({ session, menuItems, families }: SiteHeaderProps) {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           {/* Fila superior: logo + nav/actions */}
           <div className="flex items-center gap-3 py-3">
-            <Link href="/" className="flex items-center gap-3 rounded-2xl px-2 py-1 transition-colors hover:bg-accent/40 shrink-0">
-              <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-primary text-primary-foreground shadow-glow">
+            <Link href="/" className="flex items-center gap-3  px-2 py-1 transition-colors hover:bg-accent/40 shrink-0">
+              <span className="flex h-10 w-10 items-center justify-center  bg-primary text-primary-foreground shadow-glow">
                 <Store className="h-5 w-5" />
               </span>
               <span className="flex-col leading-tight hidden sm:flex">
@@ -185,15 +185,15 @@ export function SiteHeader({ session, menuItems, families }: SiteHeaderProps) {
                     if (subLinks.length > 0) {
                       return (
                         <NavigationMenuItem key={link.id}>
-                          <NavigationMenuTrigger className="gap-1 rounded-xl">
+                          <NavigationMenuTrigger className="gap-1 ">
                             <span>{link.label}</span>
                           </NavigationMenuTrigger>
                           <NavigationMenuContent>
-                            <div className="flex flex-col w-[200px] p-2 gap-1 bg-popover rounded-xl border border-border/40 shadow-md">
+                            <div className="flex flex-col w-[200px] p-2 gap-1 bg-popover  border border-border/40 shadow-md">
                               <NavigationMenuLink asChild>
                                 <Link
                                   href={link.href}
-                                  className="block rounded-lg px-3 py-2 text-sm font-semibold hover:bg-accent hover:text-accent-foreground"
+                                  className="block  px-3 py-2 text-sm font-semibold hover:bg-accent hover:text-accent-foreground"
                                 >
                                   Ver todo
                                 </Link>
@@ -203,7 +203,7 @@ export function SiteHeader({ session, menuItems, families }: SiteHeaderProps) {
                                 <NavigationMenuLink key={subLink.id} asChild>
                                   <Link
                                     href={subLink.href}
-                                    className="block rounded-lg px-3 py-2 text-sm text-muted-foreground hover:bg-accent hover:text-accent-foreground"
+                                    className="block  px-3 py-2 text-sm text-muted-foreground hover:bg-accent hover:text-accent-foreground"
                                   >
                                     {subLink.label}
                                   </Link>
@@ -231,7 +231,7 @@ export function SiteHeader({ session, menuItems, families }: SiteHeaderProps) {
                         <ChevronDown className="ml-1 h-4 w-4" />
                       </NavigationMenuTrigger>
                       <NavigationMenuContent>
-                        <div className="flex flex-col w-[220px] p-2 gap-1 bg-popover rounded-xl">
+                        <div className="flex flex-col w-[220px] p-2 gap-1 bg-popover ">
                           <span className="px-3 py-1.5 text-xs text-muted-foreground border-b border-border mb-1">
                             {session.user.type === "ADMIN"
                               ? "Administrador"
@@ -243,7 +243,7 @@ export function SiteHeader({ session, menuItems, families }: SiteHeaderProps) {
                             <NavigationMenuLink asChild>
                               <Link
                                 href="/admin"
-                                className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm hover:bg-accent"
+                                className="flex items-center gap-2  px-3 py-2 text-sm hover:bg-accent"
                               >
                                 <LayoutDashboard className="h-4 w-4 text-muted-foreground" />
                                 Panel Admin
@@ -255,7 +255,7 @@ export function SiteHeader({ session, menuItems, families }: SiteHeaderProps) {
                               <NavigationMenuLink asChild>
                                 <Link
                                   href="/mi-cuenta-empresa"
-                                  className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm hover:bg-accent"
+                                  className="flex items-center gap-2  px-3 py-2 text-sm hover:bg-accent"
                                 >
                                   <User className="h-4 w-4 text-muted-foreground" />
                                   Mi Cuenta B2B
@@ -264,7 +264,7 @@ export function SiteHeader({ session, menuItems, families }: SiteHeaderProps) {
                               <NavigationMenuLink asChild>
                                 <Link
                                   href="/mi-cuenta-empresa/favoritos"
-                                  className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm hover:bg-accent"
+                                  className="flex items-center gap-2  px-3 py-2 text-sm hover:bg-accent"
                                 >
                                   <Heart className="h-4 w-4 text-muted-foreground" />
                                   Favoritos
@@ -277,7 +277,7 @@ export function SiteHeader({ session, menuItems, families }: SiteHeaderProps) {
                               <NavigationMenuLink asChild>
                                 <Link
                                   href="/mi-cuenta"
-                                  className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm hover:bg-accent"
+                                  className="flex items-center gap-2  px-3 py-2 text-sm hover:bg-accent"
                                 >
                                   <User className="h-4 w-4 text-muted-foreground" />
                                   Mi Cuenta
@@ -286,7 +286,7 @@ export function SiteHeader({ session, menuItems, families }: SiteHeaderProps) {
                               <NavigationMenuLink asChild>
                                 <Link
                                   href="/mi-cuenta/favoritos"
-                                  className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm hover:bg-accent"
+                                  className="flex items-center gap-2  px-3 py-2 text-sm hover:bg-accent"
                                 >
                                   <Heart className="h-4 w-4 text-muted-foreground" />
                                   Favoritos
@@ -299,7 +299,7 @@ export function SiteHeader({ session, menuItems, families }: SiteHeaderProps) {
                               await signOut({ redirect: false });
                               window.location.href = "/";
                             }}
-                            className="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-sm text-destructive hover:bg-destructive/10 text-left"
+                            className="flex w-full items-center gap-2  px-3 py-2 text-sm text-destructive hover:bg-destructive/10 text-left"
                           >
                             <LogOut className="h-4 w-4" />
                             Cerrar sesión
@@ -324,7 +324,7 @@ export function SiteHeader({ session, menuItems, families }: SiteHeaderProps) {
               </NavigationMenu>
 
               {!session?.user && (
-                <Button asChild className="rounded-2xl px-5">
+                <Button asChild className=" px-5">
                   <Link href="/registro">Crear cuenta</Link>
                 </Button>
               )}
@@ -332,7 +332,7 @@ export function SiteHeader({ session, menuItems, families }: SiteHeaderProps) {
 
             {/* Acciones mobile */}
             <div className="flex items-center gap-2 lg:hidden ml-auto">
-              <Button asChild variant="secondary" size="icon" className="rounded-2xl">
+              <Button asChild variant="secondary" size="icon" className="">
                 <Link href="/tiendas" aria-label="Ver tiendas">
                   <Store className="h-4 w-4" />
                 </Link>
@@ -340,7 +340,7 @@ export function SiteHeader({ session, menuItems, families }: SiteHeaderProps) {
 
               <Sheet>
                 <SheetTrigger asChild>
-                  <Button variant="outline" size="icon" className="rounded-2xl">
+                  <Button variant="outline" size="icon" className="">
                     <Menu className="h-4 w-4" />
                   </Button>
                 </SheetTrigger>
@@ -367,7 +367,7 @@ export function SiteHeader({ session, menuItems, families }: SiteHeaderProps) {
                                 key={family.id}
                                 asChild
                                 variant="ghost"
-                                className="justify-start rounded-xl px-3 py-2 text-sm text-foreground hover:bg-accent/40"
+                                className="justify-start  px-3 py-2 text-sm text-foreground hover:bg-accent/40"
                               >
                                 <Link href={`/familias/${family.slug}`} className="flex items-center gap-2">
                                   <Icon className="h-4 w-4 text-primary shrink-0" />
@@ -387,7 +387,7 @@ export function SiteHeader({ session, menuItems, families }: SiteHeaderProps) {
                             <Button
                               asChild
                               variant="ghost"
-                              className="w-full justify-start rounded-2xl px-4 py-4 text-base font-semibold text-foreground hover:bg-accent/40"
+                              className="w-full justify-start  px-4 py-4 text-base font-semibold text-foreground hover:bg-accent/40"
                             >
                               <Link href={link.href}>{link.label}</Link>
                             </Button>
@@ -398,7 +398,7 @@ export function SiteHeader({ session, menuItems, families }: SiteHeaderProps) {
                                     key={subLink.id}
                                     asChild
                                     variant="ghost"
-                                    className="w-full justify-start rounded-xl px-3 py-2 text-sm text-muted-foreground hover:bg-accent/30"
+                                    className="w-full justify-start  px-3 py-2 text-sm text-muted-foreground hover:bg-accent/30"
                                   >
                                     <Link href={subLink.href}>{subLink.label}</Link>
                                   </Button>
@@ -416,7 +416,7 @@ export function SiteHeader({ session, menuItems, families }: SiteHeaderProps) {
                           Hola, {session.user.name}
                         </p>
                         {session.user.type === "ADMIN" && (
-                          <Button asChild variant="ghost" className="w-full justify-start rounded-2xl px-4 py-6 text-base">
+                          <Button asChild variant="ghost" className="w-full justify-start  px-4 py-6 text-base">
                             <Link href="/admin">
                               <LayoutDashboard className="mr-2 h-4 w-4 text-muted-foreground" />
                               Panel Admin
@@ -425,13 +425,13 @@ export function SiteHeader({ session, menuItems, families }: SiteHeaderProps) {
                         )}
                         {session.user.type === "B2B" && (
                           <>
-                            <Button asChild variant="ghost" className="w-full justify-start rounded-2xl px-4 py-6 text-base">
+                            <Button asChild variant="ghost" className="w-full justify-start  px-4 py-6 text-base">
                               <Link href="/mi-cuenta-empresa">
                                 <User className="mr-2 h-4 w-4 text-muted-foreground" />
                                 Mi Cuenta B2B
                               </Link>
                             </Button>
-                            <Button asChild variant="ghost" className="w-full justify-start rounded-2xl px-4 py-6 text-base">
+                            <Button asChild variant="ghost" className="w-full justify-start  px-4 py-6 text-base">
                               <Link href="/mi-cuenta-empresa/favoritos">
                                 <Heart className="mr-2 h-4 w-4 text-muted-foreground" />
                                 Favoritos
@@ -441,13 +441,13 @@ export function SiteHeader({ session, menuItems, families }: SiteHeaderProps) {
                         )}
                         {session.user.type === "B2C" && (
                           <>
-                            <Button asChild variant="ghost" className="w-full justify-start rounded-2xl px-4 py-6 text-base">
+                            <Button asChild variant="ghost" className="w-full justify-start  px-4 py-6 text-base">
                               <Link href="/mi-cuenta">
                                 <User className="mr-2 h-4 w-4 text-muted-foreground" />
                                 Mi Cuenta
                               </Link>
                             </Button>
-                            <Button asChild variant="ghost" className="w-full justify-start rounded-2xl px-4 py-6 text-base">
+                            <Button asChild variant="ghost" className="w-full justify-start  px-4 py-6 text-base">
                               <Link href="/mi-cuenta/favoritos">
                                 <Heart className="mr-2 h-4 w-4 text-muted-foreground" />
                                 Favoritos
@@ -461,7 +461,7 @@ export function SiteHeader({ session, menuItems, families }: SiteHeaderProps) {
                         window.location.href = "/";
                       }}
                       variant="ghost"
-                      className="w-full justify-start rounded-2xl px-4 py-6 text-base text-destructive hover:bg-destructive/10"
+                      className="w-full justify-start  px-4 py-6 text-base text-destructive hover:bg-destructive/10"
                     >
                       <LogOut className="mr-2 h-4 w-4 text-destructive" />
                       Cerrar sesión
@@ -474,7 +474,7 @@ export function SiteHeader({ session, menuItems, families }: SiteHeaderProps) {
                             key={link.href}
                             asChild
                             variant="secondary"
-                            className="w-full justify-start rounded-2xl px-4 py-6 text-left"
+                            className="w-full justify-start  px-4 py-6 text-left"
                           >
                             <Link href={link.href}>
                               <span className="flex flex-col items-start gap-1">

@@ -31,7 +31,7 @@ export default function RegisterPage() {
 
   return (
     <div className="mx-auto flex min-h-[calc(100vh-8rem)] max-w-md items-center px-4 py-12">
-      <Card className="w-full rounded-[2rem] border-border/70 shadow-soft">
+      <Card className="w-full  border-border/70 shadow-soft">
         <CardHeader className="space-y-1">
           <CardTitle className="text-3xl font-bold">Registro particular</CardTitle>
           <CardDescription className="text-sm">
@@ -41,7 +41,7 @@ export default function RegisterPage() {
         <form action={formAction}>
           <CardContent className="space-y-4">
             {state?.error && (
-              <div className="rounded-2xl bg-destructive/10 p-4 text-sm font-medium text-destructive">
+              <div className=" bg-destructive/10 p-4 text-sm font-medium text-destructive">
                 {state.error}
               </div>
             )}
@@ -53,7 +53,7 @@ export default function RegisterPage() {
                 type="text"
                 placeholder="Juan Pérez"
                 required
-                className="rounded-2xl h-11"
+                className=" h-11"
               />
             </div>
             <div className="space-y-2">
@@ -64,7 +64,7 @@ export default function RegisterPage() {
                 type="email"
                 placeholder="juan.perez@correo.com"
                 required
-                className="rounded-2xl h-11"
+                className=" h-11"
               />
             </div>
             <div className="space-y-2">
@@ -74,12 +74,12 @@ export default function RegisterPage() {
                 name="password"
                 type="password"
                 required
-                className="rounded-2xl h-11"
+                className=" h-11"
               />
             </div>
           </CardContent>
           <CardFooter className="flex flex-col gap-4">
-            <Button type="submit" className="w-full rounded-2xl h-11" disabled={isPending}>
+            <Button type="submit" className="w-full  h-11" disabled={isPending}>
               {isPending ? (
                 <>
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Registrando...

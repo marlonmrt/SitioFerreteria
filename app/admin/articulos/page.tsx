@@ -107,7 +107,7 @@ export default async function AdminArticulosPage({ searchParams }: AdminArticulo
             asChild
             variant="outline"
             size="sm"
-            className="rounded-xl"
+            className=""
             disabled={currentPage <= 1}
           >
             {currentPage > 1 ? (
@@ -127,7 +127,7 @@ export default async function AdminArticulosPage({ searchParams }: AdminArticulo
             asChild
             variant="outline"
             size="sm"
-            className="rounded-xl"
+            className=""
             disabled={currentPage >= totalPages}
           >
             {currentPage < totalPages ? (

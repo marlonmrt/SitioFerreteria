@@ -93,7 +93,7 @@ export function CompanyApprovalList({ initialRequests, adminId }: CompanyApprova
 
   if (requests.length === 0) {
     return (
-      <Card className="rounded-[2rem] border-border/70 bg-card p-12 text-center shadow-soft">
+      <Card className=" border-border/70 bg-card p-12 text-center shadow-soft">
         <CardContent className="flex flex-col items-center justify-center space-y-4 pt-6">
           <div className="flex h-16 w-16 items-center justify-center rounded-full bg-emerald-500/10 text-emerald-500">
             <Check className="h-8 w-8" />
@@ -108,7 +108,7 @@ export function CompanyApprovalList({ initialRequests, adminId }: CompanyApprova
   }
 
   return (
-    <Card className="rounded-[2rem] border-border/70 bg-card shadow-soft">
+    <Card className=" border-border/70 bg-card shadow-soft">
       <CardContent className="p-0">
         <div className="overflow-hidden rounded-t-[2rem]">
           <Table>
@@ -164,10 +164,10 @@ export function CompanyApprovalList({ initialRequests, adminId }: CompanyApprova
                       onValueChange={(val) => handleTariffChange(request.id, val)}
                       disabled={processingId === request.id}
                     >
-                      <SelectTrigger className="w-[140px] rounded-xl">
+                      <SelectTrigger className="w-[140px] ">
                         <SelectValue placeholder="Tarifa" />
                       </SelectTrigger>
-                      <SelectContent className="rounded-xl">
+                      <SelectContent className="">
                         <SelectItem value="PRO_01">PRO_01 (General)</SelectItem>
                         <SelectItem value="PRO_02">PRO_02 (Gran Cuenta)</SelectItem>
                         <SelectItem value="PRO_03">PRO_03 (Especial)</SelectItem>
@@ -181,7 +181,7 @@ export function CompanyApprovalList({ initialRequests, adminId }: CompanyApprova
                         variant="ghost"
                         onClick={() => handleApprove(request.id)}
                         disabled={processingId === request.id}
-                        className="rounded-xl text-emerald-500 hover:bg-emerald-500/10 hover:text-emerald-600"
+                        className=" text-emerald-500 hover:bg-emerald-500/10 hover:text-emerald-600"
                         title="Aprobar"
                       >
                         {processingId === request.id && isPending ? (
@@ -196,7 +196,7 @@ export function CompanyApprovalList({ initialRequests, adminId }: CompanyApprova
                         variant="ghost"
                         onClick={() => handleReject(request.id)}
                         disabled={processingId === request.id}
-                        className="rounded-xl text-destructive hover:bg-destructive/10 hover:text-destructive"
+                        className=" text-destructive hover:bg-destructive/10 hover:text-destructive"
                         title="Rechazar"
                       >
                         <X className="h-4 w-4" />

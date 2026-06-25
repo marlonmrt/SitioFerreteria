@@ -43,7 +43,7 @@ export default async function B2bFavoritesPage() {
             Profesional B2B ({priceListCode}) — Artículos con tus tarifas y descuentos especiales.
           </p>
         </div>
-        <Button asChild variant="outline" className="rounded-xl">
+        <Button asChild variant="outline" className="">
           <Link href="/">
             <ArrowLeft className="mr-2 h-4 w-4" />
             Volver al catálogo
@@ -65,7 +65,7 @@ export default async function B2bFavoritesPage() {
           ))}
         </div>
       ) : (
-        <div className="flex flex-col items-center justify-center rounded-3xl border border-dashed border-border/80 p-16 text-center bg-card shadow-sm">
+        <div className="flex flex-col items-center justify-center  border border-dashed border-border/80 p-16 text-center bg-card shadow-sm">
           <Heart className="h-12 w-12 text-muted-foreground/60 stroke-[1.2] mb-3" />
           <h3 className="text-lg font-medium text-foreground">Tu lista está vacía</h3>
           <p className="text-muted-foreground text-sm mt-1.5 max-w-sm">

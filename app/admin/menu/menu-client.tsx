@@ -190,14 +190,14 @@ export default function MenuClient({ initialItems, families }: MenuClientProps) 
           <p className="text-sm text-muted-foreground">
             Total de enlaces configurados: <strong className="text-foreground">{initialItems.length}</strong>
           </p>
-          <Badge variant="secondary" className="rounded-lg font-normal gap-1">
+          <Badge variant="secondary" className=" font-normal gap-1">
             <ListTree className="h-3.5 w-3.5" />
             {treeItems.filter((i) => i.depth === 0).length} principales / {treeItems.filter((i) => i.depth > 0).length} submenús
           </Badge>
         </div>
         <Button
           onClick={() => setModal({ open: true, mode: "create" })}
-          className="rounded-xl gap-1.5 h-10 shadow-sm"
+          className=" gap-1.5 h-10 shadow-sm"
         >
           <Plus className="h-4.5 w-4.5" />
           Añadir Enlace
@@ -205,7 +205,7 @@ export default function MenuClient({ initialItems, families }: MenuClientProps) 
       </div>
 
       {/* Table */}
-      <div className="rounded-2xl border border-border/70 bg-card overflow-hidden shadow-sm">
+      <div className=" border border-border/70 bg-card overflow-hidden shadow-sm">
         <Table>
           <TableHeader className="bg-muted/40">
             <TableRow>
@@ -237,7 +237,7 @@ export default function MenuClient({ initialItems, families }: MenuClientProps) 
                           {item.label}
                         </span>
                         {hasChildren && (
-                          <Badge variant="outline" className="rounded-lg text-[10px] h-5 px-1.5 font-normal">
+                          <Badge variant="outline" className=" text-[10px] h-5 px-1.5 font-normal">
                             {item.children.length}
                           </Badge>
                         )}
@@ -254,7 +254,7 @@ export default function MenuClient({ initialItems, families }: MenuClientProps) 
                         size="sm"
                         variant={item.isActive ? "outline" : "default"}
                         disabled={isToggling || isPendingTransition}
-                        className="rounded-lg h-8 px-3 font-medium transition-all"
+                        className=" h-8 px-3 font-medium transition-all"
                         onClick={() => handleToggleActive(item.id, item.isActive, item.label)}
                       >
                         {isToggling ? (
@@ -272,7 +272,7 @@ export default function MenuClient({ initialItems, families }: MenuClientProps) 
                         size="sm"
                         variant="secondary"
                         disabled={isPendingTransition}
-                        className="rounded-lg h-8 px-2.5"
+                        className=" h-8 px-2.5"
                         title="Añadir submenú"
                         onClick={() =>
                           setModal({
@@ -288,7 +288,7 @@ export default function MenuClient({ initialItems, families }: MenuClientProps) 
                         size="sm"
                         variant="secondary"
                         disabled={isPendingTransition}
-                        className="rounded-lg h-8 px-2.5"
+                        className=" h-8 px-2.5"
                         title="Editar enlace"
                         onClick={() => setModal({ open: true, mode: "edit", data: item })}
                       >
@@ -298,7 +298,7 @@ export default function MenuClient({ initialItems, families }: MenuClientProps) 
                         size="sm"
                         variant="secondary"
                         disabled={isPendingTransition}
-                        className="rounded-lg h-8 px-2.5 text-destructive hover:text-destructive hover:bg-destructive/10"
+                        className=" h-8 px-2.5 text-destructive hover:text-destructive hover:bg-destructive/10"
                         title="Eliminar enlace"
                         onClick={() => handleDelete(item.id, item.label)}
                       >
@@ -321,7 +321,7 @@ export default function MenuClient({ initialItems, families }: MenuClientProps) 
 
       {/* Dialog Form */}
       <Dialog open={modal.open} onOpenChange={(open) => !isFormPending && setModal((prev) => ({ ...prev, open }))}>
-        <DialogContent className="sm:max-w-[425px] rounded-[2rem] p-6">
+        <DialogContent className="sm:max-w-[425px]  p-6">
           <DialogHeader>
             <DialogTitle>
               {modal.mode === "create" ? "Añadir Enlace al Menú" : "Editar Enlace de Menú"}
@@ -357,7 +357,7 @@ export default function MenuClient({ initialItems, families }: MenuClientProps) 
 
                   e.target.value = "";
                 }}
-                className="flex h-10 w-full rounded-xl border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                className="flex h-10 w-full  border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
               >
                 <option value="">-- Selecciona una página para autorellenar el enlace --</option>
                 <optgroup label="Páginas Estáticas">
@@ -388,7 +388,7 @@ export default function MenuClient({ initialItems, families }: MenuClientProps) 
                 value={labelValue}
                 onChange={(e) => setLabelValue(e.target.value)}
                 required
-                className="rounded-xl h-10"
+                className=" h-10"
                 disabled={isFormPending}
               />
               {state?.validationErrors?.label && (
@@ -405,7 +405,7 @@ export default function MenuClient({ initialItems, families }: MenuClientProps) 
                 value={hrefValue}
                 onChange={(e) => setHrefValue(e.target.value)}
                 required
-                className="rounded-xl h-10 font-mono text-sm"
+                className=" h-10 font-mono text-sm"
                 disabled={isFormPending}
               />
               {state?.validationErrors?.href && (
@@ -423,7 +423,7 @@ export default function MenuClient({ initialItems, families }: MenuClientProps) 
                   placeholder="Ej. 10, 20"
                   defaultValue={modal.mode === "edit" ? modal.data?.sortOrder : "0"}
                   required
-                  className="rounded-xl h-10"
+                  className=" h-10"
                   disabled={isFormPending}
                 />
                 {state?.validationErrors?.sortOrder && (
@@ -442,7 +442,7 @@ export default function MenuClient({ initialItems, families }: MenuClientProps) 
                       : modal.preselectedParentId || ""
                   }
                   disabled={isFormPending}
-                  className="flex h-10 w-full rounded-xl border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                  className="flex h-10 w-full  border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                 >
                   <option value="">Ninguno (Principal)</option>
                   {availableParents.map((parent) => (
@@ -460,14 +460,14 @@ export default function MenuClient({ initialItems, families }: MenuClientProps) 
                 variant="outline"
                 disabled={isFormPending}
                 onClick={() => setModal({ open: false, mode: "create" })}
-                className="rounded-xl h-10"
+                className=" h-10"
               >
                 Cancelar
               </Button>
               <Button
                 type="submit"
                 disabled={isFormPending}
-                className="rounded-xl h-10 gap-1.5"
+                className=" h-10 gap-1.5"
               >
                 {isFormPending && <Loader2 className="h-4 w-4 animate-spin" />}
                 {modal.mode === "create" ? "Añadir Enlace" : "Guardar Cambios"}

@@ -109,7 +109,7 @@ export default async function FamilyPage({ params, searchParams }: FamilyPagePro
       <div className="grid gap-8 lg:grid-cols-[250px_1fr]">
         {/* Sidebar Filtros (Subfamilias) */}
         <aside className="space-y-6">
-          <div className="rounded-2xl border border-border/70 bg-card p-4 shadow-sm">
+          <div className=" border border-border/70 bg-card p-4 shadow-sm">
             <h2 className="text-sm font-semibold text-foreground flex items-center gap-2 mb-3">
               <FolderKanban className="h-4 w-4 text-primary" />
               Subfamilias
@@ -117,7 +117,7 @@ export default async function FamilyPage({ params, searchParams }: FamilyPagePro
             <div className="flex flex-col gap-1">
               <Link
                 href={`/familias/${slug}`}
-                className={`flex items-center justify-between rounded-xl px-3 py-2 text-sm font-medium transition-colors ${
+                className={`flex items-center justify-between  px-3 py-2 text-sm font-medium transition-colors ${
                   !activeSubfamilySlug
                     ? "bg-primary/10 text-primary font-semibold"
                     : "text-muted-foreground hover:bg-accent hover:text-foreground"
@@ -133,7 +133,7 @@ export default async function FamilyPage({ params, searchParams }: FamilyPagePro
                   <Link
                     key={sub.id}
                     href={`/familias/${slug}?subfamily=${sub.slug}`}
-                    className={`flex items-center justify-between rounded-xl px-3 py-2 text-sm font-medium transition-colors ${
+                    className={`flex items-center justify-between  px-3 py-2 text-sm font-medium transition-colors ${
                       isActive
                         ? "bg-primary/10 text-primary font-semibold"
                         : "text-muted-foreground hover:bg-accent hover:text-foreground"
@@ -162,7 +162,7 @@ export default async function FamilyPage({ params, searchParams }: FamilyPagePro
               ))}
             </div>
           ) : (
-            <div className="flex flex-col items-center justify-center rounded-3xl border border-dashed border-border/80 p-12 text-center bg-card shadow-sm">
+            <div className="flex flex-col items-center justify-center  border border-dashed border-border/80 p-12 text-center bg-card shadow-sm">
               <FolderKanban className="h-10 w-10 text-muted-foreground/60 stroke-[1.2] mb-3" />
               <h3 className="text-lg font-medium text-foreground">No hay artículos</h3>
               <p className="text-muted-foreground text-sm mt-1 max-w-sm">
@@ -178,7 +178,7 @@ export default async function FamilyPage({ params, searchParams }: FamilyPagePro
                 asChild
                 variant="outline"
                 size="sm"
-                className="rounded-xl"
+                className=""
                 disabled={currentPage <= 1}
               >
                 {currentPage > 1 ? (
@@ -198,7 +198,7 @@ export default async function FamilyPage({ params, searchParams }: FamilyPagePro
                 asChild
                 variant="outline"
                 size="sm"
-                className="rounded-xl"
+                className=""
                 disabled={currentPage >= totalPages}
               >
                 {currentPage < totalPages ? (

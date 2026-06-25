@@ -40,11 +40,11 @@ export default async function FaqPage() {
       {/* Accordion container */}
       <div className="space-y-6">
         {faqsList.length === 0 ? (
-          <Card className="rounded-3xl border-border/70 p-8 text-center text-muted-foreground bg-card">
+          <Card className=" border-border/70 p-8 text-center text-muted-foreground bg-card">
             No hay preguntas frecuentes registradas en este momento.
           </Card>
         ) : (
-          <Card className="rounded-[2rem] border-border/70 bg-card p-6 sm:p-8 shadow-sm">
+          <Card className=" border-border/70 bg-card p-6 sm:p-8 shadow-sm">
             <Accordion type="single" collapsible className="w-full">
               {faqsList.map((faq, index) => (
                 <AccordionItem key={faq.id} value={`faq-${index}`} className="border-b border-border/60 py-1 last:border-b-0">
@@ -68,13 +68,13 @@ export default async function FaqPage() {
           Si no has encontrado respuesta a tu consulta, no dudes en ponerte en contacto con nuestro equipo de soporte técnico.
         </p>
         <div className="mt-6 flex flex-col gap-3 justify-center sm:flex-row">
-          <Button asChild className="rounded-2xl px-6 gap-2">
+          <Button asChild className=" px-6 gap-2">
             <Link href="/contacto">
               <Mail className="h-4 w-4" />
               Formulario de Contacto
             </Link>
           </Button>
-          <Button asChild variant="outline" className="rounded-2xl px-6 gap-2">
+          <Button asChild variant="outline" className=" px-6 gap-2">
             <Link href="tel:+34922000000">
               <MessageSquare className="h-4 w-4" />
               Llamar al +34 922 000 000

@@ -113,11 +113,11 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
           {/* Header */}
           <div className="space-y-3">
             <div className="flex flex-wrap items-center gap-2">
-              <Badge variant="secondary" className="rounded-lg font-mono text-xs uppercase tracking-wider">
+              <Badge variant="secondary" className=" font-mono text-xs uppercase tracking-wider">
                 Ref: {article.erpCode}
               </Badge>
               {article.brand && (
-                <Badge variant="outline" className="rounded-lg font-medium text-xs">
+                <Badge variant="outline" className=" font-medium text-xs">
                   {article.brand}
                 </Badge>
               )}
@@ -130,7 +130,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
           <Separator className="my-6" />
 
           {/* Bloque de Precios */}
-          <div className="rounded-2xl border border-border/60 bg-muted/15 p-5">
+          <div className=" border border-border/60 bg-muted/15 p-5">
             <div className="flex flex-col gap-1.5">
               <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
                 Precio del catálogo
@@ -167,7 +167,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
 
           {/* Aviso B2B si no está logueado */}
           {!isLoggedIn && (
-            <div className="mt-4 rounded-xl border border-primary/20 bg-primary/5 p-3 flex items-start gap-2.5">
+            <div className="mt-4  border border-primary/20 bg-primary/5 p-3 flex items-start gap-2.5">
               <Shield className="h-4.5 w-4.5 text-primary shrink-0 mt-0.5" />
               <div className="text-xs text-muted-foreground">
                 ¿Eres profesional o empresa?{" "}
@@ -224,7 +224,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
             )}
           </TabsContent>
           <TabsContent value="tecnica" className="pt-6">
-            <div className="max-w-md rounded-2xl border border-border bg-card overflow-hidden text-sm">
+            <div className="max-w-md  border border-border bg-card overflow-hidden text-sm">
               <div className="grid grid-cols-2 p-3 border-b border-border bg-muted/10">
                 <span className="font-medium text-muted-foreground">Código ERP</span>
                 <span className="font-mono font-semibold">{article.erpCode}</span>

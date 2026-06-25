@@ -53,7 +53,7 @@ export function AdminSidebar() {
       <aside className="hidden w-64 border-r border-border/60 bg-card p-6 lg:block shrink-0">
         <div className="flex flex-col h-full">
           <div className="flex items-center gap-2 mb-8 px-2">
-            <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary text-primary-foreground shadow-sm">
+            <span className="flex h-9 w-9 items-center justify-center  bg-primary text-primary-foreground shadow-sm">
               <ShieldAlert className="h-4.5 w-4.5" />
             </span>
             <div className="flex flex-col">
@@ -72,7 +72,7 @@ export function AdminSidebar() {
                   key={link.href}
                   href={link.href}
                   className={cn(
-                    "flex items-center gap-3 rounded-xl px-3.5 py-2.5 text-sm font-medium transition-all",
+                    "flex items-center gap-3  px-3.5 py-2.5 text-sm font-medium transition-all",
                     pathname === link.href
                       ? "bg-primary/10 text-primary"
                       : "text-muted-foreground hover:bg-accent hover:text-foreground"
@@ -89,7 +89,7 @@ export function AdminSidebar() {
               <button
                 type="button"
                 onClick={() => setDisenoOpen(!disenoOpen)}
-                className="flex w-full items-center gap-3 rounded-xl px-3.5 py-2.5 text-sm font-medium transition-all text-muted-foreground hover:bg-accent hover:text-foreground"
+                className="flex w-full items-center gap-3  px-3.5 py-2.5 text-sm font-medium transition-all text-muted-foreground hover:bg-accent hover:text-foreground"
               >
                 <Palette className="h-4.5 w-4.5 text-muted-foreground" />
                 <span className="flex-1 text-left">Diseño</span>
@@ -109,7 +109,7 @@ export function AdminSidebar() {
                         key={sub.href}
                         href={sub.href}
                         className={cn(
-                          "flex items-center gap-3 rounded-xl px-3.5 py-2 text-sm font-medium transition-all",
+                          "flex items-center gap-3  px-3.5 py-2 text-sm font-medium transition-all",
                           pathname === sub.href
                             ? "bg-primary/10 text-primary"
                             : "text-muted-foreground hover:bg-accent hover:text-foreground"
@@ -126,7 +126,7 @@ export function AdminSidebar() {
           </nav>
 
           <div className="border-t border-border/50 pt-4">
-            <Button asChild variant="outline" className="w-full rounded-xl justify-start px-3.5 text-xs">
+            <Button asChild variant="outline" className="w-full  justify-start px-3.5 text-xs">
               <Link href="/">
                 <ArrowLeft className="mr-2 h-4 w-4" />
                 Volver a la tienda
@@ -139,7 +139,7 @@ export function AdminSidebar() {
       {/* Navigation Bar (Mobile) */}
       <header className="lg:hidden border-b border-border/60 bg-card px-4 py-3 flex items-center justify-between w-full">
         <div className="flex items-center gap-2">
-          <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-primary-foreground">
+          <span className="flex h-8 w-8 items-center justify-center  bg-primary text-primary-foreground">
             <ShieldAlert className="h-4 w-4" />
           </span>
           <span className="text-sm font-bold text-foreground">Admin</span>
@@ -154,7 +154,7 @@ export function AdminSidebar() {
                 href={link.href}
                 title={link.label}
                 className={cn(
-                  "p-2 rounded-lg transition-colors",
+                  "p-2  transition-colors",
                   pathname === link.href
                     ? "bg-primary/10 text-primary"
                     : "text-muted-foreground hover:bg-accent hover:text-foreground"
@@ -172,7 +172,7 @@ export function AdminSidebar() {
                 href={sub.href}
                 title={sub.label}
                 className={cn(
-                  "p-2 rounded-lg transition-colors",
+                  "p-2  transition-colors",
                   pathname === sub.href
                     ? "bg-primary/10 text-primary"
                     : "text-muted-foreground hover:bg-accent hover:text-foreground"
@@ -185,7 +185,7 @@ export function AdminSidebar() {
           <Link
             href="/"
             title="Volver a la tienda"
-            className="p-2 rounded-lg text-muted-foreground hover:bg-accent hover:text-foreground"
+            className="p-2  text-muted-foreground hover:bg-accent hover:text-foreground"
           >
             <ArrowLeft className="h-4 w-4" />
           </Link>

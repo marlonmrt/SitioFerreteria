@@ -59,7 +59,7 @@ export function InfoRequestsList({ requests }: InfoRequestsListProps) {
   return (
     <div className="space-y-6">
       {/* Tabla de Consultas */}
-      <div className="rounded-2xl border border-border/70 bg-card overflow-hidden shadow-sm">
+      <div className=" border border-border/70 bg-card overflow-hidden shadow-sm">
         <Table>
           <TableHeader className="bg-muted/40">
             <TableRow>
@@ -110,7 +110,7 @@ export function InfoRequestsList({ requests }: InfoRequestsListProps) {
                     <Button
                       size="sm"
                       variant="outline"
-                      className="rounded-lg h-8"
+                      className=" h-8"
                       onClick={() => setSelected(req)}
                     >
                       <Eye className="h-4 w-4 mr-1" />
@@ -120,7 +120,7 @@ export function InfoRequestsList({ requests }: InfoRequestsListProps) {
                       size="sm"
                       variant="ghost"
                       disabled={isPending}
-                      className="rounded-lg h-8 text-primary hover:text-primary hover:bg-primary/5"
+                      className=" h-8 text-primary hover:text-primary hover:bg-primary/5"
                       onClick={() => handleToggleStatus(req)}
                     >
                       {isPending ? (
@@ -147,7 +147,7 @@ export function InfoRequestsList({ requests }: InfoRequestsListProps) {
       {/* Modal Dialog para Detalle */}
       {selected && (
         <Dialog open={!!selected} onOpenChange={(o) => !o && setSelected(null)}>
-          <DialogContent className="max-w-md rounded-[2rem] p-6">
+          <DialogContent className="max-w-md  p-6">
             <DialogHeader>
               <DialogTitle className="text-lg font-semibold flex items-center justify-between">
                 <span>Consulta de {selected.name}</span>
@@ -165,7 +165,7 @@ export function InfoRequestsList({ requests }: InfoRequestsListProps) {
 
             <div className="space-y-4 text-sm">
               {/* Contact Info */}
-              <div className="grid grid-cols-2 gap-3 text-xs p-3 bg-muted/20 rounded-xl">
+              <div className="grid grid-cols-2 gap-3 text-xs p-3 bg-muted/20 ">
                 <div>
                   <span className="text-muted-foreground block font-medium">Correo electrónico</span>
                   <a href={`mailto:${selected.email}`} className="text-primary hover:underline block font-semibold mt-0.5">
@@ -209,7 +209,7 @@ export function InfoRequestsList({ requests }: InfoRequestsListProps) {
                 <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground block mb-1">
                   Mensaje del Cliente
                 </span>
-                <div className="p-3.5 border border-border bg-card rounded-2xl whitespace-pre-line leading-relaxed text-foreground/90">
+                <div className="p-3.5 border border-border bg-card  whitespace-pre-line leading-relaxed text-foreground/90">
                   {selected.message}
                 </div>
               </div>
@@ -218,7 +218,7 @@ export function InfoRequestsList({ requests }: InfoRequestsListProps) {
               <Button
                 type="button"
                 disabled={isPending}
-                className="w-full rounded-xl py-5"
+                className="w-full  py-5"
                 onClick={() => handleToggleStatus(selected)}
               >
                 {isPending ? (

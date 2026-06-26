@@ -390,6 +390,7 @@ export async function createCarouselSlide(data: {
   gradientVia?: string | null;
   gradientTo: string;
   backgroundImage?: string | null;
+  textColor?: string | null;
   sortOrder?: number;
 }) {
   const [slide] = await db
@@ -403,6 +404,7 @@ export async function createCarouselSlide(data: {
       gradientVia: data.gradientVia ?? null,
       gradientTo: data.gradientTo,
       backgroundImage: data.backgroundImage ?? null,
+      textColor: data.textColor ?? null,
       sortOrder: data.sortOrder ?? 0
     })
     .returning();
@@ -420,6 +422,7 @@ export async function updateCarouselSlide(
     gradientVia?: string | null;
     gradientTo?: string;
     backgroundImage?: string | null;
+    textColor?: string | null;
     sortOrder?: number;
     isActive?: boolean;
   }

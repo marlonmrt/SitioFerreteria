@@ -13,6 +13,7 @@ interface Slide {
   subtitle: string;
   cta?: { label: string; href: string };
   backgroundImage?: string;
+  textColor?: string;
 }
 
 interface HeroCarouselProps {
@@ -65,7 +66,7 @@ export default function HeroCarousel({ slides }: HeroCarouselProps) {
               className={cn(
                 "absolute inset-0",
                 slide.gradient,
-                slide.backgroundImage && "opacity-60"
+                slide.backgroundImage && "opacity-30"
               )}
             />
 
@@ -75,21 +76,36 @@ export default function HeroCarousel({ slides }: HeroCarouselProps) {
             {/* Contenido */}
             <div className="absolute inset-0 flex items-center">
               <div className="px-6 sm:px-10 lg:px-14 max-w-2xl">
-                <h1 className="text-3xl font-semibold tracking-tight text-white sm:text-4xl lg:text-5xl text-balance">
-                  {slide.title}
-                </h1>
-                <p className="mt-4 text-base leading-7 text-white/80 sm:text-lg max-w-xl">
-                  {slide.subtitle}
-                </p>
-                {slide.cta && (
-                  <Button
-                    asChild
-                    size="lg"
-                    className="mt-6  px-6 bg-white text-foreground hover:bg-white/90"
+                <div
+                  className="inline-block rounded-xl p-5 sm:p-6 backdrop-blur-md"
+                  style={{
+                    backgroundColor: (slide.textColor && slide.textColor !== "#ffffff")
+                      ? "rgba(0,0,0,0.35)"
+                      : "rgba(0,0,0,0.45)"
+                  }}
+                >
+                  <h1
+                    className="text-3xl font-semibold tracking-tight sm:text-4xl lg:text-5xl text-balance"
+                    style={{ color: slide.textColor || "#ffffff" }}
                   >
-                    <Link href={slide.cta.href}>{slide.cta.label}</Link>
-                  </Button>
-                )}
+                    {slide.title}
+                  </h1>
+                  <p
+                    className="mt-3 text-base leading-7 sm:text-lg max-w-xl"
+                    style={{ color: slide.textColor || "#ffffff", opacity: 0.9 }}
+                  >
+                    {slide.subtitle}
+                  </p>
+                  {slide.cta && (
+                    <Button
+                      asChild
+                      size="lg"
+                      className="mt-5 px-6 bg-white/90 text-foreground backdrop-blur-sm hover:bg-white"
+                    >
+                      <Link href={slide.cta.href}>{slide.cta.label}</Link>
+                    </Button>
+                  )}
+                </div>
               </div>
             </div>
           </div>
@@ -99,7 +115,11 @@ export default function HeroCarousel({ slides }: HeroCarouselProps) {
         <button
           type="button"
           onClick={goPrev}
-          className="absolute left-3 top-1/2 -translate-y-1/2 flex h-10 w-10 items-center justify-center rounded-full bg-white/20 text-white backdrop-blur-sm hover:bg-white/30 transition-colors z-10"
+          className="absolute left-3 top-1/2 -translate-y-1/2 flex h-10 w-10 items-center justify-center rounded-full backdrop-blur-sm transition-colors z-10"
+          style={{
+            backgroundColor: `${slides[current].textColor || "#ffffff"}33`,
+            color: slides[current].textColor || "#ffffff"
+          }}
           aria-label="Anterior"
         >
           <ChevronLeft className="h-5 w-5" />
@@ -107,7 +127,11 @@ export default function HeroCarousel({ slides }: HeroCarouselProps) {
         <button
           type="button"
           onClick={goNext}
-          className="absolute right-3 top-1/2 -translate-y-1/2 flex h-10 w-10 items-center justify-center rounded-full bg-white/20 text-white backdrop-blur-sm hover:bg-white/30 transition-colors z-10"
+          className="absolute right-3 top-1/2 -translate-y-1/2 flex h-10 w-10 items-center justify-center rounded-full backdrop-blur-sm transition-colors z-10"
+          style={{
+            backgroundColor: `${slides[current].textColor || "#ffffff"}33`,
+            color: slides[current].textColor || "#ffffff"
+          }}
           aria-label="Siguiente"
         >
           <ChevronRight className="h-5 w-5" />
@@ -123,9 +147,13 @@ export default function HeroCarousel({ slides }: HeroCarouselProps) {
               className={cn(
                 "h-2 rounded-full transition-all",
                 index === current
-                  ? "w-8 bg-white"
-                  : "w-2 bg-white/50 hover:bg-white/70"
+                  ? "w-8"
+                  : "w-2 hover:opacity-70"
               )}
+              style={{
+                backgroundColor: slides[current].textColor || "#ffffff",
+                opacity: index === current ? 1 : 0.5
+              }}
               aria-label={`Ir a slide ${index + 1}`}
             />
           ))}

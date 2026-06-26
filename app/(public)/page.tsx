@@ -44,22 +44,25 @@ import { auth } from "@/auth";
 
 const defaultSlides = [
   {
-    gradient: "bg-gradient-to-br from-[#1e3a5f] via-[#2a5a8a] to-[#3a7abd]",
+    gradient: "bg-gradient-to-br from-[#1e3a5f]/85 via-[#2a5a8a]/85 to-[#3a7abd]/85",
     title: "Ferretería conectada al ERP",
     subtitle: "Consulta artículos, familias, tarifas públicas y acceso profesional validado sin carrito ni checkout. El catálogo se actualiza desde los ficheros exportados por el ERP.",
-    cta: { label: "Crear cuenta particular", href: "/registro" }
+    cta: { label: "Crear cuenta particular", href: "/registro" },
+    backgroundImage: "/images/banners/banner1.jpg"
   },
   {
-    gradient: "bg-gradient-to-br from-[#5c2d0a] via-[#8b4513] to-[#c07030]",
+    gradient: "bg-gradient-to-br from-[#5c2d0a]/85 via-[#8b4513]/85 to-[#c07030]/85",
     title: "Tarifas especiales para profesionales",
     subtitle: "Solicita tu alta B2B y accede a precios exclusivos con tu tarifa personalizada. Aprobación manual por nuestro equipo comercial.",
-    cta: { label: "Solicitar alta B2B", href: "/registro-empresa" }
+    cta: { label: "Solicitar alta B2B", href: "/registro-empresa" },
+    backgroundImage: "/images/banners/banner2.jpg"
   },
   {
-    gradient: "bg-gradient-to-br from-[#0d3b2e] via-[#1a6b4a] to-[#28a06b]",
+    gradient: "bg-gradient-to-br from-[#0d3b2e]/85 via-[#1a6b4a]/85 to-[#28a06b]/85",
     title: "Materiales para obra y reforma",
     subtitle: "Explora nuestro catálogo completo de materiales de construcción, fontanería, electricidad y más. Solicita información y presupuesto sin compromiso.",
-    cta: { label: "Ver catálogo", href: "/articulos" }
+    cta: { label: "Ver catálogo", href: "/articulos" },
+    backgroundImage: "/images/banners/banner3.jpg"
   }
 ];
 
@@ -132,7 +135,8 @@ export default async function HomePage() {
           gradient: `bg-gradient-to-br from-[${s.gradientFrom}]${via} to-[${s.gradientTo}]`,
           title: s.title,
           subtitle: s.subtitle,
-          ...(s.backgroundImage ? { backgroundImage: s.backgroundImage } : {}),
+          backgroundImage: s.backgroundImage ?? undefined,
+          textColor: s.textColor ?? undefined,
           ...(s.ctaLabel && s.ctaHref ? { cta: { label: s.ctaLabel, href: s.ctaHref } } : {})
         };
       });

@@ -34,6 +34,7 @@ export async function POST(request: Request) {
       gradientVia: body.gradientVia,
       gradientTo: body.gradientTo,
       backgroundImage: body.backgroundImage,
+      textColor: body.textColor,
       sortOrder: body.sortOrder
     });
 

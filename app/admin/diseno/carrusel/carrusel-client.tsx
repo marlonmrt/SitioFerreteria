@@ -45,6 +45,7 @@ interface Slide {
   gradientVia: string | null;
   gradientTo: string;
   backgroundImage: string | null;
+  textColor: string | null;
   sortOrder: number;
   isActive: boolean;
 }
@@ -69,6 +70,7 @@ export default function CarruselClient({ initialSlides }: Props) {
     gradientVia: "#2a5a8a",
     gradientTo: "#3a7abd",
     backgroundImage: "",
+    textColor: "#ffffff",
     sortOrder: slides.length,
     isActive: true
   };
@@ -158,8 +160,9 @@ export default function CarruselClient({ initialSlides }: Props) {
                 </div>
 
                 <div
-                  className="h-20 w-36 shrink-0  flex items-center justify-center text-white text-xs font-bold px-2 text-center leading-tight"
+                  className="h-20 w-36 shrink-0  flex items-center justify-center text-xs font-bold px-2 text-center leading-tight"
                   style={{
+                    color: slide.textColor || "#ffffff",
                     background: `linear-gradient(135deg, ${slide.gradientFrom}, ${slide.gradientVia || slide.gradientTo}, ${slide.gradientTo})`
                   }}
                 >
@@ -340,6 +343,27 @@ export default function CarruselClient({ initialSlides }: Props) {
             </div>
 
             <div className="space-y-2">
+              <Label htmlFor="textColor">Color del texto</Label>
+              <div className="flex gap-2">
+                <input
+                  type="color"
+                  value={form.textColor || "#ffffff"}
+                  onChange={(e) => setForm({ ...form, textColor: e.target.value })}
+                  className="h-9 w-9 rounded-md border border-input bg-transparent cursor-pointer"
+                />
+                <Input
+                  id="textColor"
+                  value={form.textColor || ""}
+                  onChange={(e) => setForm({ ...form, textColor: e.target.value || null })}
+                  className="flex-1"
+                />
+              </div>
+              <p className="text-xs text-muted-foreground">
+                Elige un color oscuro (#1a1a1a, #333333) si la imagen de fondo es clara.
+              </p>
+            </div>
+
+            <div className="space-y-2">
               <Label htmlFor="backgroundImage">URL de imagen de fondo</Label>
               <Input
                 id="backgroundImage"
@@ -365,7 +389,8 @@ export default function CarruselClient({ initialSlides }: Props) {
 
             {/* Preview */}
             <div
-              className="h-24  flex items-center justify-center text-white font-bold relative overflow-hidden"
+              className="h-24  flex items-center justify-center font-bold relative overflow-hidden"
+              style={{ color: form.textColor || "#ffffff" }}
             >
               {form.backgroundImage && (
                 <div

@@ -237,6 +237,7 @@ export const carouselSlides = pgTable("carousel_slides", {
   gradientVia: text("gradient_via"),
   gradientTo: text("gradient_to").notNull(),
   backgroundImage: text("background_image"),
+  textColor: text("text_color").default("#ffffff"),
   sortOrder: integer("sort_order").notNull().default(0),
   isActive: boolean("is_active").notNull().default(true)
 });

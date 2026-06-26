@@ -159,7 +159,7 @@ export default async function HomePage() {
           </p>
         </div>
 
-        <div className="grid gap-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {familiesList.slice(0, 12).map((family) => {
             const bgImage = family.image;
             const Icon = getCategoryIcon(family.slug);
@@ -167,21 +167,35 @@ export default async function HomePage() {
               <Link
                 href={`/familias/${family.slug}`}
                 key={family.id}
-                className="group relative overflow-hidden border border-zinc-800 bg-transparent shadow-sm transition-transform hover:scale-[1.02]"
+                className="group flex border border-zinc-800 bg-white shadow-sm transition-all hover:scale-[1.02] overflow-hidden min-h-[130px]"
               >
-                {bgImage ? (
-                  <div
-                    className="absolute inset-0 bg-cover bg-center"
-                    style={{ backgroundImage: `url(${bgImage})` }}
-                  />
-                ) : null}
-                <div className="relative p-6 flex flex-col min-h-[160px] justify-end">
-                  <Icon className="h-6 w-6 text-black mb-1" />
-                  <h3 className="text-xl font-bold text-black">{family.name}</h3>
-                  <p className="text-sm text-black/70 mt-1 flex items-center gap-1">
+                {/* Left: Content */}
+                <div className="w-1/2 p-4 flex flex-col justify-between">
+                  <div>
+                    <Icon className="h-5 w-5 text-primary mb-1.5" />
+                    <h3 className="text-base font-bold text-foreground line-clamp-2 leading-tight">
+                      {family.name}
+                    </h3>
+                  </div>
+                  <p className="text-xs text-muted-foreground flex items-center gap-1 mt-1 group-hover:text-primary transition-colors">
                     Explorar
-                    <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
+                    <ArrowRight className="h-3 w-3 transition-transform group-hover:translate-x-1" />
                   </p>
+                </div>
+
+                {/* Right: Category Image */}
+                <div className="w-1/2 relative bg-white shrink-0 overflow-hidden p-3">
+                  {bgImage ? (
+                    <img
+                      src={bgImage}
+                      alt={family.name}
+                      className="h-full w-full object-contain transition-transform duration-300 group-hover:scale-105"
+                    />
+                  ) : (
+                    <div className="h-full w-full flex items-center justify-center bg-muted/20">
+                      <Icon className="h-8 w-8 text-muted-foreground/30" />
+                    </div>
+                  )}
                 </div>
               </Link>
             );

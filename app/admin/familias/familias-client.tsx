@@ -67,6 +67,16 @@ export default function FamiliasClient({ initialFamilies, initialSubfamilies }: 
     data?: SubfamilyData;
   }>({ open: false, mode: "create" });
 
+  const [imagePreview, setImagePreview] = useState("");
+
+  useEffect(() => {
+    if (familyModal.open) {
+      setImagePreview(familyModal.data?.image || "");
+    } else {
+      setImagePreview("");
+    }
+  }, [familyModal.open, familyModal.data]);
+
   // Acciones de Formulario usando useActionState (React 19)
   const [famState, famFormAction, isFamPending] = useActionState(
     async (prevState: unknown, formData: FormData) => {
@@ -163,6 +173,20 @@ export default function FamiliasClient({ initialFamilies, initialSubfamilies }: 
               key={family.id}
               className=" border-border/70 bg-card shadow-sm overflow-hidden flex flex-col justify-between"
             >
+              {family.image ? (
+                <div className="relative h-28 w-full bg-muted overflow-hidden border-b border-border/40">
+                  <img
+                    src={family.image}
+                    alt={family.name}
+                    className="h-full w-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-black/10" />
+                </div>
+              ) : (
+                <div className="relative h-28 w-full bg-muted/40 overflow-hidden border-b border-border/40 flex items-center justify-center text-muted-foreground">
+                  <Folder className="h-8 w-8 text-muted-foreground/30" />
+                </div>
+              )}
               <CardHeader className="bg-muted/15 border-b border-border/50 pb-4">
                 <div className="flex items-start justify-between gap-3">
                   <div className="space-y-1">
@@ -317,10 +341,23 @@ export default function FamiliasClient({ initialFamilies, initialSubfamilies }: 
               <Input
                 id="image"
                 name="image"
-                defaultValue={familyModal.data?.image || ""}
+                value={imagePreview}
+                onChange={(e) => setImagePreview(e.target.value)}
                 placeholder="/images/families/custom.jpg"
                 disabled={isFamPending}
               />
+              {imagePreview && (
+                <div className="mt-2 relative h-24 w-full bg-muted rounded-md overflow-hidden border border-border flex items-center justify-center">
+                  <img
+                    src={imagePreview}
+                    alt="Vista previa"
+                    className="h-full w-full object-cover"
+                    onError={(e) => {
+                      (e.target as HTMLImageElement).src = "/images/placeholder.jpg";
+                    }}
+                  />
+                </div>
+              )}
             </div>
             <div className="space-y-2">
               <Label htmlFor="sortOrder">Orden de visualización</Label>

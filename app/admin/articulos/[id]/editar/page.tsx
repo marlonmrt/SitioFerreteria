@@ -61,9 +61,9 @@ export default async function EditarArticuloPage({ params }: EditarArticuloPageP
     mainImage: article.mainImage,
     publicPrice,
     pricePro,
-    hasOffer: article.hasOffer,
-    offerPercentage: article.offerPercentage,
-    offerTarget: article.offerTarget
+    stock: article.stock,
+    offerB2C: article.offerB2C,
+    offerB2B: article.offerB2B
   };
 
   return (

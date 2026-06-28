@@ -105,9 +105,9 @@ export async function getArticles({
       publicCurrency: publicPricesSq.currency,
       b2bPrice: hasB2b ? b2bPricesSq.price : sql<string | null>`NULL`,
       b2bCurrency: hasB2b ? b2bPricesSq.currency : sql<string | null>`NULL`,
-      hasOffer: articles.hasOffer,
-      offerPercentage: articles.offerPercentage,
-      offerTarget: articles.offerTarget
+      stock: articles.stock,
+      offerB2C: articles.offerB2C,
+      offerB2B: articles.offerB2B
     })
     .from(articles)
     .leftJoin(publicPricesSq, eq(articles.id, publicPricesSq.articleId))
@@ -329,9 +329,9 @@ export async function getFavorites(userId: string, priceListCode?: string) {
       publicCurrency: publicPricesSq.currency,
       b2bPrice: b2bPricesSq ? b2bPricesSq.price : sql<string | null>`NULL`,
       b2bCurrency: b2bPricesSq ? b2bPricesSq.currency : sql<string | null>`NULL`,
-      hasOffer: articles.hasOffer,
-      offerPercentage: articles.offerPercentage,
-      offerTarget: articles.offerTarget
+      stock: articles.stock,
+      offerB2C: articles.offerB2C,
+      offerB2B: articles.offerB2B
     })
     .from(favorites)
     .innerJoin(articles, eq(favorites.articleId, articles.id))

@@ -119,9 +119,9 @@ export async function getAdminArticles({
 
   if (offer) {
     if (offer === "only-offers") {
-      conditions.push(eq(articles.hasOffer, true));
+      conditions.push(sql`${articles.offerB2C} > 0`);
     } else if (offer === "no-offers") {
-      conditions.push(eq(articles.hasOffer, false));
+      conditions.push(sql`${articles.offerB2C} = 0`);
     }
   }
 
@@ -140,9 +140,9 @@ export async function getAdminArticles({
       isManual: articles.isManual,
       subfamilyName: subfamilies.name,
       familyName: families.name,
-      hasOffer: articles.hasOffer,
-      offerPercentage: articles.offerPercentage,
-      offerTarget: articles.offerTarget
+      stock: articles.stock,
+      offerB2C: articles.offerB2C,
+      offerB2B: articles.offerB2B
     })
     .from(articles)
     .leftJoin(subfamilies, eq(articles.subfamilyId, subfamilies.id))
@@ -203,9 +203,9 @@ export async function getAdminArticlesCount(
 
   if (offer) {
     if (offer === "only-offers") {
-      conditions.push(eq(articles.hasOffer, true));
+      conditions.push(sql`${articles.offerB2C} > 0`);
     } else if (offer === "no-offers") {
-      conditions.push(eq(articles.hasOffer, false));
+      conditions.push(sql`${articles.offerB2C} = 0`);
     }
   }
 

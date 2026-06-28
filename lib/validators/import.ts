@@ -9,6 +9,9 @@ export const ImportRowSchema = z.object({
   family: z.string().min(1, "La familia es obligatoria"),
   subfamily: z.string().min(1, "La subfamilia es obligatoria"),
   mainImage: z.string().optional().nullable(),
+  stock: z.coerce.number().int().nonnegative().default(0),
+  offerB2C: z.coerce.number().int().min(0).max(100).default(0),
+  offerB2B: z.coerce.number().int().min(0).max(100).default(0),
   prices: z.record(
     z.string(),
     z.coerce.number().nonnegative("El precio no puede ser negativo")

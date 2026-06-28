@@ -1,5 +1,5 @@
 import crypto from "node:crypto";
-import { and, desc, eq, lt } from "drizzle-orm";
+import { and, desc, eq, lt, ne } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import { logger } from "@/lib/logger";
 import { db } from "../db";
@@ -23,6 +23,31 @@ function slugify(text: string): string {
     .replace(/\-\-+/g, "-") // evitar guiones repetidos
     .replace(/^-+/, "") // recortar guiones al inicio
     .replace(/-+$/, ""); // recortar guiones al final
+}
+
+async function resolveUniqueSlug(
+  tx: typeof db,
+  baseSlug: string,
+  excludeId?: string
+): Promise<string> {
+  const existing = await tx.query.articles.findFirst({
+    where: excludeId
+      ? and(eq(articles.slug, baseSlug), ne(articles.id, excludeId))
+      : eq(articles.slug, baseSlug)
+  });
+  if (!existing) return baseSlug;
+
+  let counter = 1;
+  while (true) {
+    const candidate = `${baseSlug}-${counter}`;
+    const conflict = await tx.query.articles.findFirst({
+      where: excludeId
+        ? and(eq(articles.slug, candidate), ne(articles.id, excludeId))
+        : eq(articles.slug, candidate)
+    });
+    if (!conflict) return candidate;
+    counter++;
+  }
 }
 
 export async function syncImport(
@@ -126,7 +151,7 @@ export async function syncImport(
           for (const row of batchRows) {
             const subfamilyKey = `${row.family.trim()}|||${row.subfamily.trim()}`;
             const subfamilyId = subfamilyMap[subfamilyKey];
-            const slug = slugify(row.name);
+            const baseSlug = slugify(row.name);
 
             // Verificar si el artículo por erpCode existe
             const existingArticle = await tx.query.articles.findFirst({
@@ -137,6 +162,10 @@ export async function syncImport(
 
             if (existingArticle) {
               articleId = existingArticle.id;
+              // Mantener el slug existente si el nombre no cambió, para evitar colisiones
+              const slug = existingArticle.name === row.name
+                ? existingArticle.slug
+                : await resolveUniqueSlug(tx, baseSlug, articleId);
               await tx
                 .update(articles)
                 .set({
@@ -147,12 +176,16 @@ export async function syncImport(
                   unit: row.unit,
                   subfamilyId,
                   mainImage: row.mainImage,
+                  stock: row.stock,
+                  offerB2C: row.offerB2C,
+                  offerB2B: row.offerB2B,
                   isActive: true,
                   lastSyncedAt: new Date()
                 })
                 .where(eq(articles.id, articleId));
             } else {
               articleId = crypto.randomUUID();
+              const slug = await resolveUniqueSlug(tx, baseSlug);
               await tx.insert(articles).values({
                 id: articleId,
                 erpCode: row.erpCode,
@@ -163,6 +196,9 @@ export async function syncImport(
                 unit: row.unit,
                 subfamilyId,
                 mainImage: row.mainImage,
+                stock: row.stock,
+                offerB2C: row.offerB2C,
+                offerB2B: row.offerB2B,
                 isActive: true,
                 lastSyncedAt: new Date()
               });
@@ -203,14 +239,18 @@ export async function syncImport(
         logger.info("ERP sync batch processed successfully", { batchId, count: batchRows.length, progress: `${Math.min(i + BATCH_SIZE, rows.length)}/${rows.length}` });
       } catch (txError) {
         const errorMsg = txError instanceof Error ? txError.message : String(txError);
-        logger.error("ERP sync batch processing failed", { batchId, startRow: i + 1, error: errorMsg });
+        const errorDetail = txError instanceof Error && 'detail' in txError
+          ? (txError as Record<string, unknown>).detail : undefined;
+        const errorCode = txError instanceof Error && 'code' in txError
+          ? (txError as Record<string, unknown>).code : undefined;
+        logger.error("ERP sync batch processing failed", { batchId, startRow: i + 1, error: errorMsg, detail: errorDetail, code: errorCode });
         errorCount += batchRows.length;
         errors.push({
           row: i + 1,
           reason: `Error procesando lote de filas ${i + 1}-${Math.min(
             i + BATCH_SIZE,
             rows.length
-          )}: ${errorMsg}`
+          )}: ${errorMsg}${errorDetail ? ` | Detalle: ${errorDetail}` : ''}${errorCode ? ` | Código: ${errorCode}` : ''}`
         });
       }
     }

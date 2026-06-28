@@ -481,7 +481,10 @@ async function main() {
       unit,
       mainImage,
       isActive: true,
-      lastSyncedAt: new Date()
+      lastSyncedAt: new Date(),
+      stock: Math.floor(Math.random() * 100) + 1,
+      offerB2C: 0,
+      offerB2B: 0
     })
   );
 

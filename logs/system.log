@@ -461,3 +461,20 @@
 [2026-06-26T11:41:09.282Z] [INFO] Family updated | Context: {"id":"16c8abec-6a1c-460f-b169-f4bb623bb776","slug":"bricolaje","name":"Bricolaje"}
 [2026-06-26T11:41:40.905Z] [INFO] Family updated | Context: {"id":"16c8abec-6a1c-460f-b169-f4bb623bb776","slug":"bricolaje","name":"Bricolaje"}
 [2026-06-26T11:43:22.739Z] [INFO] Family updated | Context: {"id":"d0669dae-9d00-4d55-9a67-d13fa4b208d5","slug":"pequeno-electrodomestico","name":"Pequeño Electrodoméstico"}
+[2026-06-28T09:21:24.324Z] [INFO] Test message for Vitest 0.337610184779777 | Context: {"testKey":"testVal"}
+[2026-06-28T09:21:24.327Z] [ERROR] Test error message for Vitest 0.32382756896106457
+[2026-06-28T09:21:39.314Z] [INFO] Test message for Vitest 0.6755322724258952 | Context: {"testKey":"testVal"}
+[2026-06-28T09:21:39.316Z] [ERROR] Test error message for Vitest 0.18813372061666467
+[2026-06-28T09:41:44.319Z] [INFO] ERP sync started | Context: {"batchId":"60ecc704-5b99-4112-bf74-70731d78cb3a","fileName":"erp-export-sample.csv","fileType":"CSV","totalRows":7}
+[2026-06-28T09:41:44.468Z] [ERROR] ERP sync batch processing failed | Context: {"batchId":"60ecc704-5b99-4112-bf74-70731d78cb3a","startRow":1,"error":"Failed query: update \"articles\" set \"name\" = $1, \"slug\" = $2, \"description\" = $3, \"brand\" = $4, \"unit\" = $5, \"subfamily_id\" = $6, \"main_image\" = $7, \"is_active\" = $8, \"last_synced_at\" = $9, \"stock\" = $10, \"offer_b2c\" = $11, \"offer_b2b\" = $12 where \"articles\".\"id\" = $13\nparams: Batidora de mano 700W,batidora-de-mano-700w,Batidora compacta con velocidad variable y vaso medidor.,HomeLab,ud,949bd65a-575c-45ea-b4a9-a94c85f7ade5,/images/articles/batidora-mano.jpg,true,2026-06-28T09:41:44.466Z,15,5,10,63e299ea-224a-4d80-bed1-70732fa932e5"}
+[2026-06-28T09:41:44.469Z] [INFO] ERP sync checking deactivations | Context: {"batchId":"60ecc704-5b99-4112-bf74-70731d78cb3a"}
+[2026-06-28T09:41:44.476Z] [INFO] ERP sync finished | Context: {"batchId":"60ecc704-5b99-4112-bf74-70731d78cb3a","success":false,"successCount":0,"errorCount":7}
+[2026-06-28T09:45:36.087Z] [INFO] ERP sync started | Context: {"batchId":"7d7d8da0-3d3e-4e4c-9505-f49080dde0b7","fileName":"erp-export-sample.csv","fileType":"CSV","totalRows":7}
+[2026-06-28T09:45:36.266Z] [ERROR] ERP sync batch processing failed | Context: {"batchId":"7d7d8da0-3d3e-4e4c-9505-f49080dde0b7","startRow":1,"error":"Failed query: update \"articles\" set \"name\" = $1, \"slug\" = $2, \"description\" = $3, \"brand\" = $4, \"unit\" = $5, \"subfamily_id\" = $6, \"main_image\" = $7, \"is_active\" = $8, \"last_synced_at\" = $9, \"stock\" = $10, \"offer_b2c\" = $11, \"offer_b2b\" = $12 where \"articles\".\"id\" = $13\nparams: Batidora de mano 700W,batidora-de-mano-700w,Batidora compacta con velocidad variable y vaso medidor.,HomeLab,ud,472b566e-38a4-41aa-b09f-f1084d1a1650,/images/articles/batidora-mano.jpg,true,2026-06-28T09:45:36.264Z,15,5,10,63e299ea-224a-4d80-bed1-70732fa932e5"}
+[2026-06-28T09:45:36.267Z] [INFO] ERP sync checking deactivations | Context: {"batchId":"7d7d8da0-3d3e-4e4c-9505-f49080dde0b7"}
+[2026-06-28T09:45:36.276Z] [INFO] ERP sync finished | Context: {"batchId":"7d7d8da0-3d3e-4e4c-9505-f49080dde0b7","success":false,"successCount":0,"errorCount":7}
+[2026-06-28T09:51:05.924Z] [INFO] ERP sync started | Context: {"batchId":"023d58bc-dd44-420c-ba50-964023dced20","fileName":"erp-export-sample.csv","fileType":"CSV","totalRows":7}
+[2026-06-28T09:51:06.099Z] [INFO] ERP sync batch processed successfully | Context: {"batchId":"023d58bc-dd44-420c-ba50-964023dced20","count":7,"progress":"7/7"}
+[2026-06-28T09:51:06.100Z] [INFO] ERP sync checking deactivations | Context: {"batchId":"023d58bc-dd44-420c-ba50-964023dced20"}
+[2026-06-28T09:51:06.109Z] [INFO] ERP sync finished | Context: {"batchId":"023d58bc-dd44-420c-ba50-964023dced20","success":true,"successCount":7,"errorCount":0}
+[2026-06-28T09:59:00.910Z] [INFO] Articles active status bulk toggled | Context: {"count":50,"isActive":true}

@@ -1,9 +1,9 @@
-COD_ART,NOMBRE,DESCRIPCION,MARCA,UNIDAD,FAMILIA,SUBFAMILIA,IMAGEN,PRECIO_PVP,PRECIO_PRO_01
-BAN-GRI-001,Grifo monomando lavabo cromo,Grifo monomando con cartucho cerámico y acabado cromado.,AquaPro,ud,Baños,Grifería,/images/articles/grifo-lavabo.jpg,49.90,41.50
-BAN-GRI-002,Columna de ducha termostática,Columna con rociador superior y barra regulable.,AquaPro,ud,Baños,Grifería,/images/articles/columna-ducha.jpg,189.00,159.00
-BAN-MOB-001,Mueble bajo lavabo 80 cm,Mueble suspendido con cierre suave y dos cajones.,NordBath,ud,Baños,Mobiliario,/images/articles/mueble-lavabo.jpg,239.00,199.00
-CER-REV-001,Azulejo efecto piedra 30x60,Revestimiento porcelánico apto para interior y exterior.,StoneLine,m2,Cerámicas,Revestimientos,/images/articles/azulejo-piedra.jpg,24.90,20.75
-CLI-AC-001,Split inverter 2.5 kW,Equipo eficiente con modo silencioso y control remoto.,CoolTech,ud,Climatización,Aire acondicionado,/images/articles/split-inverter.jpg,499.00,429.00
-CON-MOR-001,Mortero de reparación rápida,Mortero para pequeñas reparaciones y anclajes rápidos.,BuildFix,saco,Construcción,Morteros,/images/articles/mortero-rapido.jpg,7.95,6.50
-HOG-COC-001,Batidora de mano 700W,Batidora compacta con velocidad variable y vaso medidor.,HomeLab,ud,Hogar y Electrodomésticos,Cocina,/images/articles/batidora-mano.jpg,29.90,24.90
-SEL-SIL-001,Silicona neutra blanca,Silicona multiuso para baños, cocinas y carpintería.,SealPro,cartucho,Sellado y Fijación,Siliconas,/images/articles/silicona-neutra.jpg,4.80,3.90
+COD_ART,NOMBRE,DESCRIPCION,MARCA,UNIDAD,FAMILIA,SUBFAMILIA,IMAGEN,STOCK,OFERTA_B2C,OFERTA_B2B,PRECIO_PVP,PRECIO_PRO_01
+BAN-GRI-001,Grifo monomando lavabo cromo,Grifo monomando con cartucho cerámico y acabado cromado.,AquaPro,ud,Baños,Grifería,/images/articles/grifo-lavabo.jpg,25,10,15,49.90,41.50
+BAN-GRI-002,Columna de ducha termostática,Columna con rociador superior y barra regulable.,AquaPro,ud,Baños,Grifería,/images/articles/columna-ducha.jpg,10,0,5,189.00,159.00
+BAN-MOB-001,Mueble bajo lavabo 80 cm,Mueble suspendido con cierre suave y dos cajones.,NordBath,ud,Baños,Mobiliario,/images/articles/mueble-lavabo.jpg,5,20,25,239.00,199.00
+CER-REV-001,Azulejo efecto piedra 30x60,Revestimiento porcelánico apto para interior y exterior.,StoneLine,m2,Cerámicas,Revestimientos,/images/articles/azulejo-piedra.jpg,100,0,0,24.90,20.75
+CLI-AC-001,Split inverter 2.5 kW,Equipo eficiente con modo silencioso y control remoto.,CoolTech,ud,Climatización,Aire acondicionado,/images/articles/split-inverter.jpg,3,15,20,499.00,429.00
+CON-MOR-001,Mortero de reparación rápida,Mortero para pequeñas reparaciones y anclajes rápidos.,BuildFix,saco,Construcción,Morteros,/images/articles/mortero-rapido.jpg,50,0,0,7.95,6.50
+HOG-COC-001,Batidora de mano 700W,Batidora compacta con velocidad variable y vaso medidor.,HomeLab,ud,Hogar y Electrodomésticos,Cocina,/images/articles/batidora-mano.jpg,15,5,10,29.90,24.90
+SEL-SIL-001,Silicona neutra blanca,Silicona multiuso para baños, cocinas y carpintería.,SealPro,cartucho,Sellado y Fijación,Siliconas,/images/articles/silicona-neutra.jpg,200,0,0,4.80,3.90

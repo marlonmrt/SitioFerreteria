@@ -28,6 +28,9 @@ export function parseCsv(buffer: Uint8Array, mapping: ColumnMapping): ParseResul
       const family = row[mapping.family]?.trim();
       const subfamily = row[mapping.subfamily]?.trim();
       const mainImage = row[mapping.mainImage]?.trim() || null;
+      const stock = row[mapping.stock]?.trim() || "0";
+      const offerB2C = row[mapping.offerB2C]?.trim() || "0";
+      const offerB2B = row[mapping.offerB2B]?.trim() || "0";
 
       const prices: Record<string, number> = {};
       Object.entries(mapping.prices).forEach(([priceListCode, columnName]) => {
@@ -49,6 +52,9 @@ export function parseCsv(buffer: Uint8Array, mapping: ColumnMapping): ParseResul
         family,
         subfamily,
         mainImage,
+        stock,
+        offerB2C,
+        offerB2B,
         prices
       };
 
@@ -133,6 +139,9 @@ export async function parseExcel(
       const family = rowData[mapping.family];
       const subfamily = rowData[mapping.subfamily];
       const mainImage = rowData[mapping.mainImage] || null;
+      const stock = rowData[mapping.stock] || "0";
+      const offerB2C = rowData[mapping.offerB2C] || "0";
+      const offerB2B = rowData[mapping.offerB2B] || "0";
 
       const prices: Record<string, number> = {};
       Object.entries(mapping.prices).forEach(([priceListCode, columnName]) => {
@@ -154,6 +163,9 @@ export async function parseExcel(
         family,
         subfamily,
         mainImage,
+        stock,
+        offerB2C,
+        offerB2B,
         prices
       };
 

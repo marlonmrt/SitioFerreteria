@@ -17,6 +17,9 @@ describe("Import Sync Integration", () => {
       family: "Familia Test",
       subfamily: "Subfamilia Test",
       mainImage: "/test.jpg",
+      stock: 50,
+      offerB2C: 10,
+      offerB2B: 15,
       prices: {
         PUBLIC: 100.0,
         PRO_01: 85.0

@@ -5,9 +5,9 @@ import { DEFAULT_MAPPING } from "./mapping";
 describe("Import Parser", () => {
   it("should successfully parse a valid CSV buffer", () => {
     const csvContent = Buffer.from(
-      "COD_ART,NOMBRE,DESCRIPCION,MARCA,UNIDAD,FAMILIA,SUBFAMILIA,IMAGEN,PRECIO_PVP,PRECIO_PRO_01\n" +
-        "GRI-01,Grifo Monomando,Un grifo cromado,AquaPro,ud,Baños,Grifería,/grifo.jpg,49.90,39.90\n" +
-        "TUB-02,Tubo PVC 1m,Tubo de fontanería,FixPro,ud,Fontanería,Tuberías,,12.50,10.00"
+      "COD_ART,NOMBRE,DESCRIPCION,MARCA,UNIDAD,FAMILIA,SUBFAMILIA,IMAGEN,STOCK,OFERTA_B2C,OFERTA_B2B,PRECIO_PVP,PRECIO_PRO_01\n" +
+        "GRI-01,Grifo Monomando,Un grifo cromado,AquaPro,ud,Baños,Grifería,/grifo.jpg,50,10,15,49.90,39.90\n" +
+        "TUB-02,Tubo PVC 1m,Tubo de fontanería,FixPro,ud,Fontanería,Tuberías,,25,0,0,12.50,10.00"
     );
 
     const result = parseCsv(csvContent, DEFAULT_MAPPING);
@@ -24,6 +24,9 @@ describe("Import Parser", () => {
       family: "Baños",
       subfamily: "Grifería",
       mainImage: "/grifo.jpg",
+      stock: 50,
+      offerB2C: 10,
+      offerB2B: 15,
       prices: {
         PUBLIC: 49.9,
         PRO_01: 39.9
@@ -35,9 +38,9 @@ describe("Import Parser", () => {
 
   it("should capture validation errors for invalid rows", () => {
     const csvContent = Buffer.from(
-      "COD_ART,NOMBRE,DESCRIPCION,MARCA,UNIDAD,FAMILIA,SUBFAMILIA,IMAGEN,PRECIO_PVP,PRECIO_PRO_01\n" +
-        ",Grifo Sin Código,Un grifo,AquaPro,ud,Baños,Grifería,/grifo.jpg,49.90,39.90\n" +
-        "TUB-02,,Tubo sin nombre,FixPro,ud,Fontanería,Tuberías,,12.50,-10.00"
+      "COD_ART,NOMBRE,DESCRIPCION,MARCA,UNIDAD,FAMILIA,SUBFAMILIA,IMAGEN,STOCK,OFERTA_B2C,OFERTA_B2B,PRECIO_PVP,PRECIO_PRO_01\n" +
+        ",Grifo Sin Código,Un grifo,AquaPro,ud,Baños,Grifería,/grifo.jpg,10,0,0,49.90,39.90\n" +
+        "TUB-02,,Tubo sin nombre,FixPro,ud,Fontanería,Tuberías,,5,0,0,12.50,-10.00"
     );
 
     const result = parseCsv(csvContent, DEFAULT_MAPPING);

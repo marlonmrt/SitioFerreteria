@@ -1,0 +1,71 @@
+-- ============================================================
+-- BLOQUE 8: Stock y Ofertas - Versión legible por ERP Code
+-- ============================================================
+
+-- AUT-GAT-001     Gato hidráulico de botella 20T                Stock:  5 | B2C -15%, B2B -24%
+-- AUT-NEU-001     Pistola de inflado digital                    Stock: 19 | B2C -6%
+-- AUT-NEU-002     Manómetro digital de neumáticos               Stock: 43 | Sin ofertas
+-- AUT-UTI-001     Mesa de trabajo móvil ajustable               Stock:  9 | Sin ofertas
+-- BAN-ACC-001     Toallero radiador eléctrico                   Stock:  8 | Sin ofertas
+-- BAN-GRI-001     Grifo monomando lavabo cromo                  Stock: 48 | B2B -7%
+-- BAN-GRI-002     Columna de ducha termostática                 Stock:  0 | B2C -13%
+-- BAN-GRI-003     Grifo de cocina extraíble                     Stock: 32 | Sin ofertas
+-- BAN-MOB-001     Mueble bajo lavabo 80 cm                      Stock: 31 | B2B -13%
+-- BAN-MOB-002     Espejo de baño con luz LED                    Stock: 48 | B2C -12%
+-- BAN-SAN-001     Inodoro suspendido con cisterna               Stock:  4 | Sin ofertas
+-- BRI-CIN-001     Cinta americana multiuso 50mm                 Stock:  3 | Sin ofertas
+-- BRI-LLA-001     Llave ajustable 10" cromo vanadio             Stock:  8 | B2C -15%, B2B -15%
+-- BRI-LLA-002     Juego de llaves Allen 9 piezas                Stock: 45 | B2C -17%, B2B -24%
+-- BRI-PAL-001     Rastrillo de jardín 14 púas                   Stock: 31 | B2B -23%
+-- BRI-PAL-002     Pala de punta acero forjado                   Stock: 32 | B2B -6%
+-- BRI-TOR-001     Surtido tornillería 1000 piezas               Stock: 33 | Sin ofertas
+-- CAM-FOG-001     Hornillo de camping piezoeléctrico            Stock: 19 | B2C -26%
+-- CAM-FOG-002     Bombona de gas camping 450g                   Stock: 13 | B2B -23%
+-- CAM-LIN-001     Linterna LED recargable camping               Stock:  6 | B2C -8%
+-- CAM-MOB-001     Silla plegable camping reforzada              Stock: 24 | B2C -10%
+-- CER-ADH-001     Adhesivo cementoso flexible C2TE              Stock: 31 | Sin ofertas
+-- CER-PAV-001     Pavimento porcelánico madera                  Stock:  7 | B2C -13%
+-- CER-REV-001     Azulejo efecto piedra 30x60                   Stock: 19 | B2B -26%
+-- CLI-AC-001      Split inverter 2.5 kW                         Stock: 20 | B2B -26%
+-- CLI-CAL-001     Radiador de aceite 9 elementos                Stock: 44 | B2C -27%, B2B -24%
+-- CLI-VEN-001     Extractor de baño silencioso                  Stock: 25 | B2C -19%, B2B -20%
+-- COC-PEQ-001     Batidora de mano 700W                         Stock:  2 | Sin ofertas
+-- COC-PEQ-002     Tostadora doble ranura inox                   Stock: 34 | B2C -21%, B2B -19%
+-- COC-UTE-001     Set de cuchillos de cocina 6 piezas           Stock:  6 | B2B -27%
+-- COC-UTE-002     Tabla de corte de bambú                       Stock:  9 | Sin ofertas
+-- CON-CEM-001     Cemento portland 25 kg                        Stock: 50 | Sin ofertas
+-- CON-HER-001     Llana de acero inoxidable                     Stock: 10 | B2C -8%, B2B -27%
+-- CON-MOR-001     Mortero de reparación rápida                  Stock: 39 | B2B -7%
+-- ELD-BAT-001     Batidora de brazo industrial 550W             Stock: 20 | B2B -26%
+-- ELD-HER-001     Exprimidor de naranja automático 200W         Stock: 28 | B2C -26%, B2B -11%
+-- ELE-CAB-001     Cable manguera 3x1.5mm 25m                    Stock: 33 | B2C -7%
+-- ELE-MEC-001     Interruptor de superficie con tapa            Stock: 35 | B2B -29%
+-- ELE-MEC-002     Enchufe base superficie con toma tierra       Stock: 19 | Sin ofertas
+-- ELE-PRO-001     Cuadro eléctrico magnetotérmicos 12 módulos   Stock: 27 | B2B -20%
+-- HEL-ATO-001     Atornillador eléctrico 12V                    Stock: 41 | Sin ofertas
+-- HEL-CIN-001     Cincel SDS-Plus puntero                       Stock: 23 | Sin ofertas
+-- HEL-PUL-001     Amoladora angular 125mm 750W                  Stock: 20 | B2C -10%
+-- HEL-TAL-001     Taladro percutor 18V con batería              Stock:  8 | B2C -7%
+-- HOG-ALM-001     Caja organizadora apilable                    Stock:  2 | B2C -19%, B2B -22%
+-- HOG-COC-001     Batidora de mano 700W                         Stock: 30 | B2C -17%
+-- HOG-LIM-001     Aspiradora ciclónica compacta                 Stock: 26 | B2B -22%
+-- ILU-FOC-001     Foco LED exterior con sensor                  Stock: 39 | B2C -24%
+-- ILU-LED-001     Bombilla LED E27 9W luz cálida                Stock: 26 | B2C -6%
+-- ILU-LED-002     Panel LED techo 60x60 cm                      Stock: 46 | Sin ofertas
+-- ILU-LIN-001     Linterna frontal LED recargable               Stock: 32 | B2C -24%
+-- JAR-HER-001     Tijera de podar profesional                   Stock: 18 | B2B -28%
+-- JAR-HER-002     Cortacésped manual 38 cm                      Stock: 12 | B2C -28%
+-- JAR-MOB-001     Set mesa y 4 sillas de jardín                 Stock: 28 | B2C -30%
+-- JAR-RIE-001     Manguera de riego 25m con racores             Stock: 37 | B2C -7%, B2B -6%
+-- JAR-RIE-002     Programador de riego digital                  Stock: 50 | B2C -11%
+-- MAQ-PRE-001     Prensa hidráulica de taller 40T               Stock: 12 | Sin ofertas
+-- MAQ-TAL-001     Apilador manual hidráulico 1500kg             Stock: 45 | Sin ofertas
+-- SEL-ADH-001     Adhesivo montaje extra fuerte                 Stock: 14 | Sin ofertas
+-- SEL-FIJ-001     Taco nylon con tornillo 8 mm                  Stock: 21 | B2C -9%, B2B -18%
+-- SEL-FIJ-002     Anclaje químico 300 ml                        Stock: 42 | B2C -27%
+-- SEL-SIL-001     Silicona neutra blanca                        Stock: 11 | Sin ofertas
+-- SOL-CON-001     Electrodos rutilo 2.5mm caja 5kg              Stock: 34 | B2C -12%, B2B -13%
+-- SOL-EQU-001     Soldador inverter MMA 160A                    Stock: 11 | B2B -14%
+-- SOL-EQU-002     Máscara de soldar autooscurecente             Stock: 26 | B2C -9%
+
+-- Total: 65 artículos

@@ -64,11 +64,13 @@ const articleSchema = z.object({
   pricePro: z.string().optional().refine(val => !val || (!isNaN(parseFloat(val)) && parseFloat(val) >= 0), {
     message: "El precio PRO debe ser un número válido mayor o igual a 0"
   }).transform(v => v || null),
-  hasOffer: z.string().optional().transform(v => v === "on" || v === "true"),
-  offerPercentage: z.string().optional().refine(val => !val || (!isNaN(parseInt(val, 10)) && parseInt(val, 10) >= 0 && parseInt(val, 10) <= 100), {
-    message: "El porcentaje debe ser un entero entre 0 y 100"
+  stock: z.string().optional().default("0").transform(v => parseInt(v, 10) || 0),
+  offerB2C: z.string().optional().refine(val => !val || (!isNaN(parseInt(val, 10)) && parseInt(val, 10) >= 0 && parseInt(val, 10) <= 100), {
+    message: "El porcentaje B2C debe ser un entero entre 0 y 100"
   }).transform(v => v ? parseInt(v, 10) : 0),
-  offerTarget: z.string().default("B2C")
+  offerB2B: z.string().optional().refine(val => !val || (!isNaN(parseInt(val, 10)) && parseInt(val, 10) >= 0 && parseInt(val, 10) <= 100), {
+    message: "El porcentaje B2B debe ser un entero entre 0 y 100"
+  }).transform(v => v ? parseInt(v, 10) : 0)
 });
 
 // === SERVER ACTIONS: FAMILIAS ===
@@ -285,9 +287,9 @@ export async function createArticleAction(prevState: unknown, formData: FormData
       erpCode: formData.get("erpCode"),
       pricePvp: formData.get("pricePvp"),
       pricePro: formData.get("pricePro"),
-      hasOffer: formData.get("hasOffer"),
-      offerPercentage: formData.get("offerPercentage"),
-      offerTarget: formData.get("offerTarget")
+      stock: formData.get("stock"),
+      offerB2C: formData.get("offerB2C"),
+      offerB2B: formData.get("offerB2B")
     };
 
     const parsed = articleSchema.safeParse(rawData);
@@ -323,9 +325,9 @@ export async function createArticleAction(prevState: unknown, formData: FormData
         isActive: true,
         isManual: true,
         lastSyncedAt: new Date(),
-        hasOffer: parsed.data.hasOffer,
-        offerPercentage: parsed.data.offerPercentage,
-        offerTarget: parsed.data.offerTarget
+        stock: parsed.data.stock,
+        offerB2C: parsed.data.offerB2C,
+        offerB2B: parsed.data.offerB2B
       });
 
       // 2. Insertar precio público (PUBLIC)
@@ -372,9 +374,9 @@ export async function updateArticleAction(id: string, prevState: unknown, formDa
       erpCode: formData.get("erpCode"),
       pricePvp: formData.get("pricePvp"),
       pricePro: formData.get("pricePro"),
-      hasOffer: formData.get("hasOffer"),
-      offerPercentage: formData.get("offerPercentage"),
-      offerTarget: formData.get("offerTarget")
+      stock: formData.get("stock"),
+      offerB2C: formData.get("offerB2C"),
+      offerB2B: formData.get("offerB2B")
     };
 
     const parsed = articleSchema.safeParse(rawData);
@@ -406,9 +408,9 @@ export async function updateArticleAction(id: string, prevState: unknown, formDa
           unit: parsed.data.unit,
           subfamilyId: parsed.data.subfamilyId,
           mainImage: parsed.data.mainImage,
-          hasOffer: parsed.data.hasOffer,
-          offerPercentage: parsed.data.offerPercentage,
-          offerTarget: parsed.data.offerTarget
+          stock: parsed.data.stock,
+          offerB2C: parsed.data.offerB2C,
+          offerB2B: parsed.data.offerB2B
         })
         .where(eq(articles.id, id));
 

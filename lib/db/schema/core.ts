@@ -114,9 +114,9 @@ export const articles = pgTable(
     isActive: boolean("is_active").notNull().default(true),
     lastSyncedAt: timestamp("last_synced_at", { withTimezone: true, mode: "date" }),
     isManual: boolean("is_manual").notNull().default(false),
-    hasOffer: boolean("has_offer").notNull().default(false),
-    offerPercentage: integer("offer_percentage").notNull().default(0),
-    offerTarget: text("offer_target").notNull().default("B2C")
+    stock: integer("stock").notNull().default(0),
+    offerB2C: integer("offer_b2c").notNull().default(0),
+    offerB2B: integer("offer_b2b").notNull().default(0)
   },
   (table) => ({
     erpCodeUnique: uniqueIndex("articles_erp_code_unique").on(table.erpCode),

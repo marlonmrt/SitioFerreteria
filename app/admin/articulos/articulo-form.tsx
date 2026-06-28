@@ -36,9 +36,9 @@ type ArticleInitialData = {
   mainImage: string | null;
   publicPrice: string | null;
   pricePro?: string | null;
-  hasOffer?: boolean;
-  offerPercentage?: number;
-  offerTarget?: string;
+  stock?: number;
+  offerB2C?: number;
+  offerB2B?: number;
 };
 
 interface ArticuloFormProps {
@@ -316,50 +316,55 @@ export default function ArticuloForm({
             </div>
           </div>
 
-          {/* Configuración de Oferta */}
+          {/* Stock */}
           <div className="border-t border-border/50 pt-5 space-y-4">
-            <h3 className="text-lg font-bold text-foreground">Configuración de Oferta</h3>
+            <h3 className="text-lg font-bold text-foreground">Stock y Ofertas</h3>
             <div className="grid gap-4 sm:grid-cols-3 items-end">
-              <div className="flex items-center gap-2 h-10 px-1">
-                <input
-                  type="checkbox"
-                  id="hasOffer"
-                  name="hasOffer"
-                  defaultChecked={initialData?.hasOffer || false}
-                  className="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary cursor-pointer"
-                />
-                <Label htmlFor="hasOffer" className="text-sm font-medium text-foreground cursor-pointer">
-                  Artículo en Oferta
-                </Label>
-              </div>
-
               <div className="space-y-2">
-                <Label htmlFor="offerPercentage">Porcentaje de Descuento (%)</Label>
+                <Label htmlFor="stock">Stock Disponible</Label>
                 <Input
-                  id="offerPercentage"
-                  name="offerPercentage"
+                  id="stock"
+                  name="stock"
                   type="number"
                   min="0"
-                  max="100"
-                  defaultValue={initialData?.offerPercentage ?? 0}
+                  defaultValue={initialData?.stock ?? 0}
                   placeholder="0"
                 />
-                {validationErrors.offerPercentage && (
-                  <p className="text-xs text-destructive mt-1">{validationErrors.offerPercentage[0]}</p>
+                {validationErrors.stock && (
+                  <p className="text-xs text-destructive mt-1">{validationErrors.stock[0]}</p>
                 )}
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="offerTarget">Aplicar Oferta a</Label>
-                <select
-                  id="offerTarget"
-                  name="offerTarget"
-                  defaultValue={initialData?.offerTarget || "B2C"}
-                  className="flex h-10 w-full  border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-                >
-                  <option value="B2C">BTC (Clientes Particulares / B2C)</option>
-                  <option value="B2B">BTB (Clientes Profesionales / B2B)</option>
-                </select>
+                <Label htmlFor="offerB2C">Oferta B2C (% descuento)</Label>
+                <Input
+                  id="offerB2C"
+                  name="offerB2C"
+                  type="number"
+                  min="0"
+                  max="100"
+                  defaultValue={initialData?.offerB2C ?? 0}
+                  placeholder="0"
+                />
+                {validationErrors.offerB2C && (
+                  <p className="text-xs text-destructive mt-1">{validationErrors.offerB2C[0]}</p>
+                )}
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="offerB2B">Oferta B2B (% descuento)</Label>
+                <Input
+                  id="offerB2B"
+                  name="offerB2B"
+                  type="number"
+                  min="0"
+                  max="100"
+                  defaultValue={initialData?.offerB2B ?? 0}
+                  placeholder="0"
+                />
+                {validationErrors.offerB2B && (
+                  <p className="text-xs text-destructive mt-1">{validationErrors.offerB2B[0]}</p>
+                )}
               </div>
             </div>
           </div>

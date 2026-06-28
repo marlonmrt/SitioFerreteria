@@ -35,9 +35,9 @@ type AdminArticle = {
   isManual: boolean;
   subfamilyName: string | null;
   familyName: string | null;
-  hasOffer: boolean;
-  offerPercentage: number;
-  offerTarget: string;
+  stock: number;
+  offerB2C: number;
+  offerB2B: number;
 };
 
 type AdminArticlesListProps = {
@@ -344,11 +344,23 @@ export function AdminArticlesList({
                     <TableCell className="max-w-[300px] truncate font-semibold text-foreground">
                       <div className="flex items-center gap-1.5">
                         {article.name}
-                        {article.hasOffer && (
-                          <Badge variant="outline" className="text-[10px] font-bold text-emerald-600 bg-emerald-50 border-emerald-300/50 py-0 px-1.5 rounded-md">
-                            {article.offerTarget === "B2B" ? "PRO" : "PVP"} -{article.offerPercentage}%
-                          </Badge>
-                        )}
+                        <div className="flex items-center gap-1">
+                          {article.stock > 0 && (
+                            <Badge variant="outline" className="text-[10px] font-bold text-blue-600 bg-blue-50 border-blue-300/50 py-0 px-1.5 rounded-md">
+                              Stock: {article.stock}
+                            </Badge>
+                          )}
+                          {article.offerB2C > 0 && (
+                            <Badge variant="outline" className="text-[10px] font-bold text-emerald-600 bg-emerald-50 border-emerald-300/50 py-0 px-1.5 rounded-md">
+                              B2C -{article.offerB2C}%
+                            </Badge>
+                          )}
+                          {article.offerB2B > 0 && (
+                            <Badge variant="outline" className="text-[10px] font-bold text-amber-600 bg-amber-50 border-amber-300/50 py-0 px-1.5 rounded-md">
+                              B2B -{article.offerB2B}%
+                            </Badge>
+                          )}
+                        </div>
                       </div>
                       <span className="text-muted-foreground/60 text-xs font-normal block">
                         Medida: {article.unit}

@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { ChevronRight, Home, Shield } from "lucide-react";
+import { ChevronRight, Home, Shield, Package, Tag } from "lucide-react";
 import type { Metadata } from "next";
 import { eq } from "drizzle-orm";
 
@@ -125,6 +125,26 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
             <h1 className="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
               {article.name}
             </h1>
+          </div>
+
+          {/* Stock y Ofertas */}
+          <div className="flex flex-wrap items-center gap-3 mt-5">
+            <div className={`flex items-center gap-1.5 text-sm font-medium ${(article.stock ?? 0) > 0 ? 'text-emerald-600' : 'text-red-500'}`}>
+              <Package className="h-4 w-4" />
+              {(article.stock ?? 0) > 0 ? `En stock (${article.stock} uds)` : 'Agotado'}
+            </div>
+            {(article.offerB2C ?? 0) > 0 && (
+              <Badge variant="default" className="flex items-center gap-1 bg-amber-500 hover:bg-amber-500 text-white text-xs font-semibold">
+                <Tag className="h-3 w-3" />
+                B2C -{article.offerB2C}%
+              </Badge>
+            )}
+            {(article.offerB2B ?? 0) > 0 && (
+              <Badge variant="default" className="flex items-center gap-1 bg-orange-500 hover:bg-orange-500 text-white text-xs font-semibold">
+                <Tag className="h-3 w-3" />
+                B2B -{article.offerB2B}%
+              </Badge>
+            )}
           </div>
 
           <Separator className="my-6" />
